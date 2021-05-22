@@ -1,0 +1,216 @@
+C51 COMPILER V9.01   TEST                                                                  05/12/2021 13:43:46 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE TEST
+OBJECT MODULE PLACED IN .\build\Release\test.o
+COMPILER INVOKED BY: E:\keil\C51\BIN\C51.exe .\SRC\TEST.C PRINT(.\build\Release\test.lst) OMF2 TABS(4) CODE NOCOND SYMBO
+                    -LS OPTIMIZE(8,SPEED) SMALL ROM(LARGE) INCDIR(E:\keil\C51\INC;.\src) DEFINE(__UVISION_VERSION=526) OBJECT(.\build\Release
+                    -\test.o)
+
+line level    source
+
+   1          #include<stdio.h>
+   2          int main(){
+   3   1          unsigned char a[20] = {"$0001"};
+   4   1          unsigned int data_id = 0;// 用来存放接收到的数据
+   5   1          unsigned int i = 0;
+   6   1          unsigned int j;
+   7   1          for ( j = 0; j < 4; j++)
+   8   1          {
+   9   2              data_id+=a[j+1]-'0';
+  10   2              if(j != 3)data_id*=10;
+  11   2          }
+  12   1          
+  13   1          printf("%d",data_id);
+  14   1          switch (data_id)
+  15   1              {
+  16   2              case 0000:
+  17   2                  
+  18   2                  /* code */
+  19   2                  break;
+  20   2              case 0001:
+  21   2                  printf("yes!");
+  22   2                  break;
+  23   2              case 0010:
+  24   2                  /* code */
+  25   2                  break;
+  26   2              case 0011:
+  27   2                  break;
+  28   2      
+  29   2              default:
+  30   2                  /* else todo */
+  31   2                  printf("no\n");
+  32   2                  printf("%d",data_id);
+  33   2                  break;
+  34   2              }
+  35   1      
+  36   1      
+  37   1      
+  38   1      
+  39   1          return 0;
+  40   1      }
+C51 COMPILER V9.01   TEST                                                                  05/12/2021 13:43:46 PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 2
+                                           ; SOURCE LINE # 3
+0000 7800        R     MOV     R0,#LOW a
+0002 7C00        R     MOV     R4,#HIGH a
+0004 7D00              MOV     R5,#00H
+0006 7BFF              MOV     R3,#0FFH
+0008 7A00        R     MOV     R2,#HIGH _?ix1000
+000A 7900        R     MOV     R1,#LOW _?ix1000
+000C 7E00              MOV     R6,#00H
+000E 7F14              MOV     R7,#014H
+0010 120000      E     LCALL   ?C?COPY
+                                           ; SOURCE LINE # 4
+0013 E4                CLR     A
+0014 F500        R     MOV     data_id,A
+0016 F500        R     MOV     data_id+01H,A
+                                           ; SOURCE LINE # 5
+0018 F500        R     MOV     i,A
+001A F500        R     MOV     i+01H,A
+                                           ; SOURCE LINE # 7
+;---- Variable 'j' assigned to Register 'R2/R3' ----
+001C FB                MOV     R3,A
+001D FA                MOV     R2,A
+001E         ?C0001:
+                                           ; SOURCE LINE # 8
+                                           ; SOURCE LINE # 9
+001E 7400        R     MOV     A,#LOW a+01H
+0020 2B                ADD     A,R3
+0021 F8                MOV     R0,A
+0022 E6                MOV     A,@R0
+0023 24D0              ADD     A,#0D0H
+0025 FF                MOV     R7,A
+0026 E4                CLR     A
+0027 34FF              ADDC    A,#0FFH
+0029 FE                MOV     R6,A
+002A EF                MOV     A,R7
+002B 2500        R     ADD     A,data_id+01H
+002D F500        R     MOV     data_id+01H,A
+002F EE                MOV     A,R6
+0030 3500        R     ADDC    A,data_id
+0032 F500        R     MOV     data_id,A
+                                           ; SOURCE LINE # 10
+0034 EB                MOV     A,R3
+0035 6403              XRL     A,#03H
+0037 4A                ORL     A,R2
+0038 600F              JZ      ?C0003
+003A AE00        R     MOV     R6,data_id
+003C AF00        R     MOV     R7,data_id+01H
+003E 7C00              MOV     R4,#00H
+0040 7D0A              MOV     R5,#0AH
+0042 120000      E     LCALL   ?C?IMUL
+0045 8E00        R     MOV     data_id,R6
+0047 8F00        R     MOV     data_id+01H,R7
+                                           ; SOURCE LINE # 11
+0049         ?C0003:
+0049 0B                INC     R3
+004A BB0001            CJNE    R3,#00H,?C0012
+004D 0A                INC     R2
+004E         ?C0012:
+C51 COMPILER V9.01   TEST                                                                  05/12/2021 13:43:46 PAGE 3   
+
+004E EB                MOV     A,R3
+004F 6404              XRL     A,#04H
+0051 4A                ORL     A,R2
+0052 70CA              JNZ     ?C0001
+0054         ?C0002:
+                                           ; SOURCE LINE # 13
+0054 7BFF              MOV     R3,#0FFH
+0056 7A00        R     MOV     R2,#HIGH ?SC_0
+0058 7900        R     MOV     R1,#LOW ?SC_0
+005A 850000      E     MOV     ?_printf?BYTE+03H,data_id
+005D 850000      E     MOV     ?_printf?BYTE+04H,data_id+01H
+0060 120000      E     LCALL   _printf
+                                           ; SOURCE LINE # 14
+0063 E500        R     MOV     A,data_id
+0065 7017              JNZ     ?C0010
+0067 E500        R     MOV     A,data_id+01H
+0069 602B              JZ      ?C0005
+006B 24F8              ADD     A,#0F8H
+006D 6027              JZ      ?C0005
+006F 14                DEC     A
+0070 6024              JZ      ?C0005
+0072 2408              ADD     A,#08H
+0074 7008              JNZ     ?C0010
+                                           ; SOURCE LINE # 15
+                                           ; SOURCE LINE # 16
+                                           ; SOURCE LINE # 19
+                                           ; SOURCE LINE # 20
+0076         ?C0007:
+                                           ; SOURCE LINE # 21
+0076 7BFF              MOV     R3,#0FFH
+0078 7A00        R     MOV     R2,#HIGH ?SC_3
+007A 7900        R     MOV     R1,#LOW ?SC_3
+                                           ; SOURCE LINE # 22
+007C 8015              SJMP    ?C0013
+                                           ; SOURCE LINE # 23
+                                           ; SOURCE LINE # 25
+                                           ; SOURCE LINE # 26
+                                           ; SOURCE LINE # 27
+                                           ; SOURCE LINE # 29
+007E         ?C0010:
+                                           ; SOURCE LINE # 31
+007E 7BFF              MOV     R3,#0FFH
+0080 7A00        R     MOV     R2,#HIGH ?SC_8
+0082 7900        R     MOV     R1,#LOW ?SC_8
+0084 120000      E     LCALL   _printf
+                                           ; SOURCE LINE # 32
+0087 7BFF              MOV     R3,#0FFH
+0089 7A00        R     MOV     R2,#HIGH ?SC_0
+008B 7900        R     MOV     R1,#LOW ?SC_0
+008D 850000      E     MOV     ?_printf?BYTE+03H,data_id
+0090 850000      E     MOV     ?_printf?BYTE+04H,data_id+01H
+0093         ?C0013:
+0093 120000      E     LCALL   _printf
+                                           ; SOURCE LINE # 33
+                                           ; SOURCE LINE # 34
+0096         ?C0005:
+                                           ; SOURCE LINE # 39
+0096 E4                CLR     A
+0097 FE                MOV     R6,A
+0098 FF                MOV     R7,A
+                                           ; SOURCE LINE # 40
+0099         ?C0011:
+C51 COMPILER V9.01   TEST                                                                  05/12/2021 13:43:46 PAGE 4   
+
+0099 22                RET     
+             ; FUNCTION main (END)
+
+C51 COMPILER V9.01   TEST                                                                  05/12/2021 13:43:46 PAGE 5   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+size_t . . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
+_printf. . . . . . . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+main . . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  a. . . . . . . . . . . . . . . . . .  AUTO     DATA   ARRAY    0000H  20
+  data_id. . . . . . . . . . . . . . .  AUTO     DATA   U_INT    0014H  2
+  i. . . . . . . . . . . . . . . . . .  AUTO     DATA   U_INT    0016H  2
+  j. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0002H  2
+_?ix1000 . . . . . . . . . . . . . . .  STATIC   CODE   ARRAY    000CH  20
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    154    ----
+   CONSTANT SIZE    =     32    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      24
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

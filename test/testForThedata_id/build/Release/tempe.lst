@@ -1,0 +1,584 @@
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE TEMPE
+OBJECT MODULE PLACED IN .\build\Release\tempe.o
+COMPILER INVOKED BY: E:\mdkArmkeil5\C51\BIN\C51.exe .\SRC\TEMPE.C PRINT(.\build\Release\tempe.lst) OMF2 TABS(4) CODE NOC
+                    -OND SYMBOLS OPTIMIZE(8,SPEED) SMALL ROM(LARGE) INCDIR(E:\mdkArmkeil5\C51\INC;.\src) DEFINE(__UVISION_VERSION=526) OBJECT
+                    -(.\build\Release\tempe.o)
+
+line level    source
+
+   1          #include"tempe.h"
+   2          /*******************************************************************************
+   3          * 函 数 名         : Delay1ms
+   4          * 函数功能         : 延时函数
+   5          * 输    入         : 无
+   6          * 输    出         : 无
+   7          *******************************************************************************/
+   8          
+   9          void Delay1ms(unsigned int y)
+  10          {
+*** WARNING C235 IN LINE 10 OF .\SRC\TEMPE.C: parameter 1: different types
+  11   1          unsigned int x;
+  12   1          for( ; y>0; y--)
+  13   1          {
+  14   2              for(x=110; x>0; x--);//110 -> 10
+  15   2          }
+  16   1      }
+  17          /*******************************************************************************
+  18          * 函 数 名         : Ds18b20Init
+  19          * 函数功能         : 初始化
+  20          * 输    入         : 无
+  21          * 输    出         : 初始化成功返回1，失败返回0
+  22          *******************************************************************************/
+  23          
+  24          unsigned char Ds18b20Init()
+  25          {
+  26   1          unsigned char i;
+  27   1          DSPORT = 0;          //将总线拉低480us~960us
+  28   1          i = 70; 
+  29   1          while(i--);//延时642us
+  30   1          DSPORT = 1;         //然后拉高总线，如果DS18B20做出反应会将在15us~60us后总线拉低
+  31   1          i = 0;
+  32   1          while(DSPORT)   //等待DS18B20拉低总线
+  33   1          {
+  34   2              Delay1ms(1);
+  35   2              i++;
+  36   2              if(i>5)//等待>5MS
+  37   2              {
+  38   3                  return 0;//初始化失败
+  39   3              }
+  40   2          
+  41   2          }
+  42   1          return 1;//初始化成功
+  43   1      }
+  44          
+  45          /*******************************************************************************
+  46          * 函 数 名         : Ds18b20WriteByte
+  47          * 函数功能         : 向18B20写入一个字节
+  48          * 输    入         : 无
+  49          * 输    出         : 无
+  50          *******************************************************************************/
+  51          
+  52          void Ds18b20WriteByte(unsigned char dat)
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 2   
+
+  53          {
+  54   1          unsigned int i, j;
+  55   1      
+  56   1          for(j=0; j<8; j++)
+  57   1          {
+  58   2              DSPORT = 0;           //每写入一位数据之前先把总线拉低1us
+  59   2              i++;
+  60   2              DSPORT = dat & 0x01;  //然后写入一个数据，从最低位开始
+  61   2              i=6;
+  62   2              while(i--); //延时68us，持续时间最少60us
+  63   2              DSPORT = 1; //然后释放总线，至少1us给总线恢复时间才能接着写入第二个数值
+  64   2              dat >>= 1;
+  65   2          }
+  66   1      }
+  67          /*******************************************************************************
+  68          * 函 数 名         : Ds18b20ReadByte
+  69          * 函数功能         : 读取一个字节
+  70          * 输    入         : 无
+  71          * 输    出         : 无
+  72          *******************************************************************************/
+  73          
+  74          
+  75          unsigned char Ds18b20ReadByte()
+  76          {
+  77   1          unsigned char byte, bi;
+  78   1          unsigned int i, j;  
+  79   1          for(j=8; j>0; j--)
+  80   1          {
+  81   2              DSPORT = 0;//先将总线拉低1us
+  82   2              i++;
+  83   2              DSPORT = 1;//然后释放总线
+  84   2              i++;
+  85   2              i++;//延时6us等待数据稳定
+  86   2              bi = DSPORT;     //读取数据，从最低位开始读取
+  87   2              /*将byte左移一位，然后与上右移7位后的bi，注意移动之后移掉那位补0。*/
+  88   2              byte = (byte >> 1) | (bi << 7);                       
+  89   2              i = 4;      //读取完之后等待48us再接着读取下一个数
+  90   2              while(i--);
+  91   2          }               
+  92   1          return byte;
+  93   1      }
+  94          /*******************************************************************************
+  95          * 函 数 名         : Ds18b20ChangTemp
+  96          * 函数功能         : 让18b20开始转换温度
+  97          * 输    入         : 无
+  98          * 输    出         : 无
+  99          *******************************************************************************/
+ 100          
+ 101          void  Ds18b20ChangTemp()
+ 102          {
+ 103   1          Ds18b20Init();
+ 104   1          Delay1ms(1);
+ 105   1          Ds18b20WriteByte(0xcc);     //跳过ROM操作命令        
+ 106   1          Ds18b20WriteByte(0x44);     //温度转换命令
+ 107   1          //Delay1ms(100);    //等待转换成功，而如果你是一直刷着的话，就不用这个延时了
+ 108   1         
+ 109   1      }
+ 110          /*******************************************************************************
+ 111          * 函 数 名         : Ds18b20ReadTempCom
+ 112          * 函数功能         : 发送读取温度命令
+ 113          * 输    入         : 无
+ 114          * 输    出         : 无
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 3   
+
+ 115          *******************************************************************************/
+ 116          
+ 117          void  Ds18b20ReadTempCom()
+ 118          {   
+ 119   1      
+ 120   1          Ds18b20Init();
+ 121   1          Delay1ms(1);
+ 122   1          Ds18b20WriteByte(0xcc);  //跳过ROM操作命令
+ 123   1          Ds18b20WriteByte(0xbe);  //发送读取温度命令
+ 124   1      }
+ 125          /*******************************************************************************
+ 126          * 函 数 名         : Ds18b20ReadTemp
+ 127          * 函数功能         : 读取温度
+ 128          * 输    入         : 无
+ 129          * 输    出         : 无
+ 130          *******************************************************************************/
+ 131          
+ 132          int Ds18b20ReadTemp()
+ 133          {
+ 134   1          int temp = 0;
+ 135   1          unsigned char tmh, tml;
+ 136   1          Ds18b20ChangTemp();             //先写入转换命令
+ 137   1          Ds18b20ReadTempCom();           //然后等待转换完后发送读取温度命令
+ 138   1          tml = Ds18b20ReadByte();        //读取温度值共16位，先读低字节
+ 139   1          tmh = Ds18b20ReadByte();        //再读高字节
+ 140   1          temp = tmh;
+ 141   1          temp <<= 8;
+ 142   1          temp |= tml;
+ 143   1          return temp;
+ 144   1      }
+ 145          
+ 146          
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 4   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION _Delay1ms (BEGIN)
+                                           ; SOURCE LINE # 9
+;---- Variable 'y' assigned to Register 'R6/R7' ----
+                                           ; SOURCE LINE # 10
+                                           ; SOURCE LINE # 12
+0000         ?C0001:
+0000 D3                SETB    C
+0001 EF                MOV     A,R7
+0002 9400              SUBB    A,#00H
+0004 EE                MOV     A,R6
+0005 9400              SUBB    A,#00H
+0007 4014              JC      ?C0007
+                                           ; SOURCE LINE # 13
+                                           ; SOURCE LINE # 14
+;---- Variable 'x' assigned to Register 'R4/R5' ----
+0009 7D6E              MOV     R5,#06EH
+000B 7C00              MOV     R4,#00H
+000D         ?C0004:
+000D ED                MOV     A,R5
+000E 1D                DEC     R5
+000F 7001              JNZ     ?C0029
+0011 1C                DEC     R4
+0012         ?C0029:
+0012 ED                MOV     A,R5
+0013 4C                ORL     A,R4
+0014 70F7              JNZ     ?C0004
+                                           ; SOURCE LINE # 15
+0016         ?C0003:
+0016 EF                MOV     A,R7
+0017 1F                DEC     R7
+0018 70E6              JNZ     ?C0001
+001A 1E                DEC     R6
+001B         ?C0030:
+001B 80E3              SJMP    ?C0001
+                                           ; SOURCE LINE # 16
+001D         ?C0007:
+001D 22                RET     
+             ; FUNCTION _Delay1ms (END)
+
+             ; FUNCTION Ds18b20Init (BEGIN)
+                                           ; SOURCE LINE # 24
+                                           ; SOURCE LINE # 25
+                                           ; SOURCE LINE # 27
+0000 C2B7              CLR     DSPORT
+                                           ; SOURCE LINE # 28
+;---- Variable 'i' assigned to Register 'R3' ----
+0002 7B46              MOV     R3,#046H
+0004         ?C0008:
+                                           ; SOURCE LINE # 29
+0004 AF03              MOV     R7,AR3
+0006 1B                DEC     R3
+0007 EF                MOV     A,R7
+0008 70FA              JNZ     ?C0008
+                                           ; SOURCE LINE # 30
+000A D2B7              SETB    DSPORT
+                                           ; SOURCE LINE # 31
+000C FB                MOV     R3,A
+000D         ?C0010:
+                                           ; SOURCE LINE # 32
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 5   
+
+000D 30B711            JNB     DSPORT,?C0011
+                                           ; SOURCE LINE # 33
+                                           ; SOURCE LINE # 34
+0010 7F01              MOV     R7,#01H
+0012 7E00              MOV     R6,#00H
+0014 120000      R     LCALL   _Delay1ms
+                                           ; SOURCE LINE # 35
+0017 0B                INC     R3
+                                           ; SOURCE LINE # 36
+0018 EB                MOV     A,R3
+0019 D3                SETB    C
+001A 9405              SUBB    A,#05H
+001C 40EF              JC      ?C0010
+                                           ; SOURCE LINE # 37
+                                           ; SOURCE LINE # 38
+001E 7F00              MOV     R7,#00H
+0020 22                RET     
+                                           ; SOURCE LINE # 39
+                                           ; SOURCE LINE # 41
+0021         ?C0011:
+                                           ; SOURCE LINE # 42
+0021 7F01              MOV     R7,#01H
+                                           ; SOURCE LINE # 43
+0023         ?C0013:
+0023 22                RET     
+             ; FUNCTION Ds18b20Init (END)
+
+             ; FUNCTION L?0039 (BEGIN)
+0000 120000      R     LCALL   Ds18b20Init
+0003 7F01              MOV     R7,#01H
+0005 7E00              MOV     R6,#00H
+0007 120000      R     LCALL   _Delay1ms
+000A 7FCC              MOV     R7,#0CCH
+             ; FUNCTION _Ds18b20WriteByte (BEGIN)
+                                           ; SOURCE LINE # 52
+;---- Variable 'dat' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 53
+                                           ; SOURCE LINE # 56
+;---- Variable 'j' assigned to Register 'R2/R3' ----
+000C E4                CLR     A
+000D FB                MOV     R3,A
+000E FA                MOV     R2,A
+000F         ?C0014:
+                                           ; SOURCE LINE # 57
+                                           ; SOURCE LINE # 58
+000F C2B7              CLR     DSPORT
+                                           ; SOURCE LINE # 59
+0011 0500        R     INC     i+01H
+0013 E500        R     MOV     A,i+01H
+0015 7002              JNZ     ?C0031
+0017 0500        R     INC     i
+0019         ?C0031:
+                                           ; SOURCE LINE # 60
+0019 EF                MOV     A,R7
+001A 13                RRC     A
+001B 92B7              MOV     DSPORT,C
+                                           ; SOURCE LINE # 61
+001D 750000      R     MOV     i,#00H
+0020 750006      R     MOV     i+01H,#06H
+0023         ?C0017:
+                                           ; SOURCE LINE # 62
+0023 E500        R     MOV     A,i+01H
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 6   
+
+0025 1500        R     DEC     i+01H
+0027 AC00        R     MOV     R4,i
+0029 7002              JNZ     ?C0032
+002B 1500        R     DEC     i
+002D         ?C0032:
+002D 4C                ORL     A,R4
+002E 70F3              JNZ     ?C0017
+                                           ; SOURCE LINE # 63
+0030 D2B7              SETB    DSPORT
+                                           ; SOURCE LINE # 64
+0032 EF                MOV     A,R7
+0033 C3                CLR     C
+0034 13                RRC     A
+0035 FF                MOV     R7,A
+                                           ; SOURCE LINE # 65
+0036 0B                INC     R3
+0037 BB0001            CJNE    R3,#00H,?C0033
+003A 0A                INC     R2
+003B         ?C0033:
+003B EB                MOV     A,R3
+003C 6408              XRL     A,#08H
+003E 4A                ORL     A,R2
+003F 70CE              JNZ     ?C0014
+                                           ; SOURCE LINE # 66
+0041         ?C0019:
+0041 22                RET     
+             ; FUNCTION _Ds18b20WriteByte (END)
+
+             ; FUNCTION Ds18b20ReadByte (BEGIN)
+                                           ; SOURCE LINE # 75
+;---- Variable 'i' assigned to Register 'R6/R7' ----
+;---- Variable 'byte' assigned to Register 'R1' ----
+                                           ; SOURCE LINE # 76
+                                           ; SOURCE LINE # 79
+;---- Variable 'j' assigned to Register 'R4/R5' ----
+0000 7D08              MOV     R5,#08H
+0002 7C00              MOV     R4,#00H
+0004         ?C0020:
+                                           ; SOURCE LINE # 80
+                                           ; SOURCE LINE # 81
+0004 C2B7              CLR     DSPORT
+                                           ; SOURCE LINE # 82
+0006 0F                INC     R7
+0007 BF0000            CJNE    R7,#00H,?C0034
+000A         ?C0034:
+                                           ; SOURCE LINE # 83
+000A D2B7              SETB    DSPORT
+                                           ; SOURCE LINE # 84
+000C 0F                INC     R7
+000D BF0000            CJNE    R7,#00H,?C0035
+0010         ?C0035:
+                                           ; SOURCE LINE # 85
+0010 0F                INC     R7
+0011 BF0000            CJNE    R7,#00H,?C0036
+0014         ?C0036:
+                                           ; SOURCE LINE # 86
+0014 A2B7              MOV     C,DSPORT
+0016 E4                CLR     A
+0017 33                RLC     A
+;---- Variable 'bi' assigned to Register 'R3' ----
+                                           ; SOURCE LINE # 88
+0018 C4                SWAP    A
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 7   
+
+0019 33                RLC     A
+001A 33                RLC     A
+001B 33                RLC     A
+001C 5480              ANL     A,#080H
+001E FB                MOV     R3,A
+001F E9                MOV     A,R1
+0020 C3                CLR     C
+0021 13                RRC     A
+0022 4B                ORL     A,R3
+0023 F9                MOV     R1,A
+                                           ; SOURCE LINE # 89
+0024 7E00              MOV     R6,#00H
+0026 7F04              MOV     R7,#04H
+0028         ?C0023:
+                                           ; SOURCE LINE # 90
+0028 EF                MOV     A,R7
+0029 1F                DEC     R7
+002A AA06              MOV     R2,AR6
+002C 7001              JNZ     ?C0037
+002E 1E                DEC     R6
+002F         ?C0037:
+002F 4A                ORL     A,R2
+0030 70F6              JNZ     ?C0023
+                                           ; SOURCE LINE # 91
+0032 ED                MOV     A,R5
+0033 1D                DEC     R5
+0034 7001              JNZ     ?C0038
+0036 1C                DEC     R4
+0037         ?C0038:
+0037 ED                MOV     A,R5
+0038 4C                ORL     A,R4
+0039 70C9              JNZ     ?C0020
+003B         ?C0021:
+                                           ; SOURCE LINE # 92
+003B AF01              MOV     R7,AR1
+                                           ; SOURCE LINE # 93
+003D 22                RET     
+             ; FUNCTION Ds18b20ReadByte (END)
+
+             ; FUNCTION Ds18b20ChangTemp (BEGIN)
+                                           ; SOURCE LINE # 101
+                                           ; SOURCE LINE # 102
+                                           ; SOURCE LINE # 103
+                                           ; SOURCE LINE # 104
+                                           ; SOURCE LINE # 105
+0000 120000      R     LCALL   L?0039
+                                           ; SOURCE LINE # 106
+0003 7F44              MOV     R7,#044H
+0005 020000      R     LJMP    _Ds18b20WriteByte
+             ; FUNCTION Ds18b20ChangTemp (END)
+
+             ; FUNCTION Ds18b20ReadTempCom (BEGIN)
+                                           ; SOURCE LINE # 117
+                                           ; SOURCE LINE # 118
+                                           ; SOURCE LINE # 120
+                                           ; SOURCE LINE # 121
+                                           ; SOURCE LINE # 122
+0000 120000      R     LCALL   L?0039
+                                           ; SOURCE LINE # 123
+0003 7FBE              MOV     R7,#0BEH
+0005 020000      R     LJMP    _Ds18b20WriteByte
+             ; FUNCTION Ds18b20ReadTempCom (END)
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 8   
+
+
+             ; FUNCTION Ds18b20ReadTemp (BEGIN)
+                                           ; SOURCE LINE # 132
+                                           ; SOURCE LINE # 133
+                                           ; SOURCE LINE # 134
+;---- Variable 'temp' assigned to Register 'R6/R7' ----
+0000 E4                CLR     A
+0001 FF                MOV     R7,A
+0002 FE                MOV     R6,A
+                                           ; SOURCE LINE # 136
+0003 120000      R     LCALL   Ds18b20ChangTemp
+                                           ; SOURCE LINE # 137
+0006 120000      R     LCALL   Ds18b20ReadTempCom
+                                           ; SOURCE LINE # 138
+0009 120000      R     LCALL   Ds18b20ReadByte
+000C 8F00        R     MOV     tml,R7
+                                           ; SOURCE LINE # 139
+000E 120000      R     LCALL   Ds18b20ReadByte
+;---- Variable 'tmh' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 140
+                                           ; SOURCE LINE # 141
+0011 EF                MOV     A,R7
+0012 FE                MOV     R6,A
+                                           ; SOURCE LINE # 142
+0013 E500        R     MOV     A,tml
+0015 FF                MOV     R7,A
+                                           ; SOURCE LINE # 143
+                                           ; SOURCE LINE # 144
+0016 22                RET     
+             ; FUNCTION Ds18b20ReadTemp (END)
+
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 9   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+Ds18b20ReadTemp. . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  temp . . . . . . . . . . . . . . . .  * REG *  DATA   INT      0006H  2
+  tmh. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+  tml. . . . . . . . . . . . . . . . .  AUTO     DATA   U_CHAR   0000H  1
+P0 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0080H  1
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+P2 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A0H  1
+P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
+T0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
+_Delay1ms. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  y. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0006H  2
+  x. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0004H  2
+T1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+T2 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
+_Ds18b20WriteByte. . . . . . . . . . .  PUBLIC   CODE   PROC     000CH  -----
+  dat. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+  i. . . . . . . . . . . . . . . . . .  AUTO     DATA   U_INT    0000H  2
+  j. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0002H  2
+IE . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A8H  1
+EXF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CEH  1
+RD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+ES . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ACH  1
+IP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B8H  1
+RI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+INT0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+CY . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D7H  1
+TI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+INT1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+Ds18b20ReadTempCom . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+RCAP2H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CBH  1
+PS . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BCH  1
+SP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0081H  1
+T2EX . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+OV . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D2H  1
+RCAP2L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CAH  1
+C_T2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C9H  1
+WR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+RCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CDH  1
+TCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CCH  1
+SBUF . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0099H  1
+PCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0087H  1
+SCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
+TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
+IE0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
+IE1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
+B. . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F0H  1
+CP_RL2 . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C8H  1
+ACC. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E0H  1
+ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
+ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
+TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
+ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
+TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
+TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 10  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+RB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009AH  1
+TH0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008CH  1
+EX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A8H  1
+IT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0088H  1
+TH1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008DH  1
+TB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009BH  1
+EX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AAH  1
+IT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008AH  1
+TH2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CDH  1
+P. . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D0H  1
+SM0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+TL0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008AH  1
+SM1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
+TL1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008BH  1
+SM2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+TL2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CCH  1
+PT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
+PT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BBH  1
+RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
+PT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BDH  1
+TR0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008CH  1
+RS1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D4H  1
+TR1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008EH  1
+TR2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CAH  1
+PX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B8H  1
+PX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BAH  1
+DPH. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0083H  1
+DSPORT . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+DPL. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0082H  1
+EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
+Ds18b20ChangTemp . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+REN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
+T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
+RXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+TXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
+PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
+Ds18b20ReadByte. . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  byte . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0001H  1
+  bi . . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0003H  1
+  i. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0006H  2
+  j. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0004H  2
+Ds18b20Init. . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  i. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0003H  1
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    233    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+C51 COMPILER V9.57.0.0   TEMPE                                                             05/20/2021 19:48:38 PAGE 11  
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

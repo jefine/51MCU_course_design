@@ -1,0 +1,27 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "C_Cpp.default.intelliSenseMode": "gcc-x86",
+        "files.autoGuessEncoding": false,
+        "files.encoding": "gbk",
+        "C_Cpp.default.cppStandard": "c++11",
+        "C_Cpp.default.cStandard": "c99",
+        "EIDE.ARM.Option.AutoGenerateRTE_Components": false,
+        "C_Cpp.errorSquiggles": "Disabled",
+        "files.associations": {
+            ".eideignore": "ignore",
+            "reg52.h": "c",
+            "REG52.H": "cpp",
+            "uart.h": "c",
+            "tempe.h": "c",
+            "public.h": "c",
+            "string": "c",
+            "xpt2046.h": "c",
+            "lcd.h": "c"
+        }
+    }
+}

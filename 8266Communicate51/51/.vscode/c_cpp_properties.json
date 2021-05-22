@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "win32",
+            "includePath": [
+                "${default}",
+                "E:\\keil\\C51\\INC\\Atmel",
+                "E:\\keil\\C51\\INC"
+            ],
+            "defines": [
+                "${default}",
+                "__UVISION_VERSION=526",
+                "__C51__",
+                "__VSCODE_CPPTOOL"
+            ],
+            "intelliSenseMode": "${default}",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${default}"
+            },
+            "forcedInclude": [
+                "c:\\Users\\fanfanfan\\.vscode\\extensions\\cl.eide-2.5.4\\bin\\include\\internal_headers\\c51_intr.h"
+            ]
+        }
+    ],
+    "version": 4
+}

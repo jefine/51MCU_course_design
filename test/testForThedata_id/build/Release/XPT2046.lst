@@ -1,0 +1,373 @@
+C51 COMPILER V9.57.0.0   XPT2046                                                           05/20/2021 19:48:38 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE XPT2046
+OBJECT MODULE PLACED IN .\build\Release\XPT2046.o
+COMPILER INVOKED BY: E:\mdkArmkeil5\C51\BIN\C51.exe .\SRC\XPT2046.C PRINT(.\build\Release\XPT2046.lst) OMF2 TABS(4) CODE
+                    - NOCOND SYMBOLS OPTIMIZE(8,SPEED) SMALL ROM(LARGE) INCDIR(E:\mdkArmkeil5\C51\INC;.\src) DEFINE(__UVISION_VERSION=526) OB
+                    -JECT(.\build\Release\XPT2046.o)
+
+line level    source
+
+   1          #include"XPT2046.h"
+   2          #include"uart.h"
+   3          
+   4          /****************************************************************************
+   5          *函数名：TSPI_Start
+   6          *输  入：无
+   7          *输  出：无
+   8          *功  能：初始化触摸SPI
+   9          ****************************************************************************/
+  10          
+  11          void SPI_Start(void)
+  12          {
+  13   1          CLK = 0;
+  14   1          CS  = 1;
+  15   1          DIN = 1;
+  16   1          CLK = 1;
+  17   1          CS  = 0;        
+  18   1      }
+  19          /****************************************************************************
+  20          *函数名：SPI_Write
+  21          *输  入：dat：写入数据
+  22          *输  出：无
+  23          *功  能：使用SPI写入数据
+  24          ****************************************************************************/
+  25          
+  26          void SPI_Write(uchar dat)
+  27          {
+  28   1          uchar i;
+  29   1          CLK = 0;
+  30   1          for(i=0; i<8; i++)
+  31   1          {
+  32   2              DIN = dat >> 7;     //放置最高位
+  33   2              dat <<= 1;
+  34   2              CLK = 0;            //上升沿放置数据
+  35   2      
+  36   2              CLK = 1;
+  37   2      
+  38   2          }
+  39   1      }
+  40          /****************************************************************************
+  41          *函数名：SPI_Read
+  42          *输  入：无
+  43          *输  出：dat：读取 到的数据
+  44          *功  能：使用SPI读取数据
+  45          ****************************************************************************/
+  46          
+  47          uint SPI_Read(void)
+  48          {
+  49   1          uint i, dat=0;
+  50   1          CLK = 0;
+  51   1          for(i=0; i<12; i++)     //接收12位数据
+  52   1          {
+  53   2              dat <<= 1;
+C51 COMPILER V9.57.0.0   XPT2046                                                           05/20/2021 19:48:38 PAGE 2   
+
+  54   2      
+  55   2              CLK = 1;
+  56   2              CLK = 0;
+  57   2      
+  58   2              dat |= DOUT;
+  59   2      
+  60   2          }
+  61   1          return dat; 
+  62   1      }
+  63          
+  64          /****************************************************************************
+  65          *函数名：Read_AD_Data
+  66          *输  入：cmd：读取的X或者Y
+  67          *输  出：endValue：最终信号处理后返回的值
+  68          *功  能：读取触摸数据
+  69          ****************************************************************************/
+  70          uint Read_AD_Data(uchar cmd)
+  71          {
+  72   1          uchar i;
+  73   1          uint AD_Value;
+  74   1          CLK = 0;
+  75   1          CS  = 0;
+  76   1          SPI_Write(cmd);
+  77   1          for(i=6; i>0; i--);     //延时等待转换结果
+  78   1          CLK = 1;      //发送一个时钟周期，清除BUSY
+  79   1          _nop_();
+  80   1          _nop_();
+  81   1          CLK = 0;
+  82   1          _nop_();
+  83   1          _nop_();
+  84   1          AD_Value=SPI_Read();
+  85   1          CS = 1;
+  86   1          return AD_Value;    
+  87   1      }
+C51 COMPILER V9.57.0.0   XPT2046                                                           05/20/2021 19:48:38 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION SPI_Start (BEGIN)
+                                           ; SOURCE LINE # 11
+                                           ; SOURCE LINE # 12
+                                           ; SOURCE LINE # 13
+0000 C2B6              CLR     CLK
+                                           ; SOURCE LINE # 14
+0002 D2B5              SETB    CS
+                                           ; SOURCE LINE # 15
+0004 D2B4              SETB    DIN
+                                           ; SOURCE LINE # 16
+0006 D2B6              SETB    CLK
+                                           ; SOURCE LINE # 17
+0008 C2B5              CLR     CS
+                                           ; SOURCE LINE # 18
+000A 22                RET     
+             ; FUNCTION SPI_Start (END)
+
+             ; FUNCTION _SPI_Write (BEGIN)
+                                           ; SOURCE LINE # 26
+;---- Variable 'dat' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 27
+                                           ; SOURCE LINE # 29
+0000 C2B6              CLR     CLK
+                                           ; SOURCE LINE # 30
+;---- Variable 'i' assigned to Register 'R6' ----
+0002 E4                CLR     A
+0003 FE                MOV     R6,A
+0004         ?C0002:
+                                           ; SOURCE LINE # 31
+                                           ; SOURCE LINE # 32
+0004 EF                MOV     A,R7
+0005 C4                SWAP    A
+0006 13                RRC     A
+0007 13                RRC     A
+0008 13                RRC     A
+0009 5401              ANL     A,#01H
+000B 24FF              ADD     A,#0FFH
+000D 92B4              MOV     DIN,C
+                                           ; SOURCE LINE # 33
+000F EF                MOV     A,R7
+0010 25E0              ADD     A,ACC
+0012 FF                MOV     R7,A
+                                           ; SOURCE LINE # 34
+0013 C2B6              CLR     CLK
+                                           ; SOURCE LINE # 36
+0015 D2B6              SETB    CLK
+                                           ; SOURCE LINE # 38
+0017 0E                INC     R6
+0018 BE08E9            CJNE    R6,#08H,?C0002
+                                           ; SOURCE LINE # 39
+001B         ?C0005:
+001B 22                RET     
+             ; FUNCTION _SPI_Write (END)
+
+             ; FUNCTION SPI_Read (BEGIN)
+                                           ; SOURCE LINE # 47
+                                           ; SOURCE LINE # 48
+                                           ; SOURCE LINE # 49
+;---- Variable 'dat' assigned to Register 'R6/R7' ----
+C51 COMPILER V9.57.0.0   XPT2046                                                           05/20/2021 19:48:38 PAGE 4   
+
+0000 E4                CLR     A
+0001 FF                MOV     R7,A
+0002 FE                MOV     R6,A
+                                           ; SOURCE LINE # 50
+0003 C2B6              CLR     CLK
+                                           ; SOURCE LINE # 51
+;---- Variable 'i' assigned to Register 'R4/R5' ----
+0005 FD                MOV     R5,A
+0006 FC                MOV     R4,A
+0007         ?C0006:
+                                           ; SOURCE LINE # 52
+                                           ; SOURCE LINE # 53
+0007 EF                MOV     A,R7
+0008 25E0              ADD     A,ACC
+000A FF                MOV     R7,A
+000B EE                MOV     A,R6
+000C 33                RLC     A
+000D FE                MOV     R6,A
+                                           ; SOURCE LINE # 55
+000E D2B6              SETB    CLK
+                                           ; SOURCE LINE # 56
+0010 C2B6              CLR     CLK
+                                           ; SOURCE LINE # 58
+0012 A2B7              MOV     C,DOUT
+0014 E4                CLR     A
+0015 33                RLC     A
+0016 4207              ORL     AR7,A
+                                           ; SOURCE LINE # 60
+0018 0D                INC     R5
+0019 BD0001            CJNE    R5,#00H,?C0014
+001C 0C                INC     R4
+001D         ?C0014:
+001D ED                MOV     A,R5
+001E 640C              XRL     A,#0CH
+0020 4C                ORL     A,R4
+0021 70E4              JNZ     ?C0006
+0023         ?C0007:
+                                           ; SOURCE LINE # 61
+                                           ; SOURCE LINE # 62
+0023 22                RET     
+             ; FUNCTION SPI_Read (END)
+
+             ; FUNCTION _Read_AD_Data (BEGIN)
+                                           ; SOURCE LINE # 70
+;---- Variable 'cmd' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 71
+                                           ; SOURCE LINE # 74
+0000 C2B6              CLR     CLK
+                                           ; SOURCE LINE # 75
+0002 C2B5              CLR     CS
+                                           ; SOURCE LINE # 76
+0004 120000      R     LCALL   _SPI_Write
+                                           ; SOURCE LINE # 77
+;---- Variable 'i' assigned to Register 'R7' ----
+0007 7F06              MOV     R7,#06H
+0009         ?C0010:
+0009 DFFE              DJNZ    R7,?C0010
+000B         ?C0011:
+                                           ; SOURCE LINE # 78
+000B D2B6              SETB    CLK
+                                           ; SOURCE LINE # 79
+000D 00                NOP     
+C51 COMPILER V9.57.0.0   XPT2046                                                           05/20/2021 19:48:38 PAGE 5   
+
+                                           ; SOURCE LINE # 80
+000E 00                NOP     
+                                           ; SOURCE LINE # 81
+000F C2B6              CLR     CLK
+                                           ; SOURCE LINE # 82
+0011 00                NOP     
+                                           ; SOURCE LINE # 83
+0012 00                NOP     
+                                           ; SOURCE LINE # 84
+0013 120000      R     LCALL   SPI_Read
+;---- Variable 'AD_Value' assigned to Register 'R6/R7' ----
+                                           ; SOURCE LINE # 85
+0016 D2B5              SETB    CS
+                                           ; SOURCE LINE # 86
+                                           ; SOURCE LINE # 87
+0018 22                RET     
+             ; FUNCTION _Read_AD_Data (END)
+
+C51 COMPILER V9.57.0.0   XPT2046                                                           05/20/2021 19:48:38 PAGE 6   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+P0 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0080H  1
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+P2 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A0H  1
+P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
+T0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
+T1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+T2 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
+IE . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A8H  1
+CS . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+EXF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CEH  1
+RD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+ES . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ACH  1
+IP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B8H  1
+RI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+INT0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+CY . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D7H  1
+TI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+INT1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+RCAP2H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CBH  1
+PS . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BCH  1
+SP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0081H  1
+T2EX . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+OV . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D2H  1
+RCAP2L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CAH  1
+C_T2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C9H  1
+WR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+RCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CDH  1
+TCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CCH  1
+SBUF . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0099H  1
+PCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0087H  1
+SCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
+TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
+DOUT . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+IE0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
+IE1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
+_Read_AD_Data. . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  cmd. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+  i. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+  AD_Value . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0006H  2
+B. . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F0H  1
+CP_RL2 . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C8H  1
+ACC. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E0H  1
+ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
+ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
+TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
+SPI_Read . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  i. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0004H  2
+  dat. . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0006H  2
+ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
+TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
+TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
+RB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009AH  1
+TH0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008CH  1
+EX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A8H  1
+C51 COMPILER V9.57.0.0   XPT2046                                                           05/20/2021 19:48:38 PAGE 7   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+IT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0088H  1
+TH1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008DH  1
+TB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009BH  1
+EX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AAH  1
+IT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008AH  1
+TH2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CDH  1
+P. . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D0H  1
+SM0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+TL0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008AH  1
+SM1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
+TL1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008BH  1
+SM2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+TL2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CCH  1
+PT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
+PT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BBH  1
+RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
+PT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BDH  1
+TR0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008CH  1
+RS1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D4H  1
+TR1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008EH  1
+TR2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CAH  1
+PX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B8H  1
+PX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BAH  1
+CLK. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+_SPI_Write . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  dat. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+  i. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0006H  1
+DIN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+DPH. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0083H  1
+SPI_Start. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+DPL. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0082H  1
+EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
+REN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
+T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
+RXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+TXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
+PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    100    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

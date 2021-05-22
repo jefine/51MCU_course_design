@@ -1,0 +1,349 @@
+LX51 LINKER/LOCATER V4.66.87.0                                                          05/21/2021  22:38:47  PAGE 1
+
+
+LX51 LINKER/LOCATER V4.66.87.0, INVOKED BY:
+E:\MDKARMKEIL5\C51\BIN\LX51.EXE .\BUILD\RELEASE\MAIN.O TO .\BUILD\RELEASE\MCS51 PRINT (.\build\Release\mcs51.map) REMOVE
+>> UNUSED
+
+
+CPU MODE:     8051 MODE
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\BUILD\RELEASE\MAIN.O (MAIN)
+         COMMENT TYPE 0: C51 V9.57.0.0
+  E:\MDKARMKEIL5\C51\LIB\C51FPS.LIB (?C?FPADD)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  E:\MDKARMKEIL5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  E:\MDKARMKEIL5\C51\LIB\C51FPS.LIB (?C?FCAST)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  E:\MDKARMKEIL5\C51\LIB\C51FPS.LIB (?C?CASTF)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  E:\MDKARMKEIL5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  E:\MDKARMKEIL5\C51\LIB\C51S.LIB (?C_STARTUP)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  E:\MDKARMKEIL5\C51\LIB\C51S.LIB (?C?UIDIV)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  E:\MDKARMKEIL5\C51\LIB\C51S.LIB (?C?LNEG)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  E:\MDKARMKEIL5\C51\LIB\C51S.LIB (?C_INIT)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\BUILD\RELEASE\MCS51 (MAIN)
+
+BASE        START       END         USED      MEMORY CLASS
+==========================================================
+C:000000H   C:000000H   C:00FFFFH   00076CH   CODE
+I:000000H   I:000000H   I:00007FH   00002CH   DATA
+I:000020H.0 I:000020H.0 I:00002FH.7 000000H.1 BIT
+C:000000H   C:000000H   C:00FFFFH   00000AH   CONST
+I:000000H   I:000000H   I:0000FFH   000001H   IDATA
+
+
+MEMORY MAP OF MODULE:  .\BUILD\RELEASE\MCS51 (MAIN)
+
+
+START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
+=========================================================================
+
+* * * * * * * * * * *   D A T A   M E M O R Y   * * * * * * * * * * * * *
+000000H   000007H   000008H   ---    AT..     DATA           "REG BANK 0"
+000008H   00000EH   000007H   BYTE   UNIT     DATA           _DATA_GROUP_
+00000FH.0 00001FH.7 000011H.0 ---    ---      **GAP**
+000020H.0 000020H.0 000000H.1 BIT    UNIT     BIT            _BIT_GROUP_
+000020H.1 000020H   000000H.7 ---    ---      **GAP**
+000021H   00003DH   00001DH   BYTE   UNIT     DATA           ?DT?MAIN
+00003EH   00003EH   000001H   BYTE   UNIT     IDATA          ?STACK
+
+* * * * * * * * * * *   C O D E   M E M O R Y   * * * * * * * * * * * * *
+000000H   000002H   000003H   ---    OFFS..   CODE           ?CO??C_STARTUP?0
+000003H   00000AH   000008H   ---    ---      **GAP**
+00000BH   00000DH   000003H   BYTE   OFFS..   CODE           ?MAIN?0000B
+00000EH   00032DH   000320H   BYTE   UNIT     CODE           ?C?LIB_CODE
+00032EH   000453H   000126H   BYTE   UNIT     CODE           ?PR?TIME0_INT?MAIN
+000454H   0004E7H   000094H   BYTE   UNIT     CODE           ?PR?MAIN?MAIN
+0004E8H   000573H   00008CH   BYTE   UNIT     CODE           ?C_C51STARTUP
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/21/2021  22:38:47  PAGE 2
+
+
+000574H   0005D1H   00005EH   BYTE   UNIT     CODE           ?PR?TMRTEMP?MAIN
+0005D2H   00062CH   00005BH   BYTE   UNIT     CODE           ?PR?_TMWBYTE?MAIN
+00062DH   000685H   000059H   BYTE   UNIT     CODE           ?PR?_DIGITALSHOW?MAIN
+000686H   0006B8H   000033H   BYTE   UNIT     CODE           ?PR?KEYSCAN?MAIN
+0006B9H   0006E2H   00002AH   BYTE   UNIT     CODE           ?PR?TMRBIT?MAIN
+0006E3H   000700H   00001EH   BYTE   UNIT     CODE           ?PR?_DMSEC?MAIN
+000701H   00071DH   00001DH   BYTE   UNIT     CODE           ?PR?TMRBYTE?MAIN
+00071EH   000735H   000018H   BYTE   UNIT     CODE           ?C_INITSEG
+000736H   000747H   000012H   BYTE   UNIT     CODE           ?PR?TMRESET?MAIN
+000748H   000756H   00000FH   BYTE   UNIT     CODE           ?PR?TMPRE?MAIN
+000757H   000765H   00000FH   BYTE   UNIT     CODE           ?PR?TMSTART?MAIN
+000766H   000773H   00000EH   BYTE   UNIT     CODE           ?PR?_DELAY?MAIN
+000774H   00077DH   00000AH   BYTE   UNIT     CONST          ?CO?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   .\BUILD\RELEASE\MCS51 (MAIN)
+
+
+FUNCTION/MODULE              BIT_GROUP   DATA_GROUP 
+--> CALLED FUNCTION/MODULE  START  STOP  START  STOP
+====================================================
+TIME0_INT/MAIN              ----- -----  0008H 0009H
+
+*** NEW ROOT **************
+
+?C_C51STARTUP               ----- -----  ----- -----
+  +--> MAIN/MAIN
+  +--> ?C_INITSEG
+
+MAIN/MAIN                   ----- -----  ----- -----
+  +--> TMSTART/MAIN
+  +--> _DMSEC/MAIN
+  +--> TMRTEMP/MAIN
+  +--> _DIGITALSHOW/MAIN
+  +--> KEYSCAN/MAIN
+
+TMSTART/MAIN                ----- -----  ----- -----
+  +--> _DMSEC/MAIN
+  +--> _TMWBYTE/MAIN
+
+_DMSEC/MAIN                 ----- -----  ----- -----
+
+_TMWBYTE/MAIN               20H.0 20H.0  000AH 000BH
+  +--> TMRESET/MAIN
+  +--> TMPRE/MAIN
+  +--> _DMSEC/MAIN
+  +--> _DELAY/MAIN
+
+TMRESET/MAIN                ----- -----  ----- -----
+  +--> _DELAY/MAIN
+
+_DELAY/MAIN                 ----- -----  ----- -----
+
+TMPRE/MAIN                  ----- -----  ----- -----
+  +--> _DELAY/MAIN
+
+TMRTEMP/MAIN                ----- -----  ----- -----
+  +--> _TMWBYTE/MAIN
+  +--> TMRBYTE/MAIN
+
+TMRBYTE/MAIN                ----- -----  ----- -----
+  +--> TMRBIT/MAIN
+
+TMRBIT/MAIN                 20H.0 20H.0  000AH 000BH
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/21/2021  22:38:47  PAGE 3
+
+
+  +--> _DELAY/MAIN
+
+_DIGITALSHOW/MAIN           ----- -----  000AH 000EH
+  +--> _DELAY/MAIN
+
+KEYSCAN/MAIN                ----- -----  ----- -----
+  +--> _DMSEC/MAIN
+
+?C_INITSEG                  ----- -----  ----- -----
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\BUILD\RELEASE\MCS51 (MAIN)
+
+
+      VALUE       CLASS    TYPE      PUBLIC SYMBOL NAME
+      =================================================
+      0000000AH   DATA     BYTE      ?_digitalshow?BYTE
+      0100024AH   CODE     ---       ?C?CASTF
+      00000000H   NUMBER   ---       ?C?CODESEG
+      01000216H   CODE     ---       ?C?FCASTC
+      01000211H   CODE     ---       ?C?FCASTI
+      0100020CH   CODE     ---       ?C?FCASTL
+      01000015H   CODE     ---       ?C?FPADD
+      01000281H   CODE     ---       ?C?FPGETOPN2
+      01000106H   CODE     ---       ?C?FPMUL
+      010002B6H   CODE     ---       ?C?FPNANRESULT
+      010002C0H   CODE     ---       ?C?FPOVERFLOW
+      01000298H   CODE     ---       ?C?FPRESULT
+      010002ACH   CODE     ---       ?C?FPRESULT2
+      01000011H   CODE     ---       ?C?FPSUB
+      010002BDH   CODE     ---       ?C?FPUNDERFLOW
+      01000320H   CODE     ---       ?C?LNEG
+      010002CBH   CODE     ---       ?C?UIDIV
+      00000000H   NUMBER   ---       ?C?XDATASEG
+      0100052FH   CODE     ---       ?C_START
+      01000000H   CODE     ---       ?C_STARTUP
+      0100076AH   CODE     ---       _Delay
+      0100062DH   CODE     ---       _digitalshow
+      010006E3H   CODE     ---       _dmsec
+      010005E1H   CODE     ---       _tmwbyte
+      00000023H   DATA     ---       dispbitcode
+      00000036H   DATA     ---       dispbuf
+      01000774H   CONST    ---       dispcode
+      00000032H   DATA     FLOAT     ff
+      00000031H   DATA     BYTE      ge
+      01000686H   CODE     ---       keyscan
+      0000002EH   DATA     WORD      last
+      01000454H   CODE     ---       main
+      00000030H   DATA     BYTE      shi
+      0100032EH   CODE     ---       time0_int
+      01000748H   CODE     ---       tmpre
+      010006B9H   CODE     ---       tmrbit
+      01000701H   CODE     ---       tmrbyte
+      01000736H   CODE     ---       tmreset
+      01000574H   CODE     ---       tmrtemp
+      01000757H   CODE     ---       tmstart
+      00000022H   DATA     BYTE      xiaoshu
+      0000002BH   DATA     WORD      y3
+      0000002DH   DATA     BYTE      yushe
+
+
+
+SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (MAIN)
+
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/21/2021  22:38:47  PAGE 4
+
+
+      VALUE       REP       CLASS    TYPE      SYMBOL NAME
+      ====================================================
+      ---         MODULE    ---      ---       MAIN
+      00000036H   PUBLIC    DATA     ---       dispbuf
+      00000032H   PUBLIC    DATA     FLOAT     ff
+      00000031H   PUBLIC    DATA     BYTE      ge
+      00000030H   PUBLIC    DATA     BYTE      shi
+      0000002EH   PUBLIC    DATA     WORD      last
+      0000002DH   PUBLIC    DATA     BYTE      yushe
+      0000002BH   PUBLIC    DATA     WORD      y3
+      00000023H   PUBLIC    DATA     ---       dispbitcode
+      00000022H   PUBLIC    DATA     BYTE      xiaoshu
+      01000774H   PUBLIC    CONST    ---       dispcode
+      01000454H   PUBLIC    CODE     ---       main
+      0100032EH   PUBLIC    CODE     ---       time0_int
+      01000686H   PUBLIC    CODE     ---       keyscan
+      01000574H   PUBLIC    CODE     ---       tmrtemp
+      01000757H   PUBLIC    CODE     ---       tmstart
+      010005E1H   PUBLIC    CODE     ---       _tmwbyte
+      01000701H   PUBLIC    CODE     ---       tmrbyte
+      010006B9H   PUBLIC    CODE     ---       tmrbit
+      01000748H   PUBLIC    CODE     ---       tmpre
+      01000736H   PUBLIC    CODE     ---       tmreset
+      010006E3H   PUBLIC    CODE     ---       _dmsec
+      0000000AH   PUBLIC    DATA     BYTE      ?_digitalshow?BYTE
+      0100062DH   PUBLIC    CODE     ---       _digitalshow
+      0100076AH   PUBLIC    CODE     ---       _Delay
+
+      01000766H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100076AH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100062DH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010006E3H   BLOCK     CODE     ---       LVL=0
+      010006E3H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000004H   SYMBOL    DATA     VOID      i
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000736H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000748H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010006B9H   BLOCK     CODE     ---       LVL=0
+      010006B9H   BLOCK     CODE     NEAR LAB  LVL=1
+      0000000AH   SYMBOL    DATA     VOID      i
+      00000020H.0 SYMBOL    BIT      VOID      dat
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000701H   BLOCK     CODE     ---       LVL=0
+      01000701H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000004H   SYMBOL    DATA     VOID      i
+      00000007H   SYMBOL    DATA     VOID      j
+      00000005H   SYMBOL    DATA     VOID      dat
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010005D2H   BLOCK     CODE     ---       LVL=0
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/21/2021  22:38:47  PAGE 5
+
+
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010005E1H   BLOCK     CODE     ---       LVL=0
+      010005E3H   BLOCK     CODE     NEAR LAB  LVL=1
+      0000000AH   SYMBOL    DATA     VOID      i
+      00000003H   SYMBOL    DATA     VOID      j
+      00000020H.0 SYMBOL    BIT      VOID      testb
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000757H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000574H   BLOCK     CODE     ---       LVL=0
+      01000574H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000003H   SYMBOL    DATA     VOID      a
+      00000007H   SYMBOL    DATA     VOID      b
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000686H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100032EH   BLOCK     CODE     ---       LVL=0
+      0100033DH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000008H   SYMBOL    DATA     VOID      tmp
+      00000021H   SYMBOL    DATA     VOID      j
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000454H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       ?C?FPADD
+      01000015H   PUBLIC    CODE     ---       ?C?FPADD
+      01000011H   PUBLIC    CODE     ---       ?C?FPSUB
+
+      ---         MODULE    ---      ---       ?C?FPMUL
+      01000106H   PUBLIC    CODE     ---       ?C?FPMUL
+
+      ---         MODULE    ---      ---       ?C?FCAST
+      01000216H   PUBLIC    CODE     ---       ?C?FCASTC
+      01000211H   PUBLIC    CODE     ---       ?C?FCASTI
+      0100020CH   PUBLIC    CODE     ---       ?C?FCASTL
+
+      ---         MODULE    ---      ---       ?C?CASTF
+      0100024AH   PUBLIC    CODE     ---       ?C?CASTF
+
+      ---         MODULE    ---      ---       ?C?FPGETOPN
+      01000281H   PUBLIC    CODE     ---       ?C?FPGETOPN2
+      010002B6H   PUBLIC    CODE     ---       ?C?FPNANRESULT
+      010002C0H   PUBLIC    CODE     ---       ?C?FPOVERFLOW
+      01000298H   PUBLIC    CODE     ---       ?C?FPRESULT
+      010002ACH   PUBLIC    CODE     ---       ?C?FPRESULT2
+      010002BDH   PUBLIC    CODE     ---       ?C?FPUNDERFLOW
+
+      ---         MODULE    ---      ---       ?C_STARTUP
+      01000000H   PUBLIC    CODE     ---       ?C_STARTUP
+
+      ---         MODULE    ---      ---       ?C?UIDIV
+      010002CBH   PUBLIC    CODE     ---       ?C?UIDIV
+
+      ---         MODULE    ---      ---       ?C?LNEG
+      01000320H   PUBLIC    CODE     ---       ?C?LNEG
+
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/21/2021  22:38:47  PAGE 6
+
+
+      ---         MODULE    ---      ---       ?C_INIT
+      0100052FH   PUBLIC    CODE     ---       ?C_START
+
+Program Size: data=45.1 xdata=0 const=10 code=1900
+LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
