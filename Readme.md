@@ -1,6 +1,6 @@
 ## A course design for the application of the mcu(stc89c52) 
 
-It means that it will just be a demo.
+It means that will just be a demo.
 
 This project mainly want to solved the **UART communacation from 89c52 to ESP8266** which could connect the internet
 
