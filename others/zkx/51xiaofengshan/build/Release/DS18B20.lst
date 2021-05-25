@@ -1,0 +1,486 @@
+C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:16:59 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE DS18B20
+OBJECT MODULE PLACED IN .\build\Release\DS18B20.o
+COMPILER INVOKED BY: E:\mdkArmkeil5\C51\BIN\C51.exe .\SRC\DS18B20.C PRINT(.\build\Release\DS18B20.lst) OMF2 TABS(4) CODE
+                    - NOCOND SYMBOLS OPTIMIZE(8,SPEED) SMALL ROM(LARGE) INCDIR(E:\mdkArmkeil5\C51\INC;.\src) DEFINE(__UVISION_VERSION=526) OB
+                    -JECT(.\build\Release\DS18B20.o)
+
+line level    source
+
+   1          
+   2          #include<reg52.h>
+   3          #include<intrins.h>
+   4          #include "temp.h"
+   5          
+   6          sbit IO_18B20=P3^2;
+   7          
+   8          /*软件延时函数，延时时间（t*10）us*/
+   9          void DelayX10us(unsigned char t)
+  10          {
+  11   1          do{
+  12   2              _nop_();
+  13   2              _nop_();
+  14   2              _nop_();
+  15   2              _nop_();
+  16   2              _nop_();
+  17   2              _nop_();
+  18   2              _nop_();
+  19   2              _nop_();
+  20   2          }while(--t);
+  21   1      }
+  22          /*复位总线，获取存在脉冲，以启动一次读写操作*/
+  23          bit Get18B20Ack()
+  24          {
+  25   1          bit ack;
+  26   1          
+  27   1          EA=0;               //禁止总中断
+  28   1          IO_18B20=0;         //产生500us复位脉冲
+  29   1          DelayX10us(50);
+  30   1          IO_18B20=1;
+  31   1          DelayX10us(6);      //延时60us
+  32   1          ack=IO_18B20;       //读取存在脉冲
+  33   1          while(!IO_18B20);   //等待存在脉冲结束
+  34   1          EA=1;               //重新使能总中断
+  35   1          return ack;
+  36   1      }
+  37          /*向DS18B20写入一个字节，dat-待写入字节*/
+  38          void Write18B20(unsigned char dat)
+  39          {
+  40   1          unsigned char mask;
+  41   1          EA=0;
+  42   1          for(mask=0x01;mask!=0;mask<<=1)//低位在先，依次移出8个bit
+  43   1          {
+  44   2              IO_18B20=0;//产生2us低电平脉冲
+  45   2              _nop_();
+  46   2              _nop_();
+  47   2              if((mask&dat)==0)//输出该bit值
+  48   2                  IO_18B20=0;
+  49   2              else
+  50   2                  IO_18B20=1;
+  51   2              DelayX10us(6);//延时60us
+  52   2              IO_18B20=1;//拉高通信引脚
+  53   2          }
+C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:16:59 PAGE 2   
+
+  54   1          EA=1;
+  55   1      }
+  56          /*从DS18B20读取一个字节，返回值-读到的字节*/
+  57          unsigned char Read18B20()
+  58          {
+  59   1          unsigned char dat;
+  60   1          unsigned char mask;
+  61   1      
+  62   1          EA=0;
+  63   1          for(mask=0x01;mask!=0;mask<<=1)//低位在先，依次采集8个bit
+  64   1          {
+  65   2              IO_18B20=0;//产生2us低电平脉冲
+  66   2              _nop_();
+  67   2              _nop_();
+  68   2              IO_18B20=1;//结束低电平脉冲，等待18B20输出数据
+  69   2              _nop_(); //延时2us
+  70   2              _nop_();
+  71   2              if(!IO_18B20)//读取通信引脚上的值
+  72   2                  dat &= ~mask;
+  73   2              else
+  74   2                  dat |= mask;
+  75   2              DelayX10us(6);//再延时60us
+  76   2          }
+  77   1          EA=1;
+  78   1          return dat;
+  79   1      }
+  80          /*启动一次18B20温度转换，返回值-表示是否启动成功*/
+  81          bit Start18B20()
+  82          {
+  83   1          bit ack;
+  84   1          ack=Get18B20Ack();//执行总线复位，并获取18B20应答
+  85   1          if(ack==0)
+  86   1          {
+  87   2              Write18B20(0xCC);
+  88   2              Write18B20(0x44);
+  89   2          }
+  90   1          return ~ack;
+  91   1      }
+  92          /*读取DS18B20转换的温度值，返回值-表示是否读取成功*/
+  93          bit Get18B20Temp(int *temp)
+  94          {
+  95   1          bit ack;
+  96   1          unsigned char LSB,MSB;//16bit温度值的低字节和高字节
+  97   1      
+  98   1          ack=Get18B20Ack();//执行总线复位，并获取18B20应答
+  99   1          if(ack==0)
+ 100   1          {
+ 101   2              Write18B20(0xCC);//跳过ROM操作
+ 102   2              Write18B20(0xBE);//发送读命令
+ 103   2              LSB=Read18B20();//读温度值的低字节
+ 104   2              MSB=Read18B20();//读温度值的高字节
+ 105   2              *temp=((int)MSB<<8)+LSB;//合成为16bit整型数
+ 106   2          }
+ 107   1          return ~ack;
+ 108   1      }
+C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:16:59 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION _DelayX10us (BEGIN)
+                                           ; SOURCE LINE # 9
+;---- Variable 't' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 10
+0000         ?C0003:
+                                           ; SOURCE LINE # 11
+                                           ; SOURCE LINE # 12
+0000 00                NOP     
+                                           ; SOURCE LINE # 13
+0001 00                NOP     
+                                           ; SOURCE LINE # 14
+0002 00                NOP     
+                                           ; SOURCE LINE # 15
+0003 00                NOP     
+                                           ; SOURCE LINE # 16
+0004 00                NOP     
+                                           ; SOURCE LINE # 17
+0005 00                NOP     
+                                           ; SOURCE LINE # 18
+0006 00                NOP     
+                                           ; SOURCE LINE # 19
+0007 00                NOP     
+                                           ; SOURCE LINE # 20
+0008 DFF6              DJNZ    R7,?C0003
+                                           ; SOURCE LINE # 21
+000A 22                RET     
+             ; FUNCTION _DelayX10us (END)
+
+             ; FUNCTION Get18B20Ack (BEGIN)
+                                           ; SOURCE LINE # 23
+                                           ; SOURCE LINE # 24
+                                           ; SOURCE LINE # 27
+0000 C2AF              CLR     EA
+                                           ; SOURCE LINE # 28
+0002 C2B2              CLR     IO_18B20
+                                           ; SOURCE LINE # 29
+0004 7F32              MOV     R7,#032H
+0006 120000      R     LCALL   _DelayX10us
+                                           ; SOURCE LINE # 30
+0009 D2B2              SETB    IO_18B20
+                                           ; SOURCE LINE # 31
+000B 7F06              MOV     R7,#06H
+000D 120000      R     LCALL   _DelayX10us
+                                           ; SOURCE LINE # 32
+0010 A2B2              MOV     C,IO_18B20
+0012 9200        R     MOV     ack,C
+0014         ?C0005:
+                                           ; SOURCE LINE # 33
+0014 30B2FD            JNB     IO_18B20,?C0005
+                                           ; SOURCE LINE # 34
+0017 D2AF              SETB    EA
+                                           ; SOURCE LINE # 35
+0019 A200        R     MOV     C,ack
+                                           ; SOURCE LINE # 36
+001B 22                RET     
+             ; FUNCTION Get18B20Ack (END)
+
+             ; FUNCTION _Write18B20 (BEGIN)
+                                           ; SOURCE LINE # 38
+C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:16:59 PAGE 4   
+
+;---- Variable 'dat' assigned to Register 'R6' ----
+0000 AE07              MOV     R6,AR7
+                                           ; SOURCE LINE # 39
+                                           ; SOURCE LINE # 41
+0002 C2AF              CLR     EA
+                                           ; SOURCE LINE # 42
+;---- Variable 'mask' assigned to Register 'R5' ----
+0004 7D01              MOV     R5,#01H
+0006         ?C0008:
+0006 ED                MOV     A,R5
+0007 601A              JZ      ?C0009
+                                           ; SOURCE LINE # 43
+                                           ; SOURCE LINE # 44
+0009 C2B2              CLR     IO_18B20
+                                           ; SOURCE LINE # 45
+000B 00                NOP     
+                                           ; SOURCE LINE # 46
+000C 00                NOP     
+                                           ; SOURCE LINE # 47
+000D 5E                ANL     A,R6
+000E 7004              JNZ     ?C0011
+                                           ; SOURCE LINE # 48
+0010 C2B2              CLR     IO_18B20
+0012 8002              SJMP    ?C0012
+0014         ?C0011:
+                                           ; SOURCE LINE # 50
+0014 D2B2              SETB    IO_18B20
+0016         ?C0012:
+                                           ; SOURCE LINE # 51
+0016 7F06              MOV     R7,#06H
+0018 120000      R     LCALL   _DelayX10us
+                                           ; SOURCE LINE # 52
+001B D2B2              SETB    IO_18B20
+                                           ; SOURCE LINE # 53
+001D ED                MOV     A,R5
+001E 25E0              ADD     A,ACC
+0020 FD                MOV     R5,A
+0021 80E3              SJMP    ?C0008
+0023         ?C0009:
+                                           ; SOURCE LINE # 54
+0023 D2AF              SETB    EA
+                                           ; SOURCE LINE # 55
+0025 22                RET     
+             ; FUNCTION _Write18B20 (END)
+
+             ; FUNCTION Read18B20 (BEGIN)
+                                           ; SOURCE LINE # 57
+;---- Variable 'dat' assigned to Register 'R6' ----
+                                           ; SOURCE LINE # 58
+                                           ; SOURCE LINE # 62
+0000 C2AF              CLR     EA
+                                           ; SOURCE LINE # 63
+;---- Variable 'mask' assigned to Register 'R5' ----
+0002 7D01              MOV     R5,#01H
+0004         ?C0014:
+0004 ED                MOV     A,R5
+0005 601E              JZ      ?C0015
+                                           ; SOURCE LINE # 64
+                                           ; SOURCE LINE # 65
+0007 C2B2              CLR     IO_18B20
+                                           ; SOURCE LINE # 66
+0009 00                NOP     
+C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:16:59 PAGE 5   
+
+                                           ; SOURCE LINE # 67
+000A 00                NOP     
+                                           ; SOURCE LINE # 68
+000B D2B2              SETB    IO_18B20
+                                           ; SOURCE LINE # 69
+000D 00                NOP     
+                                           ; SOURCE LINE # 70
+000E 00                NOP     
+                                           ; SOURCE LINE # 71
+000F 20B205            JB      IO_18B20,?C0017
+                                           ; SOURCE LINE # 72
+0012 F4                CPL     A
+0013 5206              ANL     AR6,A
+0015 8003              SJMP    ?C0018
+0017         ?C0017:
+                                           ; SOURCE LINE # 74
+0017 ED                MOV     A,R5
+0018 4206              ORL     AR6,A
+001A         ?C0018:
+                                           ; SOURCE LINE # 75
+001A 7F06              MOV     R7,#06H
+001C 120000      R     LCALL   _DelayX10us
+                                           ; SOURCE LINE # 76
+001F ED                MOV     A,R5
+0020 25E0              ADD     A,ACC
+0022 FD                MOV     R5,A
+0023 80DF              SJMP    ?C0014
+0025         ?C0015:
+                                           ; SOURCE LINE # 77
+0025 D2AF              SETB    EA
+                                           ; SOURCE LINE # 78
+0027 AF06              MOV     R7,AR6
+                                           ; SOURCE LINE # 79
+0029 22                RET     
+             ; FUNCTION Read18B20 (END)
+
+             ; FUNCTION Start18B20 (BEGIN)
+                                           ; SOURCE LINE # 81
+                                           ; SOURCE LINE # 82
+                                           ; SOURCE LINE # 84
+0000 120000      R     LCALL   Get18B20Ack
+0003 9200        R     MOV     ack,C
+                                           ; SOURCE LINE # 85
+0005 20000A            JB      ack,?C0020
+                                           ; SOURCE LINE # 86
+                                           ; SOURCE LINE # 87
+0008 7FCC              MOV     R7,#0CCH
+000A 120000      R     LCALL   _Write18B20
+                                           ; SOURCE LINE # 88
+000D 7F44              MOV     R7,#044H
+000F 120000      R     LCALL   _Write18B20
+                                           ; SOURCE LINE # 89
+0012         ?C0020:
+                                           ; SOURCE LINE # 90
+0012 A200        R     MOV     C,ack
+0014 B3                CPL     C
+                                           ; SOURCE LINE # 91
+0015 22                RET     
+             ; FUNCTION Start18B20 (END)
+
+             ; FUNCTION _Get18B20Temp (BEGIN)
+                                           ; SOURCE LINE # 93
+C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:16:59 PAGE 6   
+
+;---- Variable 'temp' assigned to Register 'R1/R2/R3' ----
+                                           ; SOURCE LINE # 94
+                                           ; SOURCE LINE # 98
+0000 120000      R     LCALL   Get18B20Ack
+0003 9200        R     MOV     ack,C
+                                           ; SOURCE LINE # 99
+0005 200022            JB      ack,?C0022
+                                           ; SOURCE LINE # 100
+                                           ; SOURCE LINE # 101
+0008 7FCC              MOV     R7,#0CCH
+000A 120000      R     LCALL   _Write18B20
+                                           ; SOURCE LINE # 102
+000D 7FBE              MOV     R7,#0BEH
+000F 120000      R     LCALL   _Write18B20
+                                           ; SOURCE LINE # 103
+0012 120000      R     LCALL   Read18B20
+;---- Variable 'LSB' assigned to Register 'R4' ----
+0015 AC07              MOV     R4,AR7
+                                           ; SOURCE LINE # 104
+0017 120000      R     LCALL   Read18B20
+;---- Variable 'MSB' assigned to Register 'R7' ----
+                                           ; SOURCE LINE # 105
+001A EF                MOV     A,R7
+001B FE                MOV     R6,A
+001C AD04              MOV     R5,AR4
+001E 7C00              MOV     R4,#00H
+0020 E4                CLR     A
+0021 2D                ADD     A,R5
+0022 FF                MOV     R7,A
+0023 EC                MOV     A,R4
+0024 3E                ADDC    A,R6
+0025 8FF0              MOV     B,R7
+0027 120000      E     LCALL   ?C?ISTPTR
+                                           ; SOURCE LINE # 106
+002A         ?C0022:
+                                           ; SOURCE LINE # 107
+002A A200        R     MOV     C,ack
+002C B3                CPL     C
+                                           ; SOURCE LINE # 108
+002D 22                RET     
+             ; FUNCTION _Get18B20Temp (END)
+
+C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:16:59 PAGE 7   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+P0 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0080H  1
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+P2 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A0H  1
+P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
+T0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
+T1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+T2 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
+IO_18B20 . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+Read18B20. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  dat. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0006H  1
+  mask . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0005H  1
+IE . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A8H  1
+_DelayX10us. . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  t. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+EXF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CEH  1
+RD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+ES . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ACH  1
+IP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B8H  1
+RI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+INT0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+CY . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D7H  1
+_Write18B20. . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  dat. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0006H  1
+  mask . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0005H  1
+TI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+INT1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+Start18B20 . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  ack. . . . . . . . . . . . . . . . .  AUTO     DATA   BIT      0000H  1
+RCAP2H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CBH  1
+PS . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BCH  1
+SP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0081H  1
+T2EX . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+OV . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D2H  1
+RCAP2L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CAH  1
+C_T2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C9H  1
+WR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+RCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CDH  1
+TCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CCH  1
+SBUF . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0099H  1
+PCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0087H  1
+SCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
+TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
+IE0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
+IE1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
+Get18B20Ack. . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  ack. . . . . . . . . . . . . . . . .  AUTO     DATA   BIT      0000H  1
+B. . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F0H  1
+CP_RL2 . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C8H  1
+ACC. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E0H  1
+_Get18B20Temp. . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  temp . . . . . . . . . . . . . . . .  * REG *  DATA   PTR      0001H  3
+  ack. . . . . . . . . . . . . . . . .  AUTO     DATA   BIT      0000H  1
+  LSB. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0004H  1
+  MSB. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:16:59 PAGE 8   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
+ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
+TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
+ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
+TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
+TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
+RB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009AH  1
+TH0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008CH  1
+EX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A8H  1
+IT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0088H  1
+TH1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008DH  1
+TB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009BH  1
+EX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AAH  1
+IT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008AH  1
+TH2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CDH  1
+P. . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D0H  1
+SM0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+TL0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008AH  1
+SM1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
+TL1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008BH  1
+SM2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+TL2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CCH  1
+PT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
+PT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BBH  1
+RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
+PT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BDH  1
+TR0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008CH  1
+RS1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D4H  1
+TR1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008EH  1
+TR2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CAH  1
+PX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B8H  1
+PX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BAH  1
+DPH. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0083H  1
+DSPORT . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+DPL. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0082H  1
+EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
+REN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
+T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
+RXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+TXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
+PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    187    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       3
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -9,9 +9,8 @@
             ],
             "defines": [
                 "${default}",
-                "__UVISION_VERSION=526",
-                "__C51__",
-                "__VSCODE_CPPTOOL"
+                "__VSCODE_CPPTOOL",
+                "__UVISION_VERSION=526"
             ],
             "intelliSenseMode": "${default}",
             "browse": {
@@ -19,7 +18,7 @@
                 "databaseFilename": "${default}"
             },
             "forcedInclude": [
-                "c:\\Users\\fanfanfan\\.vscode\\extensions\\cl.eide-2.5.5\\bin\\include\\internal_headers\\c51_intr.h"
+                "c:\\Users\\fanfanfan\\.vscode\\extensions\\cl.eide-2.5.7\\bin\\include\\internal_headers\\c51_intr.h"
             ]
         }
     ],

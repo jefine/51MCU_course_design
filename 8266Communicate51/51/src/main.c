@@ -17,7 +17,7 @@ void main(){
     {       
         sendtemp();//温度值传送
 		//DigDisplay();//数码管显示函数
-
+        
         sendprad();//光敏值传送
         Delay1ms(10);
     }

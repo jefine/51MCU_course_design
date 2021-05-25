@@ -1,267 +1,204 @@
-#include <reg52.h>
-#define uchar unsigned char
-#define uint unsigned int
-sbit DQ = P1 ^ 0;
-sbit key2 = P3 ^ 2;
-sbit key3 = P3 ^ 3;
-sbit P3_4 = P3 ^ 4;
-sbit P3_5 = P3 ^ 5;
-float ff;
-uint y3, last;
-uchar shi, ge, xiaoshu, yushe = 25;
-uchar code dispcode[] = {
-    0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71}; //段码
-uchar code tablel[] = {
-    0xbf, 0x86, 0xdb, 0xcf, 0xe6, 0xed, 0xfd, 0x87, 0xff, 0xef}; //带小数点的段码
-uchar dispbitcode[] = {0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x7f};
-uchar dispbuf[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-void Delay(uint num) //延时函数
+#include<reg52.h>
+
+sbit IN1=P2^7;
+sbit IN2=P2^6;
+sbit ENA=P2^5;
+
+bit flag1s=0;//1s定时标志
+unsigned char T0RH=0;
+unsigned char T0RL=0;
+
+int temp;//读取到的当前温度值
+unsigned char len;
+int intT,decT;//温度值的整数和小数部分
+unsigned char str[12];
+
+void Compare();
+void GetTemp();
+void ConfigTimer0(unsigned int ms);
+unsigned char IntToString(unsigned char *str,int dat);
+extern bit Start18B20();
+extern bit Get18B20Temp(int *temp);
+extern void InitLcd1602();
+extern void LcdShowStr(unsigned char x,unsigned char y,unsigned char *str);
+
+void main()
 {
-    while (--num)
-        ;
+	bit res;
+
+	EA=1;
+	ConfigTimer0(10);//T0定时10ms
+	Start18B20();//启动DS18B20
+	InitLcd1602();//初始化液晶
+
+	while(1)
+	{		
+		if(flag1s)//每秒更新一次温度
+		{
+			flag1s=0;
+			res=Get18B20Temp(&temp);//读取当前温度
+			if(res)//读取成功时，刷新当前温度显示
+			{
+				GetTemp();
+			
+				LcdShowStr(0,0,"Welcome to use");//显示字符及温度值
+				LcdShowStr(0,1,"Current T:");
+				LcdShowStr(10,1,str);
+					Compare();
+			}
+			else //读取失败时，提示错误信息
+			{
+				LcdShowStr(0,0,"error!");
+
+			}
+			Start18B20();//重新启动下一次转换					 
+		}
+	}
 }
-void digitalshow(uchar a4, uchar a3, uchar a2, uchar a1, uchar a0)
+/*温度获取函数，获取当前环境温度值并保存在str数组中*/
+void GetTemp()
 {
-    dispbuf[0] = a0;
-    dispbuf[1] = a1;
-    dispbuf[2] = a2;
-    dispbuf[3] = a3;
-    dispbuf[4] = a4;
-    P2 = 0xff;
-    P0 = dispcode[dispbuf[0]];
-    P2 = dispbitcode[5];
-    Delay(1);
-    P2 = 0xff;
-    P0 = dispcode[dispbuf[1]];
-    P2 = dispbitcode[4];
-    Delay(1);
-    P2 = 0xff;
-    P0 = dispcode[dispbuf[2]];
-    P2 = dispbitcode[2];
-    Delay(1);
-    P2 = 0xff;
-    P0 = tablel[dispbuf[3]];
-    P2 = dispbitcode[1];
-    Delay(1);
-    P2 = 0xff;
-    P0 = dispcode[dispbuf[4]];
-    P2 = dispbitcode[0];
-    Delay(1);
+
+	intT=temp>>4;//分离出温度值整数部分
+	decT=temp &0x0F;//分离出温度值小数部分
+			
+	len=IntToString(str,intT);//整数部分转换成字符串
+			
+	str[len++]='.';
+	decT=(decT*10)/16;//二进制的小数部分转换为1位十进制位
+	str[len++]=decT+'0';//十进制小数位再转换为ASCII字符
+	while(len<6)//用空格补齐到6个字符长度
+	{
+		str[len++]=' ';
+	}
+	str[len++]='\0';
 }
-void dmsec(uint count)
+/*延时函数，用于PWM控制*/
+void delay(unsigned int z)
 {
-    uint i; //1ms延时
-    while (count--)
-    {
-        for (i = 0; i < 125; i++)
-        {
-        }
-    }
+	unsigned int x,y;
+	for(x=z;x>0;x--)
+		for(y=110;y>0;y--);
+} 
+/*比较函数，通过温度值的比较设置电机的转速*/
+void Compare()
+{
+	unsigned int i=0;
+	unsigned char j;
+
+	if((intT>= 24) && (intT<26))   //以两度为一个温差范围，并设温度范围索引
+	{
+		j=0;	
+	}
+	else if((intT>=26) &&(intT<28))
+	{
+		j=1;
+	}
+	else if((intT>=28) &&(intT<30))
+	{
+		j=2;
+	}
+	else if(intT>=30)
+	{
+		j=3;
+	}
+	switch(j)		  //根据温度索引设置电机转速
+	{
+		case 0:	IN1=1;
+				IN2=0;
+		  		for(i=0;i<200;i++)
+	      		{
+					ENA=1;
+	     			delay(20);
+	      		    ENA=0;
+					delay(30);
+				}
+				break;
+	
+		case 1:	IN1=1;
+				IN2=0;
+		  		for(i=0;i<200;i++)
+	      		{
+					ENA=1;
+	     			delay(30);
+	      		    ENA=0;
+					delay(30);
+				}
+				break;	 
+	
+		case 2:	IN1=1;
+				IN2=0;
+		  		for(i=0;i<200;i++)
+	      		{
+					ENA=1;
+	     			delay(55);			 
+	      		    ENA=0;
+					delay(30);
+				}
+				break;	 
+							
+		case 3:	IN1=1;
+				IN2=0;
+		  	    ENA=1;
+				break;
+
+		default:break;	 	 
+	}
+}  
+
+/*整型数转换为字符串，str-字符串指针，dat-待转换数，返回值-字符串长度*/
+unsigned char IntToString(unsigned char *str,int dat)
+{
+	signed char i=0;
+	unsigned char len=0;
+	unsigned char buf[6];
+
+	if(dat<0)//如果为负数，首先取绝对值，并在指针上添加负号
+	{
+	 	dat=-dat;
+		*str++='-';
+		len++;
+	}
+	do{	   //先转换为低位在前的十进制数组
+		buf[i++]=dat%10;
+		dat /=10;
+	}while(dat>0);
+	len += i;//i最后的值就是有效字符的个数
+	while(i-->0)//将数组值转换为ASCII码反向拷贝到接收指针上
+	{
+		*str++=buf[i]+'0';
+	}
+	*str='\0';
+	return len;
 }
-void tmreset(void)
+void ConfigTimer0(unsigned int ms)
 {
-    DQ = 0;
-    Delay(90); //精确延时 大于480微秒
-    DQ = 1;
-    Delay(4); //90,4可以小范围变化
+	unsigned long tmp;
+
+	tmp=11059200/12;
+	tmp=(tmp*ms)/1000;
+	tmp=65536-tmp;
+	tmp=tmp+12;
+	T0RH=(unsigned char)(tmp>>8);
+	T0RL=(unsigned char)tmp;
+	TMOD &= 0xF0;
+	TMOD |= 0x01;
+	TH0=T0RH;
+	TL0=T0RL;
+	ET0=1;
+	TR0=1;
 }
-void tmpre(void)
+void InterruptTimer0() interrupt 1
 {
-    while (DQ)
-        ;
-    while (~DQ)
-        ;
-    Delay(4);
-}
-bit tmrbit(void)
-{
-    uint i;
-    bit dat;
-    DQ = 0;
-    i++; //i++;大概1微秒
-    DQ = 1;
-    i++;
-    i++;
-    dat = DQ;
-    Delay(8);
-    return (dat);
-}
-uchar tmrbyte(void) //读一个比特
-{
-    uchar i, j, dat;
-    dat = 0;
-    for (i = 1; i <= 8; i++)
-    {
-        j = tmrbit();
-        dat = (j << 7) | (dat >> 1);
-        ;
-    }
-    return (dat);
-}
-void tmwbyte(uchar dat) //写一个比特
-{
-    uint i;
-    uchar j;
-    bit testb;
-    for (j = 1; j <= 8; j++)
-    {
-        testb = dat & 0x01;
-        dat = dat >> 1; //从低位开始
-        if (testb)      //write 1
-        {
-            DQ = 0; //先拉低
-            i++;
-            i++; //>1微秒
-            DQ = 1;
-            Delay(4);
-        }
-        else //write 0
-        {
-            DQ = 0;
-            Delay(4);
-            DQ = 1;
-            i++;
-            i++; //再拉高
-        }
-    }
-}
-void tmstart(void) //ds1820开始转换
-{
-    dmsec(1);
-    tmreset();
-    tmpre();
-    dmsec(1);
-    tmwbyte(0xcc);
-    // rom
-            tmwbyte(0x44); //转换
-}
-uchar tmrtemp(void) //读取温度
-{
-    uchar a, b;
-    tmreset();
-    tmpre();
-    dmsec(1);
-    tmwbyte(0xcc);
-    // rom
-            tmwbyte(0xbe); //转换
-    a = tmrbyte();         //LSB低八位
-    b = tmrbyte();         //MSB高8位
-    y3 = b;
-    y3 <<= 8;
-    y3 = y3 | a;
-    ff = y3 * 0.0625;
-    y3 = ff * 10 + 0.5;
-    return (y3);
-}
-void keyscan(void)
-{
-    if (key2 == 0)
-    {
-        dmsec(5);
-        if (key2 == 0)
-        {
-            yushe++;
-            if (yushe == 100)
-                yushe = 25;
-        }
-        while (!key2)
-            ;
-    }
-    else if (key3 == 0)
-    {
-        dmsec(5);
-        if (key3 == 0)
-        {
-            yushe--;
-            if (yushe == 0)
-                yushe = 25;
-        }
-        while (!key3)
-            ;
-    }
-}
-void time0_int(void) interrupt 1 //定时器T0产生不同占空比的PWM
-{
-    uint tmp;
-    static unsigned char j;
-    TH0 = (65536 - 50000) / 256;
-    TL0 = (65536 - 50000) % 256;
-    j = j + 1;
-    if (tmp <= yushe)
-    {
-        P3_4 = 0;
-        j = 0; //占空比00%
-    }
-    else if ((tmp > yushe) && (tmp <= (yushe + 5)))
-    {
-        if (j == 4)
-            P3_4 = 0;
-        else if (j == 20)
-            P3_4 = 1;
-        j = 0;
-    } //占空比为20%
-    else if ((tmp > (yushe + 5)) && (tmp <= (yushe + 10)))
-    {
-        if (j == 8)
-            P3_4 = 0;
-        else if (j == 20)
-            P3_4 = 0;
-        else if (j == 20)
-            P3_4 = 1;
-        j = 0;
-    } //占空比为40%
-    else if ((tmp > (yushe + 10)) && (tmp <= (yushe + 15)))
-    {
-        if (j == 12)
-            P3_4 = 0;
-        else if (j == 20)
-            P3_4 = 1;
-        j = 0;
-    } //占空比为60%
-    else if ((tmp > (yushe + 15)) && (tmp <= (yushe + 20)))
-    {
-        if (j == 16)
-            P3_4 = 0;
-        else if (j == 20)
-            P3_4 = 1;
-        j = 0;
-    } //占空比为80%
-    else if (tmp > (yushe + 20))
-        P3_4 = 1;
-    j = 0; //占空比为100%
-}
-/******
-void time1_int(void)interrupt 1//定时器T1产生频率为22KHz的驱蚊超声波{
-P3^5 != P3_5;
-TH0=(65536-2500)/256;
-TL0=(65536-2500)%256;
-}**/
-void main(void)
-{
-    TMOD = 0101; //定时器初始化
-    TH0 = (65536 - 50000) / 256;
-    TL0 = (65536 - 50000) % 256;
-    TH1 = (65536 - 50000) / 256;
-    TL0 = (65536 - 50000) % 256;
-    EA = 1;
-    ET0 = 1;
-    ET1 = 1;
-    TR0 = 1;
-    TR1 = 1;
-    //uint last;
-    tmstart();
-    dmsec(450); //初始化ds18b20
-    while (1)
-    {
-        tmstart(); //ds1820开始转换
-        dmsec(2);
-        last = tmrtemp() + 256; //读取温度
-        shi = last / 100;
-        ge = (last % 100) / 10;
-        xiaoshu = (last % 100) % 10;
-        digitalshow(shi, ge, xiaoshu, yushe / 10, yushe % 10);
-        keyscan();
-        dmsec(2);
-        //deal(last/10);
-    }
+	static unsigned char tmr1s=0;
+
+	TH0=T0RH;
+	TL0=T0RL;
+	tmr1s++;
+	if(tmr1s>=100)
+	{
+		tmr1s=0;
+		flag1s=1;
+	}		 
+
 }
