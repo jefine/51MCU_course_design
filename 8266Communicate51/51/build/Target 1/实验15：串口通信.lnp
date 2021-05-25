@@ -1,3 +1,0 @@
-
-".\build\Target 1\main.o" TO ".\build\Target 1\实验15：串口通信"
-PRINT(".\build\Target 1\实验15：串口通信.map") REMOVEUNUSED

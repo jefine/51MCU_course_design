@@ -4,8 +4,8 @@
             "name": "win32",
             "includePath": [
                 "${default}",
-                "E:\\keil\\C51\\INC\\Atmel",
-                "E:\\keil\\C51\\INC"
+                "E:\\mdkArmkeil5\\C51\\INC",
+                ".\\src"
             ],
             "defines": [
                 "${default}",
@@ -19,7 +19,7 @@
                 "databaseFilename": "${default}"
             },
             "forcedInclude": [
-                "c:\\Users\\fanfanfan\\.vscode\\extensions\\cl.eide-2.5.4\\bin\\include\\internal_headers\\c51_intr.h"
+                "c:\\Users\\fanfanfan\\.vscode\\extensions\\cl.eide-2.5.5\\bin\\include\\internal_headers\\c51_intr.h"
             ]
         }
     ],
