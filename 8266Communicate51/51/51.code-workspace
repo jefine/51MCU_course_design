@@ -21,7 +21,9 @@
             "public.h": "c",
             "string": "c",
             "xpt2046.h": "c",
-            "lcd.h": "c"
+            "lcd.h": "c",
+            "TEMPE.C": "cpp",
+            "PUBLIC.C": "cpp"
         }
     }
 }

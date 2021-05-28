@@ -1,3 +1,9 @@
 [2021-05-25 16:16:59]	compilation failed at : "f:\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\Lcd1602.c", exit code: 2
    在 unify_builder.Program.Main(String[] args)
 
+[2021-05-25 16:43:59]	compilation failed at : "f:\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\Lcd1602.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-05-25 16:44:09]	[done]
+	build successfully !
+

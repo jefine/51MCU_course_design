@@ -7,7 +7,7 @@
 sbit DSPORT=P3^7;
 
 //--声明全局函数--//
-void Delay1ms(uint );
+void Delay1ms(unsigned int );
 unsigned char Ds18b20Init();
 void Ds18b20WriteByte(unsigned char com);
 unsigned char Ds18b20ReadByte();

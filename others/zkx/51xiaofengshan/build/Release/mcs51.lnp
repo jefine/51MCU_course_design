@@ -1,3 +1,3 @@
 
-.\build\Release\main.o TO .\build\Release\mcs51
+.\build\Release\DS18B20.o,.\build\Release\Lcd1602.o,.\build\Release\main.o TO .\build\Release\mcs51
 PRINT(.\build\Release\mcs51.map) REMOVEUNUSED

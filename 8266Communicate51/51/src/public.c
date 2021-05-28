@@ -107,7 +107,6 @@ void sendtemp(){
 
 void sendprad(){
 	int temp;
-	static unsigned int i;
 	temp = Read_AD_Data(0xA4);		// 光敏电阻
 	DataPackage_XPT2046[8] = (char)(temp/1000)+'0';//千位
 	DataPackage_XPT2046[9] = (char)(temp%1000/100)+'0';//百位

@@ -1,4 +1,4 @@
-LX51 LINKER/LOCATER V4.66.87.0                                                          05/20/2021  19:48:39  PAGE 1
+LX51 LINKER/LOCATER V4.66.87.0                                                          05/25/2021  20:31:45  PAGE 1
 
 
 LX51 LINKER/LOCATER V4.66.87.0, INVOKED BY:
@@ -59,7 +59,7 @@ ACTIVE MEMORY CLASSES OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 BASE        START       END         USED      MEMORY CLASS
 ==========================================================
 C:000000H   C:000000H   C:00FFFFH   000BACH   CODE
-I:000000H   I:000000H   I:00007FH   000053H   DATA
+I:000000H   I:000000H   I:00007FH   000051H   DATA
 C:000000H   C:000000H   C:00FFFFH   00003CH   CONST
 I:000000H   I:000000H   I:0000FFH   000001H   IDATA
 
@@ -67,7 +67,7 @@ I:000000H   I:000000H   I:0000FFH   000001H   IDATA
 MEMORY MAP OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/20/2021  19:48:39  PAGE 2
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 2
 
 
 START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
@@ -77,8 +77,8 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 000000H   000007H   000008H   ---    AT..     DATA           "REG BANK 0"
 000008H   000037H   000030H   BYTE   UNIT     DATA           ?DT?UART
 000038H   000047H   000010H   BYTE   UNIT     DATA           _DATA_GROUP_
-000048H   000052H   00000BH   BYTE   UNIT     DATA           ?DT?PUBLIC
-000053H   000053H   000001H   BYTE   UNIT     IDATA          ?STACK
+000048H   000050H   000009H   BYTE   UNIT     DATA           ?DT?PUBLIC
+000051H   000051H   000001H   BYTE   UNIT     IDATA          ?STACK
 
 * * * * * * * * * * *   C O D E   M E M O R Y   * * * * * * * * * * * * *
 000000H   000002H   000003H   ---    OFFS..   CODE           ?CO??C_STARTUP?0
@@ -135,7 +135,7 @@ FUNCTION/MODULE                BIT_GROUP   DATA_GROUP
 USART/UART                    ----- -----  ----- -----
   +--> RECEIVESTRING/UART
   +--> DEAL_UART_RECDATA/UART
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/20/2021  19:48:39  PAGE 3
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 3
 
 
 
@@ -203,7 +203,7 @@ DS18B20INIT/TEMPE             ----- -----  ----- -----
 
 _DELAY1MS/TEMPE               ----- -----  ----- -----
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/20/2021  19:48:39  PAGE 4
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 4
 
 
 DS18B20READTEMPCOM/TEMPE      ----- -----  ----- -----
@@ -271,7 +271,7 @@ PUBLIC SYMBOLS OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       01000996H   CODE     ---       _CompareCMD_tail
       010004CAH   CODE     ---       _dataprosTemp
 *DEL*:00000000H   CODE     ---       _delay
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/20/2021  19:48:39  PAGE 5
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 5
 
 
       01000ABEH   CODE     ---       _Delay1ms
@@ -288,7 +288,7 @@ PUBLIC SYMBOLS OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       00000028H   DATA     ---       DataPackage_XPT2046
       01000874H   CODE     ---       Deal_UART_RecData
 *DEL*:00000000H   CODE     ---       DigDisplay
-      0000004BH   DATA     ---       DisplayData
+      00000049H   DATA     ---       DisplayData
       01000B9DH   CODE     ---       Ds18b20ChangTemp
       01000A9AH   CODE     ---       Ds18b20Init
       01000914H   CODE     ---       Ds18b20ReadByte
@@ -297,7 +297,7 @@ PUBLIC SYMBOLS OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       01000ADCH   CODE     ---       Init_USART
       01000B48H   CODE     ---       LcdInit
       01000003H   CODE     ---       main
-      0000004AH   DATA     CHAR      num
+      00000048H   DATA     CHAR      num
       010009CAH   CODE     ---       ReceiveString
       00000008H   DATA     ---       RecvString_buf
       010005C6H   CODE     ---       sendprad
@@ -339,7 +339,7 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       LCD
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/20/2021  19:48:39  PAGE 6
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 6
 
 
       0100080AH   PUBLIC    CODE     ---       _LcdDisplayPrad
@@ -395,8 +395,8 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       PUBLIC
-      0000004BH   PUBLIC    DATA     ---       DisplayData
-      0000004AH   PUBLIC    DATA     CHAR      num
+      00000049H   PUBLIC    DATA     ---       DisplayData
+      00000048H   PUBLIC    DATA     CHAR      num
       01000BDFH   PUBLIC    CONST    ---       smgduan
       010005C6H   PUBLIC    CODE     ---       sendprad
       0100065EH   PUBLIC    CODE     ---       sendtemp
@@ -407,7 +407,7 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       0000003CH   SYMBOL    DATA     VOID      tp
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/20/2021  19:48:39  PAGE 7
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 7
 
 
 
@@ -420,7 +420,6 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       010005C6H   BLOCK     CODE     ---       LVL=0
       010005C6H   BLOCK     CODE     NEAR LAB  LVL=1
       00000002H   SYMBOL    DATA     VOID      temp
-      00000048H   SYMBOL    DATA     VOID      i
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
@@ -475,10 +474,10 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       00000006H   SYMBOL    DATA     VOID      temp
       00000007H   SYMBOL    DATA     VOID      tmh
       0000003CH   SYMBOL    DATA     VOID      tml
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/20/2021  19:48:39  PAGE 8
-
-
       ---         BLOCKEND  ---      ---       LVL=1
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 8
+
+
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       UART
@@ -543,8 +542,8 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
       ---         MODULE    ---      ---       ?C?CASTF
       01000262H   PUBLIC    CODE     ---       ?C?CASTF
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/20/2021  19:48:39  PAGE 9
 
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 9
 
 
       ---         MODULE    ---      ---       ?C?FPGETOPN
@@ -582,5 +581,5 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         MODULE    ---      ---       ?C?UIDIV
       01000475H   PUBLIC    CODE     ---       ?C?UIDIV
 
-Program Size: data=84.0 xdata=0 const=60 code=2988
+Program Size: data=82.0 xdata=0 const=60 code=2988
 LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

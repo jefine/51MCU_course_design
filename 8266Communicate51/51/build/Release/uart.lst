@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 1   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE UART
@@ -62,7 +62,7 @@ line level    source
   47   2              num++;
   48   2              RecStr++;
   49   2              while(!RI)
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 2   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 2   
 
   50   2              {
   51   3                  count++;
@@ -126,7 +126,7 @@ line level    source
  108   3                      switch(RecvString_buf[2])        //识别发送者设备ID的第2位数字
  109   3                      {
  110   4                          case '1':
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 3   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 3   
 
  111   4                              if(CompareCMD_head("Ligt"))    //判断指令头部是否为"Ligt"
  112   4                              {
@@ -189,7 +189,7 @@ line level    source
  167   2          }
  168   1          RI=0;  //接收并处理一次数据后把接收中断标志清除一下，拒绝响应在中断接收忙的时候发来的请求
  169   1      }
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 4   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 4   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
@@ -253,7 +253,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 44
 000F C298              CLR     RI
                                            ; SOURCE LINE # 45
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 5   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 5   
 
 0011 C3                CLR     C
 0012 EF                MOV     A,R7
@@ -317,7 +317,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 71
 0018 D2AC              SETB    ES
                                            ; SOURCE LINE # 72
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 6   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 6   
 
 001A D2AF              SETB    EA
                                            ; SOURCE LINE # 73
@@ -381,7 +381,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0008 8B00        R     MOV     CMD_tail,R3
 000A 8A00        R     MOV     CMD_tail+01H,R2
 000C 8900        R     MOV     CMD_tail+02H,R1
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 7   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 7   
 
 ;---- Variable 'quality' assigned to Register 'R5' ----
                                            ; SOURCE LINE # 89
@@ -445,7 +445,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 105
 000C E500        R     MOV     A,RecvString_buf+01H
 000E 24D0              ADD     A,#0D0H
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 8   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 8   
 
 0010 7048              JNZ     ?C0044
                                            ; SOURCE LINE # 106
@@ -507,9 +507,9 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0049 7900        R     MOV     R1,#LOW ?SC_13
 004B 120000      R     LCALL   _PutString
                                            ; SOURCE LINE # 131
-004E B2A5              CPL     led5
+004E B2A1              CPL     led5
                                            ; SOURCE LINE # 132
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 9   
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 9   
 
 0050 D3                SETB    C
 0051 22                RET     
@@ -573,7 +573,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 161
 001E 120000      R     LCALL   Deal_UART_RecData
                                            ; SOURCE LINE # 162
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 10  
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 10  
 
 0021 8002              SJMP    ?C0046
 0023         ?C0045:
@@ -599,7 +599,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 003D 32                RETI    
              ; FUNCTION USART (END)
 
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 11  
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 11  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -662,7 +662,7 @@ ReceiveString. . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
   RecStr . . . . . . . . . . . . . . .  * REG *  DATA   PTR      0001H  3
   num. . . . . . . . . . . . . . . . .  * REG *  DATA   CHAR     0007H  1
   count. . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0006H  1
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 12  
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 12  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -712,7 +712,7 @@ LSC. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A4H  1
 EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
 REN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
 T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
-led5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A5H  1
+led5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A1H  1
 RXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
 TXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
 F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
@@ -726,7 +726,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    PDATA SIZE       =   ----    ----
    DATA SIZE        =     48       7
    IDATA SIZE       =   ----    ----
-C51 COMPILER V9.57.0.0   UART                                                              05/20/2021 19:48:38 PAGE 13  
+C51 COMPILER V9.57.0.0   UART                                                              05/25/2021 20:31:45 PAGE 13  
 
    BIT SIZE         =   ----    ----
    EDATA SIZE       =   ----    ----
