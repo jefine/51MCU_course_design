@@ -2,8 +2,9 @@
 #include "public.h"
 #include "uart.h"
 #include "lcd.h"
+#include <string.h>
 char RecvString_buf[16];
-
+int number=0;
 //char HeartBeat[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','B','e','a','t','X','X','X','X','X','X','#'};            //ÎÒËæ±ã¶¨ÒåÁËÒ»¸öÊı¾İ°üÓÃÀ´×ö"ĞÄÌø°ü"£¬±ÈÈçµ¥Æ¬»úÏµÍ³ÏòµçÄÔÃ¿2Ãë·¢ËÍÒ»´Î¸ÃÊı¾İ°ü£¬Èç¹ûµçÄÔÃ»ÓĞ°´Ê±½ÓÊÕµ½£¬¾ÍÈÏÎªµ¥Æ¬»úËÀµôÁË
 char DataPackage_DS18B20[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','T','e','m','p','X','X','X','X','X','X','#'};    //Õâ¸öÊÇÔø¾­ÓÃÀ´¿ØÖÆÎÂ¶È´«¸ĞÄ£¿é£¨DS18B20£©µÄÊı¾İ°ü
 char DataPackage_XPT2046[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','P','r','a','d','X','X','X','X','X','X','#'};    //Õâ¸öÊÇÓÃÀ´¿ØÖÆ¹âÃôµç×èµÄÊı¾İ°ü
@@ -45,26 +46,30 @@ bit ReceiveString()
     unsigned char count=0;
     loop:
     *RecStr=SBUF;
+    if(RecvString_buf[0]!=datapackage_headflag)return 0;
     count=0;
     RI=0;
     if(num<14)  //Êı¾İ°ü³¤¶ÈÎª15¸ö×Ö·û,³¢ÊÔÁ¬Ğø½ÓÊÕ15¸ö×Ö·û
     {
-        num++
-0        RecStr++;
+        num++;
+        RecStr++;
         while(!RI)
         {
-            count++;
-            if(count>130)return 0;    //½ÓÊÕÊı¾İµÈ´ıÑÓ³Ù£¬µÈ´ıÊ±¼äÌ«¾Ã»áµ¼ÖÂCPUÔËËãÏĞÖÃ£¬Ì«¶Ì»á³öÏÖ"Êı¾İ°ü±»·Ö¸î",Ä¬ÈÏcount=130
+            // count++;
+            // if(count>130)return 0;    //½ÓÊÕÊı¾İµÈ´ıÑÓ³Ù£¬µÈ´ıÊ±¼äÌ«¾Ã»áµ¼ÖÂCPUÔËËãÏĞÖÃ£¬Ì«¶Ì»á³öÏÖ"Êı¾İ°ü±»·Ö¸î",Ä¬ÈÏcount=130
         }
         goto loop;
     }
-    if(RecvString_buf[11]=='f')//
-    PutString("\n it really has the String reveiced \n");
+    if(RecvString_buf[14]=='#'){
+     PutString("\n it really has the String reveiced \n");    
+     PutString(RecvString_buf);
+     return 1;
+    }
     
-    PutString("\n 51 Reveived String\n");
-    PutString(RecvString_buf);
+    return 0;
     
-    return 1;
+    
+    
 }
 //¶¨Ê±Æ÷1ÓÃ×÷²¨ÌØÂÊ·¢ÉúÆ÷
 void Init_USART()
@@ -110,8 +115,6 @@ bit CompareCMD_tail(unsigned char start,unsigned char quality,char CMD_tail[])
 }
 bit Deal_UART_RecData()   //´¦Àí´®¿Ú½ÓÊÕÊı¾İ°üº¯Êı£¨³É¹¦´¦ÀíÊı¾İ°üÔò·µ»Ø1£¬·ñÔò·µ»Ø0£©
 {
-    PutString("new String is :");
-    PutString(RecvString_buf);
     if(RecvString_buf[0]==datapackage_headflag && RecvString_buf[14]=='#')  //½øĞĞÊı¾İ°üÍ·Î²±ê¼ÇÑéÖ¤
     {
         PutString("the package is right");
@@ -135,17 +138,17 @@ bit Deal_UART_RecData()   //´¦Àí´®¿Ú½ÓÊÕÊı¾İ°üº¯Êı£¨³É¹¦´¦ÀíÊı¾İ°üÔò·µ»Ø1£¬·ñÔò·
                                             if(CompareCMD_tail(10,4,"Off_"))   //ÅĞ¶ÏÕû¸öÊı¾İ°üÊÇ·ñÎª£º$01_Ligt01Off_#
                                             {
                                                 delay(100);
-                                                PutString("\nreceived right led5 off\n");
-                                                led5 = 1;
+                                                PutString("\nreceived right led off\n");
+                                                led = 1;
                                                 return 1;
                                             }
                                             if(CompareCMD_tail(10,4,"On__"))    //ÅĞ¶ÏÕû¸öÊı¾İ°üÊÇ·ñÎª£º$01_Ligt01On__#
                                             {
                                                 delay(100);
-                                                PutString("\nreceived right led5 on\n");
+                                                PutString("\nreceived right led on\n");
                                                 // unsigned int tt = 100;
                                                 // while(tt--)
-                                                led5 = 0;
+                                                led = 0;
                                                 return 1;
                                             }
                                             return 0;
@@ -175,20 +178,11 @@ void USART() interrupt 4   //±êÖ¾Î»TIºÍRIĞèÒªÊÖ¶¯¸´Î»£¬TIºÍRIÖÃÎ»¹²ÓÃÒ»¸öÖĞ¶ÏÈë¿
     if(ReceiveString())
     {
         //Êı¾İ°ü³¤¶ÈÕıÈ·ÔòÖ´ĞĞÒÔÏÂ´úÂë
-        if(Deal_UART_RecData()){
-            PutString("\n Dealed it \n");
-        }
+        if(Deal_UART_RecData());
         else
         {
             PutString("\n error package \n");
         }
-        
-    }
-    else
-    {
-        //Êı¾İ°ü³¤¶È´íÎóÔòÖ´ĞĞÒÔÏÂ´úÂë
-        led=~led;
-        
     }
     RI=0;  //½ÓÊÕ²¢´¦ÀíÒ»´ÎÊı¾İºó°Ñ½ÓÊÕÖĞ¶Ï±êÖ¾Çå³ıÒ»ÏÂ£¬¾Ü¾øÏìÓ¦ÔÚÖĞ¶Ï½ÓÊÕÃ¦µÄÊ±ºò·¢À´µÄÇëÇó
 }

@@ -7,18 +7,18 @@
 
 void main(){
     Init_USART(); 
-    LcdInit();			 //初始化LCD1602
-	LcdWriteCom(0x88);	//写地址 80表示初始地址
+    LcdInit();			 //Init LCD1602
+	LcdWriteCom(0x88);	//80 is the first address
 	LcdWriteData('C');  
-    //数据包 样例
+    //Example to Esp8266
     //$02_Temp025.81#
     //$02_Prad0485XX#
     while(1)
     {       
-        sendtemp();//温度值传送
-		//DigDisplay();//数码管显示函数
+        sendtemp();
+		//DigDisplay();//smg send
         
-        sendprad();//光敏值传送
-        Delay1ms(10);
+        sendprad();//
+        Delay1ms(100);
     }
 }

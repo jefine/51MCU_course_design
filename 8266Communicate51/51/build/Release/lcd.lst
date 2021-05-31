@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 1   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE LCD
@@ -62,13 +62,13 @@ line level    source
   73          *******************************************************************************/           
   74          #ifndef     LCD1602_4PINS          
   75          void LcdWriteData(uchar dat)            //写入数据
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 2   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 2   
 
   76          {
   77   1          LCD1602_E = 0;  //使能清零
   78   1          LCD1602_RS = 1; //选择输入数据
   79   1          LCD1602_RW = 0; //选择写入
-  80   1      
+  80   1          
   81   1          LCD1602_DATAPINS = dat; //写入数据
   82   1          Lcd1602_Delay1ms(1);
   83   1      
@@ -126,7 +126,7 @@ line level    source
  166          
  167          void LcdDisplayPrad(char datas[]){
  168   1          char light[] = "light:";
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 3   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 3   
 
  169   1          unsigned int i;
  170   1          for ( i = 0; i < 6; i++)
@@ -143,7 +143,7 @@ line level    source
  181   1          
  182   1          
  183   1      }
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 4   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 4   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
@@ -207,7 +207,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 33
                                            ; SOURCE LINE # 34
 0007 C2A7              CLR     LCD1602_E
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 5   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 5   
 
                                            ; SOURCE LINE # 35
 0009 C2A6              CLR     LCD1602_RS
@@ -271,7 +271,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
              ; FUNCTION LcdInit (END)
 
              ; FUNCTION _LcdDisplayTemp (BEGIN)
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 6   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 6   
 
                                            ; SOURCE LINE # 137
 0000 8B00        R     MOV     datas,R3
@@ -335,7 +335,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 154
 0051 90000A            MOV     DPTR,#0AH
 0054 120000      R     LCALL   L?0029
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 7   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 7   
 
                                            ; SOURCE LINE # 156
 0057 7F88              MOV     R7,#088H
@@ -399,7 +399,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0027 FF                MOV     R7,A
 0028 120000      R     LCALL   _LcdWriteData
                                            ; SOURCE LINE # 174
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 8   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 8   
 
 002B 0500        R     INC     i+01H
 002D E500        R     MOV     A,i+01H
@@ -446,7 +446,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0069 22                RET     
              ; FUNCTION _LcdDisplayPrad (END)
 
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 9   
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 9   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -509,7 +509,7 @@ _Lcd1602_Delay1ms. . . . . . . . . . .  PUBLIC   CODE   PROC     0011H  -----
   b. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0005H  1
 CP_RL2 . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C8H  1
 ACC. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E0H  1
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 10  
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 10  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -573,7 +573,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    EDATA SIZE       =   ----    ----
    HDATA SIZE       =   ----    ----
    XDATA CONST SIZE =   ----    ----
-C51 COMPILER V9.57.0.0   LCD                                                               05/25/2021 20:31:44 PAGE 11  
+C51 COMPILER V9.57.0.0   LCD                                                               05/31/2021 21:01:02 PAGE 11  
 
    FAR CONST SIZE   =   ----    ----
 END OF MODULE INFORMATION.

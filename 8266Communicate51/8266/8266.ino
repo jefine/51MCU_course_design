@@ -59,31 +59,34 @@ void setup() {
   client.subscribe(mqtt_sub_topic);
 }
 void callback(char *topic, byte *payload, unsigned int length) {
-   Serial.print("Message arrived in topic: ");
-   Serial.println(topic);
-   Serial.print("Message:");
-   for (int i = 0; i < length; i++) {
-       Serial.print((char) payload[i]);
-   }
-   Serial.println();
+  //APP->8266
+   Serial.print("Message arrived ");
+  // Serial.print("in topic: "): 
+  // Serial.println(topic);
+  // Serial.print("Message:");
+  //  for (int i = 0; i < length; i++) {
+  //      Serial.print((char) payload[i]);
+  //  }
+   //Serial.println();
    message = String((char*)payload);
    //Serial.println("message is :"+message);
    message = message.substring(2,message.length()-4);
-   Serial.println("new message is:"+message);
+   //Serial.println("new message is:"+message);
    if(message.substring(0,7).equals("set_led")){
-     int t = (int)message.charAt(message.length()-1)-'0';
+     int t = (int)message.charAt(message.length()-2)-'0';
      digitalWrite(led,t);
-     Serial.println("MQTT set led");
+   // Serial.println("MQTT set led");
 
      if(t==0){
-     Serial.println("$01_LigtOn_#");
+     Serial.print("$01_Ligt01On__#");
      }
      if(t==1){
-     Serial.println("$01_LigtOff#");
+     Serial.print("$01_Ligt01Off_#");
      }
+     delay(1000);
    }
    
-   Serial.println("-----------------------");
+   //Serial.println("-----------------------");
 }
 
 void loop() {
@@ -92,16 +95,15 @@ void loop() {
   // Serial.println("first");
   
   if (stringComplete) {// 单片机已通过串口传送过来数据包
-    Serial.println(inputString.substring(1,inputString.length()-1));
-    // strncpy(commond, inputString+(strlen(inputString.toCharArray())-11) , 4);
+   // Serial.println(inputString.substring(1,inputString.length()-1));
     commond = inputString.substring(4,8);
     message = inputString.substring(8,inputString.length()-1);
-    Serial.println("commond is:"+commond);
+   // Serial.println("commond is:"+commond);
 
     switch (inputString[2]){
       case '2':{//means 51 to 8266
         if(commond.equals("Ligt")){
-          Serial.println("message.substring:"+message.substring(2));
+    //      Serial.println("message.substring:"+message.substring(2));
           if(message.substring(2).equals("On_"))
             digitalWrite(led,0);
           else
@@ -109,7 +111,7 @@ void loop() {
           Serial.println("Ligt is ok");
         }
         if(commond.equals("Temp")){
-            Serial.println("Temperature is got from 51");
+    //        Serial.println("Temperature is got from 51");
             char buf[7];
             message.toCharArray(buf,7,0);
             for (int i = 0; i < 7; i++)
@@ -121,7 +123,7 @@ void loop() {
             //send teperature by MQTT;
         }
         if(commond.equals("Prad")){
-          Serial.println("Photo sensor value is got from 51");
+     //     Serial.println("Photo sensor value is got from 51");
           char buf[5];
           message.toCharArray(buf,5,0);
           for (int i = 0; i < 5; i++)

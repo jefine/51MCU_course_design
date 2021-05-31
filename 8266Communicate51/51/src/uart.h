@@ -7,6 +7,7 @@ extern char RecvString_buf[16];            //定义数据包长度为15个字符
 #define datapackage_headflag '$'        //用于串口通信时，定义数据包头部的验证标记
 extern char DataPackage_DS18B20[16];
 extern char DataPackage_XPT2046[16];
+extern int number;
 //------------------串口通信的数据包协议-----------------//
 /*
     此程序的串口字符串通信使用到下面的一个自定义协议，每次通信都是发送或接收一个数据包，数据包格式解释如下(长度恒为15):

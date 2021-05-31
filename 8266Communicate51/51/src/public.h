@@ -15,8 +15,7 @@ extern uchar DisplayData[8];
 extern char num;
 extern uchar code smgduan[10];
 //led
-sbit led = P2^0; 
-sbit led5 = P2^1;
+sbit led = P2^1; 
 
 //138 ÊıÂë¹Ü
 sbit LSA=P2^2;

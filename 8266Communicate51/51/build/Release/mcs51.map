@@ -1,4 +1,4 @@
-LX51 LINKER/LOCATER V4.66.87.0                                                          05/25/2021  20:31:45  PAGE 1
+LX51 LINKER/LOCATER V4.66.87.0                                                          05/31/2021  21:01:03  PAGE 1
 
 
 LX51 LINKER/LOCATER V4.66.87.0, INVOKED BY:
@@ -58,16 +58,16 @@ ACTIVE MEMORY CLASSES OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
 BASE        START       END         USED      MEMORY CLASS
 ==========================================================
-C:000000H   C:000000H   C:00FFFFH   000BACH   CODE
-I:000000H   I:000000H   I:00007FH   000051H   DATA
-C:000000H   C:000000H   C:00FFFFH   00003CH   CONST
+C:000000H   C:000000H   C:00FFFFH   000C08H   CODE
+I:000000H   I:000000H   I:00007FH   000053H   DATA
+C:000000H   C:000000H   C:00FFFFH   0000A4H   CONST
 I:000000H   I:000000H   I:0000FFH   000001H   IDATA
 
 
 MEMORY MAP OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 2
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 2
 
 
 START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
@@ -75,10 +75,10 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 
 * * * * * * * * * * *   D A T A   M E M O R Y   * * * * * * * * * * * * *
 000000H   000007H   000008H   ---    AT..     DATA           "REG BANK 0"
-000008H   000037H   000030H   BYTE   UNIT     DATA           ?DT?UART
-000038H   000047H   000010H   BYTE   UNIT     DATA           _DATA_GROUP_
-000048H   000050H   000009H   BYTE   UNIT     DATA           ?DT?PUBLIC
-000051H   000051H   000001H   BYTE   UNIT     IDATA          ?STACK
+000008H   000039H   000032H   BYTE   UNIT     DATA           ?DT?UART
+00003AH   000049H   000010H   BYTE   UNIT     DATA           _DATA_GROUP_
+00004AH   000052H   000009H   BYTE   UNIT     DATA           ?DT?PUBLIC
+000053H   000053H   000001H   BYTE   UNIT     IDATA          ?STACK
 
 * * * * * * * * * * *   C O D E   M E M O R Y   * * * * * * * * * * * * *
 000000H   000002H   000003H   ---    OFFS..   CODE           ?CO??C_STARTUP?0
@@ -91,36 +91,36 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 00065EH   0006EFH   000092H   BYTE   UNIT     CODE           ?PR?SENDTEMP?PUBLIC
 0006F0H   00077DH   00008EH   BYTE   UNIT     CODE           ?PR?_LCDDISPLAYTEMP?LCD
 00077EH   000809H   00008CH   BYTE   UNIT     CODE           ?C_C51STARTUP
-00080AH   000873H   00006AH   BYTE   UNIT     CODE           ?PR?_LCDDISPLAYPRAD?LCD
-000874H   0008D1H   00005EH   BYTE   UNIT     CODE           ?PR?DEAL_UART_RECDATA?UART
-0008D2H   000913H   000042H   BYTE   UNIT     CODE           ?PR?_DS18B20WRITEBYTE?TEMPE
-000914H   000951H   00003EH   BYTE   UNIT     CODE           ?PR?DS18B20READBYTE?TEMPE
-000952H   00098FH   00003EH   BYTE   UNIT     CODE           ?PR?USART?UART
-000990H   0009C9H   00003AH   BYTE   UNIT     CODE           ?PR?_COMPARECMD_TAIL?UART
-0009CAH   0009F7H   00002EH   BYTE   UNIT     CODE           ?PR?RECEIVESTRING?UART
-0009F8H   000A23H   00002CH   BYTE   UNIT     CODE           ?PR?_COMPARECMD_HEAD?UART
-000A24H   000A4DH   00002AH   BYTE   UNIT     CODE           ?PR?_LCD1602_DELAY1MS?LCD
-000A4EH   000A75H   000028H   BYTE   UNIT     CODE           ?C_INITSEG
-000A76H   000A99H   000024H   BYTE   UNIT     CODE           ?PR?SPI_READ?XPT2046
-000A9AH   000ABDH   000024H   BYTE   UNIT     CODE           ?PR?DS18B20INIT?TEMPE
-000ABEH   000ADBH   00001EH   BYTE   UNIT     CODE           ?PR?_DELAY1MS?TEMPE
-000ADCH   000AF8H   00001DH   BYTE   UNIT     CODE           ?PR?INIT_USART?UART
-000AF9H   000B14H   00001CH   BYTE   UNIT     CODE           ?PR?_SPI_WRITE?XPT2046
-000B15H   000B2EH   00001AH   BYTE   UNIT     CODE           ?PR?_PUTSTRING?UART
-000B2FH   000B47H   000019H   BYTE   UNIT     CODE           ?PR?_READ_AD_DATA?XPT2046
-000B48H   000B60H   000019H   BYTE   UNIT     CODE           ?PR?LCDINIT?LCD
-000B61H   000B77H   000017H   BYTE   UNIT     CODE           ?PR?DS18B20READTEMP?TEMPE
-000B78H   000B8BH   000014H   BYTE   UNIT     CODE           ?PR?_LCDWRITEDATA?LCD
-000B8CH   000B9CH   000011H   BYTE   UNIT     CODE           ?PR?_LCDWRITECOM?LCD
-000B9DH   000BA4H   000008H   BYTE   UNIT     CODE           ?PR?DS18B20CHANGTEMP?TEMPE
-000BA5H   000BACH   000008H   BYTE   UNIT     CODE           ?PR?DS18B20READTEMPCOM?TEMPE
-000BADH   000BD1H   000025H   BYTE   UNIT     CONST          ?CO?UART
-000BD2H   000BDEH   00000DH   BYTE   UNIT     CONST          ?CO?LCD
-000BDFH   000BE8H   00000AH   BYTE   UNIT     CONST          ?CO?PUBLIC
+00080AH   00088AH   000081H   BYTE   UNIT     CODE           ?PR?DEAL_UART_RECDATA?UART
+00088BH   0008F4H   00006AH   BYTE   UNIT     CODE           ?PR?_LCDDISPLAYPRAD?LCD
+0008F5H   000941H   00004DH   BYTE   UNIT     CODE           ?PR?USART?UART
+000942H   00098AH   000049H   BYTE   UNIT     CODE           ?PR?RECEIVESTRING?UART
+00098BH   0009CCH   000042H   BYTE   UNIT     CODE           ?PR?_DS18B20WRITEBYTE?TEMPE
+0009CDH   000A0AH   00003EH   BYTE   UNIT     CODE           ?PR?DS18B20READBYTE?TEMPE
+000A0BH   000A44H   00003AH   BYTE   UNIT     CODE           ?PR?_COMPARECMD_TAIL?UART
+000A45H   000A70H   00002CH   BYTE   UNIT     CODE           ?C_INITSEG
+000A71H   000A9CH   00002CH   BYTE   UNIT     CODE           ?PR?_COMPARECMD_HEAD?UART
+000A9DH   000AC6H   00002AH   BYTE   UNIT     CODE           ?PR?_LCD1602_DELAY1MS?LCD
+000AC7H   000AEAH   000024H   BYTE   UNIT     CODE           ?PR?SPI_READ?XPT2046
+000AEBH   000B0EH   000024H   BYTE   UNIT     CODE           ?PR?DS18B20INIT?TEMPE
+000B0FH   000B2CH   00001EH   BYTE   UNIT     CODE           ?PR?_DELAY1MS?TEMPE
+000B2DH   000B49H   00001DH   BYTE   UNIT     CODE           ?PR?INIT_USART?UART
+000B4AH   000B65H   00001CH   BYTE   UNIT     CODE           ?PR?_SPI_WRITE?XPT2046
+000B66H   000B7FH   00001AH   BYTE   UNIT     CODE           ?PR?_PUTSTRING?UART
+000B80H   000B98H   000019H   BYTE   UNIT     CODE           ?PR?_READ_AD_DATA?XPT2046
+000B99H   000BB1H   000019H   BYTE   UNIT     CODE           ?PR?LCDINIT?LCD
+000BB2H   000BC8H   000017H   BYTE   UNIT     CODE           ?PR?DS18B20READTEMP?TEMPE
+000BC9H   000BDCH   000014H   BYTE   UNIT     CODE           ?PR?_LCDWRITEDATA?LCD
+000BDDH   000BEDH   000011H   BYTE   UNIT     CODE           ?PR?_LCDWRITECOM?LCD
+000BEEH   000BF8H   00000BH   BYTE   UNIT     CODE           ?PR?_DELAY?PUBLIC
+000BF9H   000C00H   000008H   BYTE   UNIT     CODE           ?PR?DS18B20CHANGTEMP?TEMPE
+000C01H   000C08H   000008H   BYTE   UNIT     CODE           ?PR?DS18B20READTEMPCOM?TEMPE
+000C09H   000C95H   00008DH   BYTE   UNIT     CONST          ?CO?UART
+000C96H   000CA2H   00000DH   BYTE   UNIT     CONST          ?CO?LCD
+000CA3H   000CACH   00000AH   BYTE   UNIT     CONST          ?CO?PUBLIC
 
 * * * * * * * * *   R E M O V E D     S E G M E N T S   * * * * * * * *
    *DEL*:           00000BH   BYTE   UNIT     CODE           ?PR?SPI_START?XPT2046
-   *DEL*:           00000BH   BYTE   UNIT     CODE           ?PR?_DELAY?PUBLIC
    *DEL*:           000059H   BYTE   UNIT     CODE           ?PR?DIGDISPLAY?PUBLIC
    *DEL*:           000001H   BYTE   UNIT     DATA           ?DT?DIGDISPLAY?PUBLIC
 
@@ -135,22 +135,27 @@ FUNCTION/MODULE                BIT_GROUP   DATA_GROUP
 USART/UART                    ----- -----  ----- -----
   +--> RECEIVESTRING/UART
   +--> DEAL_UART_RECDATA/UART
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 3
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 3
 
 
-
-RECEIVESTRING/UART            ----- -----  ----- -----
-
-DEAL_UART_RECDATA/UART        ----- -----  ----- -----
-  +--> _COMPARECMD_HEAD/UART
-  +--> _COMPARECMD_TAIL/UART
   +--> _PUTSTRING/UART
 
-_COMPARECMD_HEAD/UART         ----- -----  0038H 003AH
-
-_COMPARECMD_TAIL/UART         ----- -----  0038H 003BH
+RECEIVESTRING/UART            ----- -----  ----- -----
+  +--> _PUTSTRING/UART
 
 _PUTSTRING/UART               ----- -----  ----- -----
+
+DEAL_UART_RECDATA/UART        ----- -----  ----- -----
+  +--> _PUTSTRING/UART
+  +--> _COMPARECMD_HEAD/UART
+  +--> _COMPARECMD_TAIL/UART
+  +--> _DELAY/PUBLIC
+
+_COMPARECMD_HEAD/UART         ----- -----  003AH 003CH
+
+_COMPARECMD_TAIL/UART         ----- -----  003AH 003DH
+
+_DELAY/PUBLIC                 ----- -----  ----- -----
 
 *** NEW ROOT ****************
 
@@ -186,7 +191,7 @@ SENDTEMP/PUBLIC               ----- -----  ----- -----
   +--> _PUTSTRING/UART
   +--> _LCDDISPLAYTEMP/LCD
 
-DS18B20READTEMP/TEMPE         ----- -----  003CH 003CH
+DS18B20READTEMP/TEMPE         ----- -----  003EH 003EH
   +--> DS18B20CHANGTEMP/TEMPE
   +--> DS18B20READTEMPCOM/TEMPE
   +--> DS18B20READBYTE/TEMPE
@@ -194,26 +199,26 @@ DS18B20READTEMP/TEMPE         ----- -----  003CH 003CH
 DS18B20CHANGTEMP/TEMPE        ----- -----  ----- -----
   +--> _DS18B20WRITEBYTE/TEMPE
 
-_DS18B20WRITEBYTE/TEMPE       ----- -----  003DH 003EH
+_DS18B20WRITEBYTE/TEMPE       ----- -----  003FH 0040H
   +--> DS18B20INIT/TEMPE
   +--> _DELAY1MS/TEMPE
+
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 4
+
 
 DS18B20INIT/TEMPE             ----- -----  ----- -----
   +--> _DELAY1MS/TEMPE
 
 _DELAY1MS/TEMPE               ----- -----  ----- -----
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 4
-
-
 DS18B20READTEMPCOM/TEMPE      ----- -----  ----- -----
   +--> _DS18B20WRITEBYTE/TEMPE
 
 DS18B20READBYTE/TEMPE         ----- -----  ----- -----
 
-_DATAPROSTEMP/PUBLIC          ----- -----  003CH 003FH
+_DATAPROSTEMP/PUBLIC          ----- -----  003EH 0041H
 
-_LCDDISPLAYTEMP/LCD           ----- -----  003CH 0044H
+_LCDDISPLAYTEMP/LCD           ----- -----  003EH 0046H
   +--> _LCDWRITECOM/LCD
   +--> _LCDWRITEDATA/LCD
 
@@ -230,7 +235,7 @@ _SPI_WRITE/XPT2046            ----- -----  ----- -----
 
 SPI_READ/XPT2046              ----- -----  ----- -----
 
-_LCDDISPLAYPRAD/LCD           ----- -----  003CH 0047H
+_LCDDISPLAYPRAD/LCD           ----- -----  003EH 0049H
   +--> _LCDWRITECOM/LCD
   +--> _LCDWRITEDATA/LCD
 
@@ -266,46 +271,47 @@ PUBLIC SYMBOLS OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       01000475H   CODE     ---       ?C?UIDIV
       00000000H   NUMBER   ---       ?C?XDATASEG
       010007C5H   CODE     ---       ?C_START
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 5
+
+
       01000000H   CODE     ---       ?C_STARTUP
-      010009F8H   CODE     ---       _CompareCMD_head
-      01000996H   CODE     ---       _CompareCMD_tail
+      01000A71H   CODE     ---       _CompareCMD_head
+      01000A11H   CODE     ---       _CompareCMD_tail
       010004CAH   CODE     ---       _dataprosTemp
-*DEL*:00000000H   CODE     ---       _delay
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 5
-
-
-      01000ABEH   CODE     ---       _Delay1ms
-      010008DEH   CODE     ---       _Ds18b20WriteByte
-      01000A35H   CODE     ---       _Lcd1602_Delay1ms
-      0100080AH   CODE     ---       _LcdDisplayPrad
+      01000BEEH   CODE     ---       _delay
+      01000B0FH   CODE     ---       _Delay1ms
+      01000997H   CODE     ---       _Ds18b20WriteByte
+      01000AAEH   CODE     ---       _Lcd1602_Delay1ms
+      0100088BH   CODE     ---       _LcdDisplayPrad
       010006F0H   CODE     ---       _LcdDisplayTemp
-      01000B93H   CODE     ---       _LcdWriteCom
-      01000B82H   CODE     ---       _LcdWriteData
-      01000B15H   CODE     ---       _PutString
-      01000B2FH   CODE     ---       _Read_AD_Data
-      01000AF9H   CODE     ---       _SPI_Write
-      00000018H   DATA     ---       DataPackage_DS18B20
-      00000028H   DATA     ---       DataPackage_XPT2046
-      01000874H   CODE     ---       Deal_UART_RecData
+      01000BE4H   CODE     ---       _LcdWriteCom
+      01000BD3H   CODE     ---       _LcdWriteData
+      01000B66H   CODE     ---       _PutString
+      01000B80H   CODE     ---       _Read_AD_Data
+      01000B4AH   CODE     ---       _SPI_Write
+      0000001AH   DATA     ---       DataPackage_DS18B20
+      0000002AH   DATA     ---       DataPackage_XPT2046
+      0100080AH   CODE     ---       Deal_UART_RecData
 *DEL*:00000000H   CODE     ---       DigDisplay
-      00000049H   DATA     ---       DisplayData
-      01000B9DH   CODE     ---       Ds18b20ChangTemp
-      01000A9AH   CODE     ---       Ds18b20Init
-      01000914H   CODE     ---       Ds18b20ReadByte
-      01000B61H   CODE     ---       Ds18b20ReadTemp
-      01000BA5H   CODE     ---       Ds18b20ReadTempCom
-      01000ADCH   CODE     ---       Init_USART
-      01000B48H   CODE     ---       LcdInit
+      0000004BH   DATA     ---       DisplayData
+      01000BF9H   CODE     ---       Ds18b20ChangTemp
+      01000AEBH   CODE     ---       Ds18b20Init
+      010009CDH   CODE     ---       Ds18b20ReadByte
+      01000BB2H   CODE     ---       Ds18b20ReadTemp
+      01000C01H   CODE     ---       Ds18b20ReadTempCom
+      01000B2DH   CODE     ---       Init_USART
+      01000B99H   CODE     ---       LcdInit
       01000003H   CODE     ---       main
-      00000048H   DATA     CHAR      num
-      010009CAH   CODE     ---       ReceiveString
-      00000008H   DATA     ---       RecvString_buf
+      0000004AH   DATA     CHAR      num
+      00000008H   DATA     INT       number
+      01000942H   CODE     ---       ReceiveString
+      0000000AH   DATA     ---       RecvString_buf
       010005C6H   CODE     ---       sendprad
       0100065EH   CODE     ---       sendtemp
-      01000BDFH   CONST    ---       smgduan
-      01000A76H   CODE     ---       SPI_Read
+      01000CA3H   CONST    ---       smgduan
+      01000AC7H   CODE     ---       SPI_Read
 *DEL*:00000000H   CODE     ---       SPI_Start
-      01000952H   CODE     ---       USART
+      010008F5H   CODE     ---       USART
 
 
 
@@ -314,77 +320,77 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       VALUE       REP       CLASS    TYPE      SYMBOL NAME
       ====================================================
       ---         MODULE    ---      ---       XPT2046
-      01000B2FH   PUBLIC    CODE     ---       _Read_AD_Data
-      01000A76H   PUBLIC    CODE     ---       SPI_Read
-      01000AF9H   PUBLIC    CODE     ---       _SPI_Write
+      01000B80H   PUBLIC    CODE     ---       _Read_AD_Data
+      01000AC7H   PUBLIC    CODE     ---       SPI_Read
+      01000B4AH   PUBLIC    CODE     ---       _SPI_Write
 
-      01000AF9H   BLOCK     CODE     ---       LVL=0
-      01000AF9H   BLOCK     CODE     NEAR LAB  LVL=1
+      01000B4AH   BLOCK     CODE     ---       LVL=0
+      01000B4AH   BLOCK     CODE     NEAR LAB  LVL=1
       00000006H   SYMBOL    DATA     VOID      i
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000A76H   BLOCK     CODE     ---       LVL=0
-      01000A76H   BLOCK     CODE     NEAR LAB  LVL=1
+      01000AC7H   BLOCK     CODE     ---       LVL=0
+      01000AC7H   BLOCK     CODE     NEAR LAB  LVL=1
       00000004H   SYMBOL    DATA     VOID      i
       00000006H   SYMBOL    DATA     VOID      dat
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000B2FH   BLOCK     CODE     ---       LVL=0
-      01000B2FH   BLOCK     CODE     NEAR LAB  LVL=1
+      01000B80H   BLOCK     CODE     ---       LVL=0
+      01000B80H   BLOCK     CODE     NEAR LAB  LVL=1
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 6
+
+
       00000007H   SYMBOL    DATA     VOID      i
       00000006H   SYMBOL    DATA     VOID      AD_Value
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       LCD
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 6
-
-
-      0100080AH   PUBLIC    CODE     ---       _LcdDisplayPrad
+      0100088BH   PUBLIC    CODE     ---       _LcdDisplayPrad
       010006F0H   PUBLIC    CODE     ---       _LcdDisplayTemp
-      01000B48H   PUBLIC    CODE     ---       LcdInit
-      01000B82H   PUBLIC    CODE     ---       _LcdWriteData
-      01000B93H   PUBLIC    CODE     ---       _LcdWriteCom
-      01000A35H   PUBLIC    CODE     ---       _Lcd1602_Delay1ms
+      01000B99H   PUBLIC    CODE     ---       LcdInit
+      01000BD3H   PUBLIC    CODE     ---       _LcdWriteData
+      01000BE4H   PUBLIC    CODE     ---       _LcdWriteCom
+      01000AAEH   PUBLIC    CODE     ---       _Lcd1602_Delay1ms
 
-      01000A24H   BLOCK     CODE     ---       LVL=0
+      01000A9DH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000A35H   BLOCK     CODE     ---       LVL=0
-      01000A35H   BLOCK     CODE     NEAR LAB  LVL=1
+      01000AAEH   BLOCK     CODE     ---       LVL=0
+      01000AAEH   BLOCK     CODE     NEAR LAB  LVL=1
       00000004H   SYMBOL    DATA     VOID      a
       00000005H   SYMBOL    DATA     VOID      b
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000B8CH   BLOCK     CODE     ---       LVL=0
+      01000BDDH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000B93H   BLOCK     CODE     ---       LVL=0
+      01000BE4H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000B78H   BLOCK     CODE     ---       LVL=0
+      01000BC9H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000B82H   BLOCK     CODE     ---       LVL=0
+      01000BD3H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000B48H   BLOCK     CODE     ---       LVL=0
+      01000B99H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
       010006F0H   BLOCK     CODE     ---       LVL=0
       010006F6H   BLOCK     CODE     NEAR LAB  LVL=1
-      0000003FH   SYMBOL    DATA     VOID      temp
+      00000041H   SYMBOL    DATA     VOID      temp
       00000002H   SYMBOL    DATA     VOID      i
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      0100080AH   BLOCK     CODE     ---       LVL=0
-      01000810H   BLOCK     CODE     NEAR LAB  LVL=1
-      0000003FH   SYMBOL    DATA     VOID      light
-      00000046H   SYMBOL    DATA     VOID      i
+      0100088BH   BLOCK     CODE     ---       LVL=0
+      01000891H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000041H   SYMBOL    DATA     VOID      light
+      00000048H   SYMBOL    DATA     VOID      i
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
@@ -395,21 +401,25 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       PUBLIC
-      00000049H   PUBLIC    DATA     ---       DisplayData
-      00000048H   PUBLIC    DATA     CHAR      num
-      01000BDFH   PUBLIC    CONST    ---       smgduan
+      0000004BH   PUBLIC    DATA     ---       DisplayData
+      0000004AH   PUBLIC    DATA     CHAR      num
+      01000CA3H   PUBLIC    CONST    ---       smgduan
       010005C6H   PUBLIC    CODE     ---       sendprad
       0100065EH   PUBLIC    CODE     ---       sendtemp
       010004CAH   PUBLIC    CODE     ---       _dataprosTemp
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 7
+
+
+      01000BEEH   PUBLIC    CODE     ---       _delay
+
+      01000BEEH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
 
       010004CAH   BLOCK     CODE     ---       LVL=0
       010004CEH   BLOCK     CODE     NEAR LAB  LVL=1
-      0000003CH   SYMBOL    DATA     VOID      tp
+      0000003EH   SYMBOL    DATA     VOID      tp
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 7
-
-
 
       0100065EH   BLOCK     CODE     ---       LVL=0
       0100065EH   BLOCK     CODE     NEAR LAB  LVL=1
@@ -424,38 +434,38 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       TEMPE
-      01000B61H   PUBLIC    CODE     ---       Ds18b20ReadTemp
-      01000BA5H   PUBLIC    CODE     ---       Ds18b20ReadTempCom
-      01000B9DH   PUBLIC    CODE     ---       Ds18b20ChangTemp
-      01000914H   PUBLIC    CODE     ---       Ds18b20ReadByte
-      010008DEH   PUBLIC    CODE     ---       _Ds18b20WriteByte
-      01000A9AH   PUBLIC    CODE     ---       Ds18b20Init
-      01000ABEH   PUBLIC    CODE     ---       _Delay1ms
+      01000BB2H   PUBLIC    CODE     ---       Ds18b20ReadTemp
+      01000C01H   PUBLIC    CODE     ---       Ds18b20ReadTempCom
+      01000BF9H   PUBLIC    CODE     ---       Ds18b20ChangTemp
+      010009CDH   PUBLIC    CODE     ---       Ds18b20ReadByte
+      01000997H   PUBLIC    CODE     ---       _Ds18b20WriteByte
+      01000AEBH   PUBLIC    CODE     ---       Ds18b20Init
+      01000B0FH   PUBLIC    CODE     ---       _Delay1ms
 
-      01000ABEH   BLOCK     CODE     ---       LVL=0
-      01000ABEH   BLOCK     CODE     NEAR LAB  LVL=1
+      01000B0FH   BLOCK     CODE     ---       LVL=0
+      01000B0FH   BLOCK     CODE     NEAR LAB  LVL=1
       00000004H   SYMBOL    DATA     VOID      x
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000A9AH   BLOCK     CODE     ---       LVL=0
-      01000A9AH   BLOCK     CODE     NEAR LAB  LVL=1
+      01000AEBH   BLOCK     CODE     ---       LVL=0
+      01000AEBH   BLOCK     CODE     NEAR LAB  LVL=1
       00000003H   SYMBOL    DATA     VOID      i
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010008D2H   BLOCK     CODE     ---       LVL=0
+      0100098BH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010008DEH   BLOCK     CODE     ---       LVL=0
-      010008DEH   BLOCK     CODE     NEAR LAB  LVL=1
-      0000003DH   SYMBOL    DATA     VOID      i
+      01000997H   BLOCK     CODE     ---       LVL=0
+      01000997H   BLOCK     CODE     NEAR LAB  LVL=1
+      0000003FH   SYMBOL    DATA     VOID      i
       00000002H   SYMBOL    DATA     VOID      j
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000914H   BLOCK     CODE     ---       LVL=0
-      01000914H   BLOCK     CODE     NEAR LAB  LVL=1
+      010009CDH   BLOCK     CODE     ---       LVL=0
+      010009CDH   BLOCK     CODE     NEAR LAB  LVL=1
       00000001H   SYMBOL    DATA     VOID      byte
       00000003H   SYMBOL    DATA     VOID      bi
       00000006H   SYMBOL    DATA     VOID      i
@@ -463,74 +473,78 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000B9DH   BLOCK     CODE     ---       LVL=0
+      01000BF9H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 8
+
+
+
+      01000C01H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000BA5H   BLOCK     CODE     ---       LVL=0
-      ---         BLOCKEND  ---      ---       LVL=0
-
-      01000B61H   BLOCK     CODE     ---       LVL=0
-      01000B61H   BLOCK     CODE     NEAR LAB  LVL=1
+      01000BB2H   BLOCK     CODE     ---       LVL=0
+      01000BB2H   BLOCK     CODE     NEAR LAB  LVL=1
       00000006H   SYMBOL    DATA     VOID      temp
       00000007H   SYMBOL    DATA     VOID      tmh
-      0000003CH   SYMBOL    DATA     VOID      tml
+      0000003EH   SYMBOL    DATA     VOID      tml
       ---         BLOCKEND  ---      ---       LVL=1
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 8
-
-
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       UART
-      00000028H   PUBLIC    DATA     ---       DataPackage_XPT2046
-      00000018H   PUBLIC    DATA     ---       DataPackage_DS18B20
-      00000008H   PUBLIC    DATA     ---       RecvString_buf
-      01000952H   PUBLIC    CODE     ---       USART
-      01000874H   PUBLIC    CODE     ---       Deal_UART_RecData
-      01000996H   PUBLIC    CODE     ---       _CompareCMD_tail
-      010009F8H   PUBLIC    CODE     ---       _CompareCMD_head
-      01000ADCH   PUBLIC    CODE     ---       Init_USART
-      010009CAH   PUBLIC    CODE     ---       ReceiveString
-      01000B15H   PUBLIC    CODE     ---       _PutString
+      0000002AH   PUBLIC    DATA     ---       DataPackage_XPT2046
+      0000001AH   PUBLIC    DATA     ---       DataPackage_DS18B20
+      0000000AH   PUBLIC    DATA     ---       RecvString_buf
+      00000008H   PUBLIC    DATA     INT       number
+      010008F5H   PUBLIC    CODE     ---       USART
+      0100080AH   PUBLIC    CODE     ---       Deal_UART_RecData
+      01000A11H   PUBLIC    CODE     ---       _CompareCMD_tail
+      01000A71H   PUBLIC    CODE     ---       _CompareCMD_head
+      01000B2DH   PUBLIC    CODE     ---       Init_USART
+      01000942H   PUBLIC    CODE     ---       ReceiveString
+      01000B66H   PUBLIC    CODE     ---       _PutString
 
-      01000B15H   BLOCK     CODE     ---       LVL=0
+      01000B66H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010009CAH   BLOCK     CODE     ---       LVL=0
-      010009CAH   BLOCK     CODE     NEAR LAB  LVL=1
+      01000942H   BLOCK     CODE     ---       LVL=0
+      01000942H   BLOCK     CODE     NEAR LAB  LVL=1
       00000001H   SYMBOL    DATA     VOID      RecStr
       00000007H   SYMBOL    DATA     VOID      num
       00000006H   SYMBOL    DATA     VOID      count
-      010009D2H   SYMBOL    CODE     VOID      loop
+      0100094AH   SYMBOL    CODE     VOID      loop
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000ADCH   BLOCK     CODE     ---       LVL=0
+      01000B2DH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010009F8H   BLOCK     CODE     ---       LVL=0
-      010009FEH   BLOCK     CODE     NEAR LAB  LVL=1
+      01000A71H   BLOCK     CODE     ---       LVL=0
+      01000A77H   BLOCK     CODE     NEAR LAB  LVL=1
       00000007H   SYMBOL    DATA     VOID      CharNum
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000990H   BLOCK     CODE     ---       LVL=0
+      01000A0BH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000996H   BLOCK     CODE     ---       LVL=0
-      0100099EH   BLOCK     CODE     NEAR LAB  LVL=1
+      01000A11H   BLOCK     CODE     ---       LVL=0
+      01000A19H   BLOCK     CODE     NEAR LAB  LVL=1
       00000007H   SYMBOL    DATA     VOID      CharNum
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000874H   BLOCK     CODE     ---       LVL=0
+      0100080AH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000952H   BLOCK     CODE     ---       LVL=0
+      010008F5H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       ?C?FPADD
       0100002DH   PUBLIC    CODE     ---       ?C?FPADD
       01000029H   PUBLIC    CODE     ---       ?C?FPSUB
+
+LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 9
+
 
       ---         MODULE    ---      ---       ?C?FPMUL
       0100011EH   PUBLIC    CODE     ---       ?C?FPMUL
@@ -542,9 +556,6 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
       ---         MODULE    ---      ---       ?C?CASTF
       01000262H   PUBLIC    CODE     ---       ?C?CASTF
-
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/25/2021  20:31:45  PAGE 9
-
 
       ---         MODULE    ---      ---       ?C?FPGETOPN
       01000299H   PUBLIC    CODE     ---       ?C?FPGETOPN2
@@ -581,5 +592,5 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         MODULE    ---      ---       ?C?UIDIV
       01000475H   PUBLIC    CODE     ---       ?C?UIDIV
 
-Program Size: data=82.0 xdata=0 const=60 code=2988
+Program Size: data=84.0 xdata=0 const=164 code=3080
 LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

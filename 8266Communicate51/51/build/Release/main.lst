@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   MAIN                                                              05/25/2021 20:31:44 PAGE 1   
+C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MAIN
@@ -21,7 +21,7 @@ line level    source
   10   1          LcdInit();           //初始化LCD1602
   11   1          LcdWriteCom(0x88);  //写地址 80表示初始地址
   12   1          LcdWriteData('C');  
-  13   1          //数据包 样例
+  13   1          //发送给8266的数据包 样例
   14   1          //$02_Temp025.81#
   15   1          //$02_Prad0485XX#
   16   1          while(1)
@@ -30,10 +30,10 @@ line level    source
   19   2              //DigDisplay();//数码管显示函数
   20   2              
   21   2              sendprad();//光敏值传送
-  22   2              Delay1ms(10);
+  22   2              Delay1ms(100);
   23   2          }
   24   1      }
-C51 COMPILER V9.57.0.0   MAIN                                                              05/25/2021 20:31:44 PAGE 2   
+C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 2   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
@@ -58,14 +58,14 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 21
 0013 120000      E     LCALL   sendprad
                                            ; SOURCE LINE # 22
-0016 7F0A              MOV     R7,#0AH
+0016 7F64              MOV     R7,#064H
 0018 7E00              MOV     R6,#00H
 001A 120000      E     LCALL   _Delay1ms
                                            ; SOURCE LINE # 23
 001D 80F1              SJMP    ?C0001
              ; FUNCTION main (END)
 
-C51 COMPILER V9.57.0.0   MAIN                                                              05/25/2021 20:31:44 PAGE 3   
+C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 3   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -113,7 +113,7 @@ PCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0087H  1
 SCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
 TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
 TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
-led. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A0H  1
+led. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A1H  1
 DOUT . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
 IE0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
 IE1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
@@ -128,7 +128,7 @@ TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
 ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
 TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
 TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
-C51 COMPILER V9.57.0.0   MAIN                                                              05/25/2021 20:31:44 PAGE 4   
+C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 4   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -173,7 +173,6 @@ EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
 sendtemp . . . . . . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
 REN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
 T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
-led5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A1H  1
 RXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
 TXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
 F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
@@ -192,9 +191,9 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    HDATA SIZE       =   ----    ----
    XDATA CONST SIZE =   ----    ----
    FAR CONST SIZE   =   ----    ----
-C51 COMPILER V9.57.0.0   MAIN                                                              05/25/2021 20:31:44 PAGE 5   
-
 END OF MODULE INFORMATION.
+
+C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 5   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

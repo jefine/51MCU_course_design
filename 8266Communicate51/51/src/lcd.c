@@ -77,7 +77,7 @@ void LcdWriteData(uchar dat)			//写入数据
 	LCD1602_E = 0;	//使能清零
 	LCD1602_RS = 1;	//选择输入数据
 	LCD1602_RW = 0;	//选择写入
-
+	
 	LCD1602_DATAPINS = dat; //写入数据
 	Lcd1602_Delay1ms(1);
 
