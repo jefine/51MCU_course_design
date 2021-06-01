@@ -1,11 +1,11 @@
-C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 1   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN .\build\Release\main.o
-COMPILER INVOKED BY: E:\mdkArmkeil5\C51\BIN\C51.exe .\SRC\MAIN.C PRINT(.\build\Release\main.lst) OMF2 TABS(4) CODE NOCON
-                    -D SYMBOLS OPTIMIZE(8,SPEED) SMALL ROM(LARGE) INCDIR(E:\mdkArmkeil5\C51\INC;.\src) DEFINE(__UVISION_VERSION=526) OBJECT(.
-                    -\build\Release\main.o)
+COMPILER INVOKED BY: E:\mdkArmkeil5\C51\BIN\C51.exe .\SRC\USER\MAIN.C PRINT(.\build\Release\main.lst) OMF2 TABS(4) CODE 
+                    -NOCOND SYMBOLS OPTIMIZE(8,SPEED) SMALL ROM(LARGE) INCDIR(E:\mdkArmkeil5\C51\INC;.\src\user;.\src\HDL) DEFINE(__UVISION_V
+                    -ERSION=526) OBJECT(.\build\Release\main.o)
 
 line level    source
 
@@ -18,22 +18,22 @@ line level    source
    7          
    8          void main(){
    9   1          Init_USART(); 
-  10   1          LcdInit();           //初始化LCD1602
-  11   1          LcdWriteCom(0x88);  //写地址 80表示初始地址
+  10   1          LcdInit();           //Init LCD1602
+  11   1          LcdWriteCom(0x88);  //80 is the first address
   12   1          LcdWriteData('C');  
-  13   1          //发送给8266的数据包 样例
+  13   1          //Example to Esp8266
   14   1          //$02_Temp025.81#
   15   1          //$02_Prad0485XX#
   16   1          while(1)
   17   1          {       
-  18   2              sendtemp();//温度值传送
-  19   2              //DigDisplay();//数码管显示函数
+  18   2              sendtemp();
+  19   2              //DigDisplay();//smg send
   20   2              
-  21   2              sendprad();//光敏值传送
+  21   2              sendprad();//
   22   2              Delay1ms(100);
   23   2          }
   24   1      }
-C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 2   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 2   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
@@ -65,7 +65,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 001D 80F1              SJMP    ?C0001
              ; FUNCTION main (END)
 
-C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 3   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 3   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -128,7 +128,7 @@ TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
 ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
 TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
 TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
-C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 4   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 4   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -193,7 +193,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    FAR CONST SIZE   =   ----    ----
 END OF MODULE INFORMATION.
 
-C51 COMPILER V9.57.0.0   MAIN                                                              05/31/2021 21:01:02 PAGE 5   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 5   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

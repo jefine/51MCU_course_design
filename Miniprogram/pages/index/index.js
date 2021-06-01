@@ -23,7 +23,7 @@ Page({
     client = mqtt.connect('wxs://39.103.183.108/mqtt',options)
     client.on('connect',(e)=>{
       console.log('mqtt connect success~')
-      client.subscribe('/iot/40/app',{
+      client.subscribe('/iot/40/device',{
         qos:0
       },function(err){
         if(!err){
@@ -43,11 +43,12 @@ Page({
     })   
     
   },
-  taphere(){
-    console.log("you have tap it")
+  open(){
+    console.log("you have open it")
+    client.publish('/iot/40/app', '{"set_led":0}')
   },
-  change:function(e){
-    this.setData({text : e.toString()}),
-    console.log('change is over')
-  }
+  close(){
+    console.log("you have close it")
+    client.publish('/iot/40/app', '{"set_led":1}')
+  },
 })

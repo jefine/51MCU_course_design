@@ -1,7 +1,9 @@
 <!--index.wxml-->
 <view class="container">
 
-  <button type="primary" bindtap="taphere" style="position: relative; left: -19rpx; top: 595rpx">按钮</button>
+  <button type="primary" bindtap="close" style="position: relative; left: -6rpx; top: 615rpx">CLOSE</button>
+  <button type="primary" bindtap="open"style="position: relative; left: -1rpx; top: 144rpx">OPEN</button>
 
-  <text data-text="{{text}}" bindtap='change' style="position: relative; width: 334rpx; height: 73rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx" >{{text}}</text>
 </view>
+
+

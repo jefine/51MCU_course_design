@@ -1,1 +1,1 @@
-.\src\lcd.c PRINT(.\build\Release\lcd.lst) OMF2 TABS(4) CODE NOCOND SYMBOLS OPTIMIZE(8,SPEED) SMALL ROM(LARGE) INCDIR(E:\mdkArmkeil5\C51\INC;.\src) DEFINE(__UVISION_VERSION='526') OBJECT(.\build\Release\lcd.o)
+.\src\HDL\lcd.c PRINT(.\build\Release\lcd.lst) OMF2 TABS(4) CODE NOCOND SYMBOLS OPTIMIZE(8,SPEED) SMALL ROM(LARGE) INCDIR(E:\mdkArmkeil5\C51\INC;.\src\user;.\src\HDL) DEFINE(__UVISION_VERSION='526') OBJECT(.\build\Release\lcd.o)

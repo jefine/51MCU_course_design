@@ -1,9 +1,9 @@
-LX51 LINKER/LOCATER V4.66.87.0                                                          05/31/2021  21:01:03  PAGE 1
+LX51 LINKER/LOCATER V4.66.87.0                                                          06/01/2021  16:27:13  PAGE 1
 
 
 LX51 LINKER/LOCATER V4.66.87.0, INVOKED BY:
-E:\MDKARMKEIL5\C51\BIN\LX51.EXE .\BUILD\RELEASE\XPT2046.O, .\BUILD\RELEASE\LCD.O, .\BUILD\RELEASE\MAIN.O, .\BUILD\RELEAS
->> E\PUBLIC.O, .\BUILD\RELEASE\TEMPE.O, .\BUILD\RELEASE\UART.O TO .\BUILD\RELEASE\MCS51 PRINT (.\build\Release\mcs51.map
+E:\MDKARMKEIL5\C51\BIN\LX51.EXE .\BUILD\RELEASE\XPT2046.O, .\BUILD\RELEASE\LCD.O, .\BUILD\RELEASE\PUBLIC.O, .\BUILD\RELE
+>> ASE\TEMPE.O, .\BUILD\RELEASE\UART.O, .\BUILD\RELEASE\MAIN.O TO .\BUILD\RELEASE\MCS51 PRINT (.\build\Release\mcs51.map
 >> ) REMOVEUNUSED
 
 
@@ -16,13 +16,13 @@ INPUT MODULES INCLUDED:
          COMMENT TYPE 0: C51 V9.57.0.0
   .\BUILD\RELEASE\LCD.O (LCD)
          COMMENT TYPE 0: C51 V9.57.0.0
-  .\BUILD\RELEASE\MAIN.O (MAIN)
-         COMMENT TYPE 0: C51 V9.57.0.0
   .\BUILD\RELEASE\PUBLIC.O (PUBLIC)
          COMMENT TYPE 0: C51 V9.57.0.0
   .\BUILD\RELEASE\TEMPE.O (TEMPE)
          COMMENT TYPE 0: C51 V9.57.0.0
   .\BUILD\RELEASE\UART.O (UART)
+         COMMENT TYPE 0: C51 V9.57.0.0
+  .\BUILD\RELEASE\MAIN.O (MAIN)
          COMMENT TYPE 0: C51 V9.57.0.0
   E:\MDKARMKEIL5\C51\LIB\C51FPS.LIB (?C?FPADD)
          COMMENT TYPE 1: A51 / ASM51 Assembler
@@ -67,7 +67,7 @@ I:000000H   I:000000H   I:0000FFH   000001H   IDATA
 MEMORY MAP OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 2
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 2
 
 
 START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
@@ -135,7 +135,7 @@ FUNCTION/MODULE                BIT_GROUP   DATA_GROUP
 USART/UART                    ----- -----  ----- -----
   +--> RECEIVESTRING/UART
   +--> DEAL_UART_RECDATA/UART
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 3
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 3
 
 
   +--> _PUTSTRING/UART
@@ -203,7 +203,7 @@ _DS18B20WRITEBYTE/TEMPE       ----- -----  003FH 0040H
   +--> DS18B20INIT/TEMPE
   +--> _DELAY1MS/TEMPE
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 4
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 4
 
 
 DS18B20INIT/TEMPE             ----- -----  ----- -----
@@ -271,7 +271,7 @@ PUBLIC SYMBOLS OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       01000475H   CODE     ---       ?C?UIDIV
       00000000H   NUMBER   ---       ?C?XDATASEG
       010007C5H   CODE     ---       ?C_START
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 5
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 5
 
 
       01000000H   CODE     ---       ?C_STARTUP
@@ -339,7 +339,7 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
       01000B80H   BLOCK     CODE     ---       LVL=0
       01000B80H   BLOCK     CODE     NEAR LAB  LVL=1
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 6
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 6
 
 
       00000007H   SYMBOL    DATA     VOID      i
@@ -394,12 +394,6 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      ---         MODULE    ---      ---       MAIN
-      01000003H   PUBLIC    CODE     ---       main
-
-      01000003H   BLOCK     CODE     ---       LVL=0
-      ---         BLOCKEND  ---      ---       LVL=0
-
       ---         MODULE    ---      ---       PUBLIC
       0000004BH   PUBLIC    DATA     ---       DisplayData
       0000004AH   PUBLIC    DATA     CHAR      num
@@ -407,15 +401,15 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       010005C6H   PUBLIC    CODE     ---       sendprad
       0100065EH   PUBLIC    CODE     ---       sendtemp
       010004CAH   PUBLIC    CODE     ---       _dataprosTemp
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 7
-
-
       01000BEEH   PUBLIC    CODE     ---       _delay
 
       01000BEEH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
       010004CAH   BLOCK     CODE     ---       LVL=0
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 7
+
+
       010004CEH   BLOCK     CODE     NEAR LAB  LVL=1
       0000003EH   SYMBOL    DATA     VOID      tp
       ---         BLOCKEND  ---      ---       LVL=1
@@ -475,15 +469,15 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
       01000BF9H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 8
-
-
 
       01000C01H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
       01000BB2H   BLOCK     CODE     ---       LVL=0
       01000BB2H   BLOCK     CODE     NEAR LAB  LVL=1
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 8
+
+
       00000006H   SYMBOL    DATA     VOID      temp
       00000007H   SYMBOL    DATA     VOID      tmh
       0000003EH   SYMBOL    DATA     VOID      tml
@@ -539,11 +533,17 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       010008F5H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
+      ---         MODULE    ---      ---       MAIN
+      01000003H   PUBLIC    CODE     ---       main
+
+      01000003H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
       ---         MODULE    ---      ---       ?C?FPADD
       0100002DH   PUBLIC    CODE     ---       ?C?FPADD
       01000029H   PUBLIC    CODE     ---       ?C?FPSUB
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        05/31/2021  21:01:03  PAGE 9
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 9
 
 
       ---         MODULE    ---      ---       ?C?FPMUL
