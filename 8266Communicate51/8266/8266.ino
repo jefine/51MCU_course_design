@@ -4,10 +4,11 @@
 char DataPackage_temp[12]= {'t','e','m','p',':'};
 char DataPackage_prad[10] = {'p','r','a','d',':'};           
 //SoftwareSerial serial(2, 3); //RX=2,TX=3
-// WiFi
-const char *ssid = "mooc"; // Enter your WiFi name
-const char *password = "moocmooc";  // Enter WiFi password
-//mqtt
+//WiFi config
+const char *ssid = "mooc"; 
+const char *password = "moocmooc";  
+
+//mqtt config
 const char *mqtt_broker = "39.103.183.108";
 const char *mqtt_sub_topic = "/iot/40/app";
 const char *mqtt_pub_topic = "/iot/40/device";
