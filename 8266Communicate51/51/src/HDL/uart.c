@@ -9,17 +9,6 @@ int number=0;
 char DataPackage_DS18B20[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','T','e','m','p','X','X','X','X','X','X','#'};    //¿ØÖÆÎÂ¶È´«¸ÐÄ£¿é£¨DS18B20£©µÄÊý¾Ý°ü
 char DataPackage_XPT2046[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','P','r','a','d','X','X','X','X','X','X','#'};    //¿ØÖÆ¹âÃôµç×èµÄÊý¾Ý°ü
 
-//----------------------------------------------//
-/*******************************
-            ´®¿ÚÍ¨ÐÅ
-    MCU:89C52RC        11.0592MHz
-
-//11.0592MHz 0xd0 1200bps
-//12MHz 0xcc 1200bps
-//11.0592MHz 0xfa 9600bps
-//0xf4 11.0592MHz  0xf3 12MHz 4800bps
-//¾ùÔÚSMOD=1µÄÇé¿öÏÂ£¨²¨ÌØÂÊ±¶ÔöÄ£Ê½£©
-*******************************/
 
 //´®¿Ú·¢ËÍº¯Êý
 void PutString(unsigned char *TXStr)
@@ -146,8 +135,6 @@ bit Deal_UART_RecData()   //´¦Àí´®¿Ú½ÓÊÕÊý¾Ý°üº¯Êý£¨³É¹¦´¦ÀíÊý¾Ý°üÔò·µ»Ø1£¬·ñÔò·
                                             {
                                                 delay(100);
                                                 PutString("\nreceived right led on\n");
-                                                // unsigned int tt = 100;
-                                                // while(tt--)
                                                 led = 0;
                                                 return 1;
                                             }
