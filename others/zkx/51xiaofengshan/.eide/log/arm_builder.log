@@ -1,9 +1,30 @@
-[2021-05-25 16:16:59]	compilation failed at : "f:\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\Lcd1602.c", exit code: 2
+[2021-06-15 11:33:36]	[done]
+	build successfully !
+
+[2021-06-15 11:41:45]	link failed !, exit code: 2
    在 unify_builder.Program.Main(String[] args)
 
-[2021-05-25 16:43:59]	compilation failed at : "f:\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\Lcd1602.c", exit code: 2
+[2021-06-15 11:42:09]	link failed !, exit code: 2
    在 unify_builder.Program.Main(String[] args)
 
-[2021-05-25 16:44:09]	[done]
+[2021-06-15 11:44:00]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-15 11:44:20]	[done]
+	build successfully !
+
+[2021-06-15 11:44:44]	[done]
+	build successfully !
+
+[2021-06-15 11:47:20]	[done]
+	build successfully !
+
+[2021-06-15 11:47:57]	[done]
+	build successfully !
+
+[2021-06-15 11:50:48]	[done]
+	build successfully !
+
+[2021-06-15 11:53:19]	[done]
 	build successfully !
 

@@ -6,10 +6,11 @@
 char DataPackage_temp[12]= {'t','e','m','p',':'};
 char DataPackage_prad[10] = {'p','r','a','d',':'};           
 //SoftwareSerial serial(2, 3); //RX=2,TX=3
-// WiFi
-const char *ssid = "mooc"; // Enter your WiFi name
-const char *password = "moocmooc";  // Enter WiFi password
-//mqtt
+//WiFi config
+const char *ssid = "mooc"; 
+const char *password = "moocmooc";  
+
+//mqtt config
 const char *mqtt_broker = "39.103.183.108";
 const char *mqtt_sub_topic = "/iot/40/app";
 const char *mqtt_pub_topic = "/iot/40/device";
@@ -26,13 +27,13 @@ bool stringComplete = false;  // whether the string is complete
 String commond ;
 String message ;
 
-#line 27 "f:\\ee\\now\\51MCU_course_design\\8266Communicate51\\8266\\8266.ino"
+#line 28 "f:\\ee\\now\\51MCU_course_design\\8266Communicate51\\8266\\8266.ino"
 void setup();
-#line 61 "f:\\ee\\now\\51MCU_course_design\\8266Communicate51\\8266\\8266.ino"
+#line 62 "f:\\ee\\now\\51MCU_course_design\\8266Communicate51\\8266\\8266.ino"
 void callback(char *topic, byte *payload, unsigned int length);
-#line 92 "f:\\ee\\now\\51MCU_course_design\\8266Communicate51\\8266\\8266.ino"
+#line 93 "f:\\ee\\now\\51MCU_course_design\\8266Communicate51\\8266\\8266.ino"
 void loop();
-#line 27 "f:\\ee\\now\\51MCU_course_design\\8266Communicate51\\8266\\8266.ino"
+#line 28 "f:\\ee\\now\\51MCU_course_design\\8266Communicate51\\8266\\8266.ino"
 void setup() {
 
   Serial.begin(9600);

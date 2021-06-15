@@ -20,7 +20,7 @@ Page({
       username:'86fe9adc2a75f181efa129598c6844eb',
       password:'abc'
     }
-    client = mqtt.connect('wxs://39.103.183.108/mqtt',options)
+    client = mqtt.connect('wxs:t.yoyolife.fun/mqtt',options)
     client.on('connect',(e)=>{
       console.log('mqtt connect success~')
       client.subscribe('/iot/40/device',{

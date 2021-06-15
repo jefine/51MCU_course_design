@@ -3,7 +3,7 @@
 #include<intrins.h>
 #include "temp.h"
 
-sbit IO_18B20=P3^2;
+sbit IO_18B20=P3^7;
 
 /*软件延时函数，延时时间（t*10）us*/
 void DelayX10us(unsigned char t)

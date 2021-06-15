@@ -1,8 +1,8 @@
 #include<reg52.h>
 
-sbit IN1=P2^7;
-sbit IN2=P2^6;
-sbit ENA=P2^5;
+// sbit IN1=P0^0;
+// sbit IN2=P0^0;
+sbit ENA=P1^0;
 
 bit flag1s=0;//1s定时标志
 unsigned char T0RH=0;
@@ -49,7 +49,6 @@ void main()
 			else //读取失败时，提示错误信息
 			{
 				LcdShowStr(0,0,"error!");
-
 			}
 			Start18B20();//重新启动下一次转换					 
 		}
@@ -104,8 +103,9 @@ void Compare()
 	}
 	switch(j)		  //根据温度索引设置电机转速
 	{
-		case 0:	IN1=1;
-				IN2=0;
+		case 0:	{
+				// IN1=1;
+				// IN2=0;
 		  		for(i=0;i<200;i++)
 	      		{
 					ENA=1;
@@ -114,9 +114,11 @@ void Compare()
 					delay(30);
 				}
 				break;
+				}	
 	
-		case 1:	IN1=1;
-				IN2=0;
+		case 1:	
+				// IN1=1;
+				// IN2=0;
 		  		for(i=0;i<200;i++)
 	      		{
 					ENA=1;
@@ -126,8 +128,9 @@ void Compare()
 				}
 				break;	 
 	
-		case 2:	IN1=1;
-				IN2=0;
+		case 2:	
+				// IN1=1;
+				// IN2=0;
 		  		for(i=0;i<200;i++)
 	      		{
 					ENA=1;
@@ -137,8 +140,9 @@ void Compare()
 				}
 				break;	 
 							
-		case 3:	IN1=1;
-				IN2=0;
+		case 3:	
+				// IN1=1;
+				// IN2=0;
 		  	    ENA=1;
 				break;
 

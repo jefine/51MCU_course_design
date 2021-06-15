@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:44:08 PAGE 1   
+C51 COMPILER V9.57.0.0   DS18B20                                                           06/15/2021 11:53:19 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE DS18B20
@@ -14,7 +14,7 @@ line level    source
    3          #include<intrins.h>
    4          #include "temp.h"
    5          
-   6          sbit IO_18B20=P3^2;
+   6          sbit IO_18B20=P3^7;
    7          
    8          /*软件延时函数，延时时间（t*10）us*/
    9          void DelayX10us(unsigned char t)
@@ -62,7 +62,7 @@ line level    source
   51   2              DelayX10us(6);//延时60us
   52   2              IO_18B20=1;//拉高通信引脚
   53   2          }
-C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:44:08 PAGE 2   
+C51 COMPILER V9.57.0.0   DS18B20                                                           06/15/2021 11:53:19 PAGE 2   
 
   54   1          EA=1;
   55   1      }
@@ -119,7 +119,7 @@ line level    source
  106   2          }
  107   1          return ~ack;
  108   1      }
-C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:44:08 PAGE 3   
+C51 COMPILER V9.57.0.0   DS18B20                                                           06/15/2021 11:53:19 PAGE 3   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
@@ -158,21 +158,21 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 27
 0000 C2AF              CLR     EA
                                            ; SOURCE LINE # 28
-0002 C2B2              CLR     IO_18B20
+0002 C2B7              CLR     IO_18B20
                                            ; SOURCE LINE # 29
 0004 7F32              MOV     R7,#032H
 0006 120000      R     LCALL   _DelayX10us
                                            ; SOURCE LINE # 30
-0009 D2B2              SETB    IO_18B20
+0009 D2B7              SETB    IO_18B20
                                            ; SOURCE LINE # 31
 000B 7F06              MOV     R7,#06H
 000D 120000      R     LCALL   _DelayX10us
                                            ; SOURCE LINE # 32
-0010 A2B2              MOV     C,IO_18B20
+0010 A2B7              MOV     C,IO_18B20
 0012 9200        R     MOV     ack,C
 0014         ?C0005:
                                            ; SOURCE LINE # 33
-0014 30B2FD            JNB     IO_18B20,?C0005
+0014 30B7FD            JNB     IO_18B20,?C0005
                                            ; SOURCE LINE # 34
 0017 D2AF              SETB    EA
                                            ; SOURCE LINE # 35
@@ -183,7 +183,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
              ; FUNCTION _Write18B20 (BEGIN)
                                            ; SOURCE LINE # 38
-C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:44:08 PAGE 4   
+C51 COMPILER V9.57.0.0   DS18B20                                                           06/15/2021 11:53:19 PAGE 4   
 
 ;---- Variable 'dat' assigned to Register 'R6' ----
 0000 AE07              MOV     R6,AR7
@@ -198,7 +198,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0007 601A              JZ      ?C0009
                                            ; SOURCE LINE # 43
                                            ; SOURCE LINE # 44
-0009 C2B2              CLR     IO_18B20
+0009 C2B7              CLR     IO_18B20
                                            ; SOURCE LINE # 45
 000B 00                NOP     
                                            ; SOURCE LINE # 46
@@ -207,17 +207,17 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 000D 5E                ANL     A,R6
 000E 7004              JNZ     ?C0011
                                            ; SOURCE LINE # 48
-0010 C2B2              CLR     IO_18B20
+0010 C2B7              CLR     IO_18B20
 0012 8002              SJMP    ?C0012
 0014         ?C0011:
                                            ; SOURCE LINE # 50
-0014 D2B2              SETB    IO_18B20
+0014 D2B7              SETB    IO_18B20
 0016         ?C0012:
                                            ; SOURCE LINE # 51
 0016 7F06              MOV     R7,#06H
 0018 120000      R     LCALL   _DelayX10us
                                            ; SOURCE LINE # 52
-001B D2B2              SETB    IO_18B20
+001B D2B7              SETB    IO_18B20
                                            ; SOURCE LINE # 53
 001D ED                MOV     A,R5
 001E 25E0              ADD     A,ACC
@@ -244,21 +244,21 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0005 601E              JZ      ?C0015
                                            ; SOURCE LINE # 64
                                            ; SOURCE LINE # 65
-0007 C2B2              CLR     IO_18B20
+0007 C2B7              CLR     IO_18B20
                                            ; SOURCE LINE # 66
 0009 00                NOP     
-C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:44:08 PAGE 5   
+C51 COMPILER V9.57.0.0   DS18B20                                                           06/15/2021 11:53:19 PAGE 5   
 
                                            ; SOURCE LINE # 67
 000A 00                NOP     
                                            ; SOURCE LINE # 68
-000B D2B2              SETB    IO_18B20
+000B D2B7              SETB    IO_18B20
                                            ; SOURCE LINE # 69
 000D 00                NOP     
                                            ; SOURCE LINE # 70
 000E 00                NOP     
                                            ; SOURCE LINE # 71
-000F 20B205            JB      IO_18B20,?C0017
+000F 20B705            JB      IO_18B20,?C0017
                                            ; SOURCE LINE # 72
 0012 F4                CPL     A
 0013 5206              ANL     AR6,A
@@ -311,7 +311,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
              ; FUNCTION _Get18B20Temp (BEGIN)
                                            ; SOURCE LINE # 93
-C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:44:08 PAGE 6   
+C51 COMPILER V9.57.0.0   DS18B20                                                           06/15/2021 11:53:19 PAGE 6   
 
 ;---- Variable 'temp' assigned to Register 'R1/R2/R3' ----
                                            ; SOURCE LINE # 94
@@ -355,7 +355,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 002D 22                RET     
              ; FUNCTION _Get18B20Temp (END)
 
-C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:44:08 PAGE 7   
+C51 COMPILER V9.57.0.0   DS18B20                                                           06/15/2021 11:53:19 PAGE 7   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -370,7 +370,7 @@ AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
 T1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
 T2 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
 EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
-IO_18B20 . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+IO_18B20 . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
 Read18B20. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
   dat. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0006H  1
   mask . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0005H  1
@@ -418,7 +418,7 @@ _Get18B20Temp. . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
   ack. . . . . . . . . . . . . . . . .  AUTO     DATA   BIT      0000H  1
   LSB. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0004H  1
   MSB. . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
-C51 COMPILER V9.57.0.0   DS18B20                                                           05/25/2021 16:44:08 PAGE 8   
+C51 COMPILER V9.57.0.0   DS18B20                                                           06/15/2021 11:53:19 PAGE 8   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====

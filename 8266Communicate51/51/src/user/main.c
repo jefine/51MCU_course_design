@@ -5,11 +5,13 @@
 #include "XPT2046.h"
 #include "lcd.h"
 
-void main(){
+void main()
+{
     Init_USART(); 
-    LcdInit();			 //Init LCD1602
-	LcdWriteCom(0x88);	//80 is the first address
+    LcdInit();			 
+	LcdWriteCom(0x88);	//first address£º80
 	LcdWriteData('C');  
+
     //Example to Esp8266
     //$02_Temp025.81#
     //$02_Prad0485XX#
