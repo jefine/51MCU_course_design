@@ -5,9 +5,9 @@
 #include <string.h>
 char RecvString_buf[16];
 int number=0;
-//char HeartBeat[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','B','e','a','t','X','X','X','X','X','X','#'};            //我随便定义了一个数据包用来做"心跳包"，比如单片机系统向电脑每2秒发送一次该数据包，如果电脑没有按时接收到，就认为单片机死掉了
-char DataPackage_DS18B20[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','T','e','m','p','X','X','X','X','X','X','#'};    //这个是曾经用来控制温度传感模块（DS18B20）的数据包
-char DataPackage_XPT2046[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','P','r','a','d','X','X','X','X','X','X','#'};    //这个是用来控制光敏电阻的数据包
+//char HeartBeat[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','B','e','a','t','X','X','X','X','X','X','#'};            //心跳包
+char DataPackage_DS18B20[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','T','e','m','p','X','X','X','X','X','X','#'};    //控制温度传感模块（DS18B20）的数据包
+char DataPackage_XPT2046[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','P','r','a','d','X','X','X','X','X','X','#'};    //控制光敏电阻的数据包
 
 //----------------------------------------------//
 /*******************************
