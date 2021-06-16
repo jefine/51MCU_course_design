@@ -211,3 +211,24 @@
 [2021-06-16 17:32:51]	[done]
 	build successfully !
 
+[2021-06-16 17:35:52]	[done]
+	build successfully !
+
+[2021-06-16 17:37:12]	[done]
+	build successfully !
+
+[2021-06-16 17:37:38]	[done]
+	build successfully !
+
+[2021-06-16 17:40:33]	[done]
+	build successfully !
+
+[2021-06-16 17:46:02]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 17:46:22]	[done]
+	build successfully !
+
+[2021-06-16 17:48:08]	[done]
+	build successfully !
+
