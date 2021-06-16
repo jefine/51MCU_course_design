@@ -28,3 +28,186 @@
 [2021-06-15 11:53:19]	[done]
 	build successfully !
 
+[2021-06-16 15:24:42]	[done]
+	build successfully !
+
+[2021-06-16 15:24:47]	[done]
+	build successfully !
+
+[2021-06-16 15:24:53]	[done]
+	build successfully !
+
+[2021-06-16 15:25:31]	[done]
+	build successfully !
+
+[2021-06-16 15:26:06]	[done]
+	build successfully !
+
+[2021-06-16 15:26:28]	[done]
+	build successfully !
+
+[2021-06-16 15:35:57]	[done]
+	build successfully !
+
+[2021-06-16 15:43:52]	[done]
+	build successfully !
+
+[2021-06-16 15:46:58]	[done]
+	build successfully !
+
+[2021-06-16 15:48:33]	[done]
+	build successfully !
+
+[2021-06-16 15:55:58]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 15:56:24]	[done]
+	build successfully !
+
+[2021-06-16 15:56:35]	[done]
+	build successfully !
+
+[2021-06-16 16:00:48]	[done]
+	build successfully !
+
+[2021-06-16 16:06:43]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:07:09]	[done]
+	build successfully !
+
+[2021-06-16 16:08:23]	[done]
+	build successfully !
+
+[2021-06-16 16:09:31]	[done]
+	build successfully !
+
+[2021-06-16 16:10:18]	[done]
+	build successfully !
+
+[2021-06-16 16:11:19]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:12:06]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:12:34]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:12:44]	[done]
+	build successfully !
+
+[2021-06-16 16:14:49]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:15:05]	[done]
+	build successfully !
+
+[2021-06-16 16:18:21]	[done]
+	build successfully !
+
+[2021-06-16 16:19:00]	[done]
+	build successfully !
+
+[2021-06-16 16:20:26]	[done]
+	build successfully !
+
+[2021-06-16 16:24:25]	[done]
+	build successfully !
+
+[2021-06-16 16:28:05]	[done]
+	build successfully !
+
+[2021-06-16 16:31:22]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\DS18B20.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:31:41]	[done]
+	build successfully !
+
+[2021-06-16 16:34:12]	[done]
+	build successfully !
+
+[2021-06-16 16:37:39]	[done]
+	build successfully !
+
+[2021-06-16 16:39:19]	[done]
+	build successfully !
+
+[2021-06-16 16:42:40]	[done]
+	build successfully !
+
+[2021-06-16 16:43:05]	[done]
+	build successfully !
+
+[2021-06-16 16:44:15]	[done]
+	build successfully !
+
+[2021-06-16 16:44:27]	[done]
+	build successfully !
+
+[2021-06-16 16:46:44]	[done]
+	build successfully !
+
+[2021-06-16 16:47:49]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:48:06]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:48:34]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\main.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:48:53]	[done]
+	build successfully !
+
+[2021-06-16 16:49:49]	[done]
+	build successfully !
+
+[2021-06-16 16:51:41]	compilation failed at : "f:\onedrive\OneDrive - cilicilidudu\xcu\ee\now\51MCU_course_design\others\zkx\51xiaofengshan\src\DS18B20.c", exit code: 2
+   在 unify_builder.Program.Main(String[] args)
+
+[2021-06-16 16:51:50]	[done]
+	build successfully !
+
+[2021-06-16 16:52:51]	[done]
+	build successfully !
+
+[2021-06-16 16:57:10]	[done]
+	build successfully !
+
+[2021-06-16 17:00:04]	[done]
+	build successfully !
+
+[2021-06-16 17:01:51]	[done]
+	build successfully !
+
+[2021-06-16 17:07:00]	[done]
+	build successfully !
+
+[2021-06-16 17:10:07]	[done]
+	build successfully !
+
+[2021-06-16 17:13:00]	[done]
+	build successfully !
+
+[2021-06-16 17:17:36]	[done]
+	build successfully !
+
+[2021-06-16 17:21:13]	[done]
+	build successfully !
+
+[2021-06-16 17:22:26]	[done]
+	build successfully !
+
+[2021-06-16 17:25:10]	[done]
+	build successfully !
+
+[2021-06-16 17:28:06]	[done]
+	build successfully !
+
+[2021-06-16 17:29:09]	[done]
+	build successfully !
+
+[2021-06-16 17:32:51]	[done]
+	build successfully !
+

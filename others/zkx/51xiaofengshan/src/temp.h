@@ -12,7 +12,7 @@
 #endif
 
 //--定义使用的IO口--//
-sbit DSPORT=P3^7;
+sbit IO_18B20 = P3^7;
 
 //--声明全局函数--//
 void Delay1ms(uint );

@@ -1,4 +1,4 @@
-LX51 LINKER/LOCATER V4.66.87.0                                                          06/15/2021  11:53:19  PAGE 1
+LX51 LINKER/LOCATER V4.66.87.0                                                          06/16/2021  17:32:50  PAGE 1
 
 
 LX51 LINKER/LOCATER V4.66.87.0, INVOKED BY:
@@ -45,9 +45,9 @@ ACTIVE MEMORY CLASSES OF MODULE:  .\BUILD\RELEASE\MCS51 (DS18B20)
 
 BASE        START       END         USED      MEMORY CLASS
 ==========================================================
-C:000000H   C:000000H   C:00FFFFH   0006DEH   CODE
+C:000000H   C:000000H   C:00FFFFH   00078FH   CODE
 I:000020H.0 I:000020H.0 I:00002FH.7 000000H.4 BIT
-I:000000H   I:000000H   I:00007FH   00002BH   DATA
+I:000000H   I:000000H   I:00007FH   00002EH   DATA
 C:000000H   C:000000H   C:00FFFFH   000021H   CONST
 I:000000H   I:000000H   I:0000FFH   000001H   IDATA
 
@@ -60,44 +60,46 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 
 * * * * * * * * * * *   D A T A   M E M O R Y   * * * * * * * * * * * * *
 000000H   000007H   000008H   ---    AT..     DATA           "REG BANK 0"
-000008H   00001DH   000016H   BYTE   UNIT     DATA           ?DT?MAIN
-00001EH.0 00001FH.7 000002H.0 ---    ---      **GAP**
+000008H   000014H   00000DH   BYTE   UNIT     DATA           _DATA_GROUP_
+000015H.0 00001FH.7 00000BH.0 ---    ---      **GAP**
 000020H.0 000020H.2 000000H.3 BIT    UNIT     BIT            _BIT_GROUP_
 000020H.3 000020H.3 000000H.1 BIT    UNIT     BIT            ?BI?MAIN
 000020H.4 000020H   000000H.4 ---    ---      **GAP**
-000021H   00002DH   00000DH   BYTE   UNIT     DATA           _DATA_GROUP_
-00002EH   00002EH   000001H   BYTE   UNIT     IDATA          ?STACK
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/15/2021  11:53:19  PAGE 2
+000021H   000039H   000019H   BYTE   UNIT     DATA           ?DT?MAIN
+00003AH   00003AH   000001H   BYTE   UNIT     IDATA          ?STACK
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/16/2021  17:32:50  PAGE 2
 
 
 
 * * * * * * * * * * *   C O D E   M E M O R Y   * * * * * * * * * * * * *
 000000H   000002H   000003H   ---    OFFS..   CODE           ?CO??C_STARTUP?0
-000003H   00000AH   000008H   ---    ---      **GAP**
+000003H   000005H   000003H   BYTE   OFFS..   CODE           ?MAIN?00003
+000006H   00000AH   000005H   BYTE   UNIT     CODE           ?PR?INT0INIT?MAIN
 00000BH   00000DH   000003H   BYTE   OFFS..   CODE           ?MAIN?0000B
 00000EH   000224H   000217H   BYTE   UNIT     CODE           ?C?LIB_CODE
-000225H   0002DDH   0000B9H   BYTE   UNIT     CODE           ?PR?COMPARE?MAIN
-0002DEH   000380H   0000A3H   BYTE   UNIT     CODE           ?PR?_INTTOSTRING?MAIN
-000381H   00040CH   00008CH   BYTE   UNIT     CODE           ?C_C51STARTUP
-00040DH   000485H   000079H   BYTE   UNIT     CODE           ?PR?_CONFIGTIMER0?MAIN
-000486H   0004F7H   000072H   BYTE   UNIT     CODE           ?PR?GETTEMP?MAIN
-0004F8H   000558H   000061H   BYTE   UNIT     CODE           ?PR?MAIN?MAIN
-000559H   000586H   00002EH   BYTE   UNIT     CODE           ?PR?_GET18B20TEMP?DS18B20
-000587H   0005B0H   00002AH   BYTE   UNIT     CODE           ?PR?READ18B20?DS18B20
-0005B1H   0005D9H   000029H   BYTE   UNIT     CODE           ?PR?_DELAY?MAIN
-0005DAH   000601H   000028H   BYTE   UNIT     CODE           ?PR?_LCDSHOWSTR?LCD1602
-000602H   000627H   000026H   BYTE   UNIT     CODE           ?PR?_WRITE18B20?DS18B20
-000628H   000644H   00001DH   BYTE   UNIT     CODE           ?PR?INTERRUPTTIMER0?MAIN
-000645H   000660H   00001CH   BYTE   UNIT     CODE           ?PR?GET18B20ACK?DS18B20
-000661H   000676H   000016H   BYTE   UNIT     CODE           ?PR?START18B20?DS18B20
-000677H   00068AH   000014H   BYTE   UNIT     CODE           ?PR?INITLCD1602?LCD1602
-00068BH   00069CH   000012H   BYTE   UNIT     CODE           ?PR?LCDWAITREADY?LCD1602
-00069DH   0006AEH   000012H   BYTE   UNIT     CODE           ?PR?_LCDSETCURSOR?LCD1602
-0006AFH   0006BEH   000010H   BYTE   UNIT     CODE           ?PR?_LCDWRITECMD?LCD1602
-0006BFH   0006CEH   000010H   BYTE   UNIT     CODE           ?PR?_LCDWRITEDAT?LCD1602
-0006CFH   0006DAH   00000CH   BYTE   UNIT     CODE           ?C_INITSEG
-0006DBH   0006E5H   00000BH   BYTE   UNIT     CODE           ?PR?_DELAYX10US?DS18B20
-0006E6H   000706H   000021H   BYTE   UNIT     CONST          ?CO?MAIN
+000225H   00030BH   0000E7H   BYTE   UNIT     CODE           ?PR?COMPARE?MAIN
+00030CH   0003AEH   0000A3H   BYTE   UNIT     CODE           ?PR?_INTTOSTRING?MAIN
+0003AFH   00043AH   00008CH   BYTE   UNIT     CODE           ?C_C51STARTUP
+00043BH   0004B3H   000079H   BYTE   UNIT     CODE           ?PR?_CONFIGTIMER0?MAIN
+0004B4H   000525H   000072H   BYTE   UNIT     CODE           ?PR?GETTEMP?MAIN
+000526H   000588H   000063H   BYTE   UNIT     CODE           ?PR?INT0?MAIN
+000589H   0005E2H   00005AH   BYTE   UNIT     CODE           ?PR?MAIN?MAIN
+0005E3H   00061AH   000038H   BYTE   UNIT     CODE           ?PR?INTERRUPTTIMER0?MAIN
+00061BH   000648H   00002EH   BYTE   UNIT     CODE           ?PR?_GET18B20TEMP?DS18B20
+000649H   000672H   00002AH   BYTE   UNIT     CODE           ?PR?READ18B20?DS18B20
+000673H   00069BH   000029H   BYTE   UNIT     CODE           ?PR?_DELAY?MAIN
+00069CH   0006C3H   000028H   BYTE   UNIT     CODE           ?PR?_LCDSHOWSTR?LCD1602
+0006C4H   0006E9H   000026H   BYTE   UNIT     CODE           ?PR?_WRITE18B20?DS18B20
+0006EAH   000705H   00001CH   BYTE   UNIT     CODE           ?PR?GET18B20ACK?DS18B20
+000706H   00071BH   000016H   BYTE   UNIT     CODE           ?PR?START18B20?DS18B20
+00071CH   00072FH   000014H   BYTE   UNIT     CODE           ?PR?INITLCD1602?LCD1602
+000730H   000741H   000012H   BYTE   UNIT     CODE           ?PR?LCDWAITREADY?LCD1602
+000742H   000753H   000012H   BYTE   UNIT     CODE           ?PR?_LCDSETCURSOR?LCD1602
+000754H   000763H   000010H   BYTE   UNIT     CODE           ?PR?_LCDWRITECMD?LCD1602
+000764H   000773H   000010H   BYTE   UNIT     CODE           ?PR?_LCDWRITEDAT?LCD1602
+000774H   000783H   000010H   BYTE   UNIT     CODE           ?C_INITSEG
+000784H   00078EH   00000BH   BYTE   UNIT     CODE           ?PR?_DELAYX10US?DS18B20
+00078FH   0007AFH   000021H   BYTE   UNIT     CONST          ?CO?MAIN
 
 
 
@@ -111,20 +113,30 @@ INTERRUPTTIMER0/MAIN        ----- -----  ----- -----
 
 *** NEW ROOT **************
 
+INT0/MAIN                   ----- -----  ----- -----
+  +--> _DELAY/MAIN
+
+_DELAY/MAIN                 ----- -----  ----- -----
+
+*** NEW ROOT **************
+
 ?C_C51STARTUP               ----- -----  ----- -----
   +--> MAIN/MAIN
   +--> ?C_INITSEG
 
 MAIN/MAIN                   20H.0 20H.0  ----- -----
-  +--> _CONFIGTIMER0/MAIN
   +--> START18B20/DS18B20
   +--> INITLCD1602/LCD1602
+  +--> INT0INIT/MAIN
+  +--> _CONFIGTIMER0/MAIN
+  +--> COMPARE/MAIN
   +--> _GET18B20TEMP/DS18B20
   +--> GETTEMP/MAIN
   +--> _LCDSHOWSTR/LCD1602
-  +--> COMPARE/MAIN
+  +--> _DELAY/MAIN
 
-_CONFIGTIMER0/MAIN          ----- -----  0021H 0024H
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/16/2021  17:32:50  PAGE 3
+
 
 START18B20/DS18B20          20H.1 20H.1  ----- -----
   +--> GET18B20ACK/DS18B20
@@ -134,9 +146,6 @@ GET18B20ACK/DS18B20         20H.2 20H.2  ----- -----
   +--> _DELAYX10US/DS18B20
 
 _DELAYX10US/DS18B20         ----- -----  ----- -----
-
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/15/2021  11:53:19  PAGE 3
-
 
 _WRITE18B20/DS18B20         ----- -----  ----- -----
   +--> _DELAYX10US/DS18B20
@@ -149,6 +158,13 @@ _LCDWRITECMD/LCD1602        ----- -----  ----- -----
 
 LCDWAITREADY/LCD1602        ----- -----  ----- -----
 
+INT0INIT/MAIN               ----- -----  ----- -----
+
+_CONFIGTIMER0/MAIN          ----- -----  0008H 000BH
+
+COMPARE/MAIN                ----- -----  ----- -----
+  +--> _DELAY/MAIN
+
 _GET18B20TEMP/DS18B20       20H.1 20H.1  ----- -----
   +--> GET18B20ACK/DS18B20
   +--> _WRITE18B20/DS18B20
@@ -160,9 +176,9 @@ READ18B20/DS18B20           ----- -----  ----- -----
 GETTEMP/MAIN                ----- -----  ----- -----
   +--> _INTTOSTRING/MAIN
 
-_INTTOSTRING/MAIN           ----- -----  0021H 002DH
+_INTTOSTRING/MAIN           ----- -----  0008H 0014H
 
-_LCDSHOWSTR/LCD1602         ----- -----  0021H 0023H
+_LCDSHOWSTR/LCD1602         ----- -----  0008H 000AH
   +--> _LCDSETCURSOR/LCD1602
   +--> _LCDWRITEDAT/LCD1602
 
@@ -171,11 +187,6 @@ _LCDSETCURSOR/LCD1602       ----- -----  ----- -----
 
 _LCDWRITEDAT/LCD1602        ----- -----  ----- -----
   +--> LCDWAITREADY/LCD1602
-
-COMPARE/MAIN                ----- -----  ----- -----
-  +--> _DELAY/MAIN
-
-_DELAY/MAIN                 ----- -----  ----- -----
 
 ?C_INITSEG                  ----- -----  ----- -----
 
@@ -192,43 +203,47 @@ PUBLIC SYMBOLS OF MODULE:  .\BUILD\RELEASE\MCS51 (DS18B20)
       01000039H   CODE     ---       ?C?IMUL
       01000081H   CODE     ---       ?C?ISTPTR
       010000A0H   CODE     ---       ?C?LMUL
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/16/2021  17:32:50  PAGE 4
+
+
       0100004BH   CODE     ---       ?C?SIDIV
       010001D0H   CODE     ---       ?C?UIDIV
       0100012BH   CODE     ---       ?C?ULDIV
       010001BDH   CODE     ---       ?C?ULSHR
       00000000H   NUMBER   ---       ?C?XDATASEG
-      010003C8H   CODE     ---       ?C_START
+      010003F6H   CODE     ---       ?C_START
       01000000H   CODE     ---       ?C_STARTUP
-      0100040DH   CODE     ---       _ConfigTimer0
-      010005BCH   CODE     ---       _delay
-      010006DBH   CODE     ---       _DelayX10us
-      01000559H   CODE     ---       _Get18B20Temp
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/15/2021  11:53:19  PAGE 4
-
-
-      010002DEH   CODE     ---       _IntToString
-      0100069DH   CODE     ---       _LcdSetCursor
-      010005DAH   CODE     ---       _LcdShowStr
-      010006AFH   CODE     ---       _LcdWriteCmd
-      010006BFH   CODE     ---       _LcdWriteDat
-      01000602H   CODE     ---       _Write18B20
+      0100043BH   CODE     ---       _ConfigTimer0
+      0100067EH   CODE     ---       _delay
+      01000784H   CODE     ---       _DelayX10us
+      0100061BH   CODE     ---       _Get18B20Temp
+      0100030CH   CODE     ---       _IntToString
+      01000742H   CODE     ---       _LcdSetCursor
+      0100069CH   CODE     ---       _LcdShowStr
+      01000754H   CODE     ---       _LcdWriteCmd
+      01000764H   CODE     ---       _LcdWriteDat
+      010006C4H   CODE     ---       _Write18B20
       01000225H   CODE     ---       Compare
-      00000009H   DATA     INT       decT
+      00000022H   DATA     INT       decT
       00000020H.3 BIT      BIT       flag1s
-      01000645H   CODE     ---       Get18B20Ack
-      01000486H   CODE     ---       GetTemp
-      01000677H   CODE     ---       InitLcd1602
-      01000628H   CODE     ---       InterruptTimer0
-      0000000CH   DATA     INT       intT
-      0100068BH   CODE     ---       LcdWaitReady
-      00000011H   DATA     BYTE      len
-      010004F8H   CODE     ---       main
-      01000587H   CODE     ---       Read18B20
-      01000661H   CODE     ---       Start18B20
-      00000012H   DATA     ---       str
-      0000000BH   DATA     BYTE      T0RH
-      0000000EH   DATA     BYTE      T0RL
-      0000000FH   DATA     INT       temp
+      010006EAH   CODE     ---       Get18B20Ack
+      010004B4H   CODE     ---       GetTemp
+      0100071CH   CODE     ---       InitLcd1602
+      01000526H   CODE     ---       Int0
+      01000006H   CODE     ---       Int0Init
+      010005E3H   CODE     ---       InterruptTimer0
+      00000025H   DATA     INT       intT
+      00000039H   DATA     BYTE      j
+      01000730H   CODE     ---       LcdWaitReady
+      0000002CH   DATA     BYTE      len
+      01000589H   CODE     ---       main
+      01000649H   CODE     ---       Read18B20
+      01000706H   CODE     ---       Start18B20
+      0000002DH   DATA     ---       str
+      00000024H   DATA     BYTE      T0RH
+      00000027H   DATA     BYTE      T0RL
+      0000002AH   DATA     INT       temp
+      00000028H   DATA     INT       unset
 
 
 
@@ -237,46 +252,46 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (DS18B20)
       VALUE       REP       CLASS    TYPE      SYMBOL NAME
       ====================================================
       ---         MODULE    ---      ---       DS18B20
-      01000559H   PUBLIC    CODE     ---       _Get18B20Temp
-      01000661H   PUBLIC    CODE     ---       Start18B20
-      01000587H   PUBLIC    CODE     ---       Read18B20
-      01000602H   PUBLIC    CODE     ---       _Write18B20
-      01000645H   PUBLIC    CODE     ---       Get18B20Ack
-      010006DBH   PUBLIC    CODE     ---       _DelayX10us
+      0100061BH   PUBLIC    CODE     ---       _Get18B20Temp
+      01000706H   PUBLIC    CODE     ---       Start18B20
+      01000649H   PUBLIC    CODE     ---       Read18B20
+      010006C4H   PUBLIC    CODE     ---       _Write18B20
+      010006EAH   PUBLIC    CODE     ---       Get18B20Ack
+      01000784H   PUBLIC    CODE     ---       _DelayX10us
 
-      010006DBH   BLOCK     CODE     ---       LVL=0
+      01000784H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000645H   BLOCK     CODE     ---       LVL=0
-      01000645H   BLOCK     CODE     NEAR LAB  LVL=1
+      010006EAH   BLOCK     CODE     ---       LVL=0
+      010006EAH   BLOCK     CODE     NEAR LAB  LVL=1
       00000020H.2 SYMBOL    BIT      VOID      ack
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000602H   BLOCK     CODE     ---       LVL=0
-      01000604H   BLOCK     CODE     NEAR LAB  LVL=1
+      010006C4H   BLOCK     CODE     ---       LVL=0
+      010006C6H   BLOCK     CODE     NEAR LAB  LVL=1
       00000005H   SYMBOL    DATA     VOID      mask
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/16/2021  17:32:50  PAGE 5
+
+
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000587H   BLOCK     CODE     ---       LVL=0
-      01000587H   BLOCK     CODE     NEAR LAB  LVL=1
+      01000649H   BLOCK     CODE     ---       LVL=0
+      01000649H   BLOCK     CODE     NEAR LAB  LVL=1
       00000006H   SYMBOL    DATA     VOID      dat
       00000005H   SYMBOL    DATA     VOID      mask
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000661H   BLOCK     CODE     ---       LVL=0
-      01000661H   BLOCK     CODE     NEAR LAB  LVL=1
+      01000706H   BLOCK     CODE     ---       LVL=0
+      01000706H   BLOCK     CODE     NEAR LAB  LVL=1
       00000020H.1 SYMBOL    BIT      VOID      ack
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/15/2021  11:53:19  PAGE 5
 
-
-
-      01000559H   BLOCK     CODE     ---       LVL=0
-      01000559H   BLOCK     CODE     NEAR LAB  LVL=1
+      0100061BH   BLOCK     CODE     ---       LVL=0
+      0100061BH   BLOCK     CODE     NEAR LAB  LVL=1
       00000020H.1 SYMBOL    BIT      VOID      ack
       00000004H   SYMBOL    DATA     VOID      LSB
       00000007H   SYMBOL    DATA     VOID      MSB
@@ -284,71 +299,75 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (DS18B20)
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       LCD1602
-      01000677H   PUBLIC    CODE     ---       InitLcd1602
-      010005DAH   PUBLIC    CODE     ---       _LcdShowStr
-      0100069DH   PUBLIC    CODE     ---       _LcdSetCursor
-      010006BFH   PUBLIC    CODE     ---       _LcdWriteDat
-      010006AFH   PUBLIC    CODE     ---       _LcdWriteCmd
-      0100068BH   PUBLIC    CODE     ---       LcdWaitReady
+      0100071CH   PUBLIC    CODE     ---       InitLcd1602
+      0100069CH   PUBLIC    CODE     ---       _LcdShowStr
+      01000742H   PUBLIC    CODE     ---       _LcdSetCursor
+      01000764H   PUBLIC    CODE     ---       _LcdWriteDat
+      01000754H   PUBLIC    CODE     ---       _LcdWriteCmd
+      01000730H   PUBLIC    CODE     ---       LcdWaitReady
 
-      0100068BH   BLOCK     CODE     ---       LVL=0
-      0100068BH   BLOCK     CODE     NEAR LAB  LVL=1
+      01000730H   BLOCK     CODE     ---       LVL=0
+      01000730H   BLOCK     CODE     NEAR LAB  LVL=1
       00000007H   SYMBOL    DATA     VOID      sta
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010006AFH   BLOCK     CODE     ---       LVL=0
+      01000754H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010006BFH   BLOCK     CODE     ---       LVL=0
+      01000764H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      0100069DH   BLOCK     CODE     ---       LVL=0
-      0100069DH   BLOCK     CODE     NEAR LAB  LVL=1
+      01000742H   BLOCK     CODE     ---       LVL=0
+      01000742H   BLOCK     CODE     NEAR LAB  LVL=1
       00000004H   SYMBOL    DATA     VOID      addr
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010005DAH   BLOCK     CODE     ---       LVL=0
+      0100069CH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000677H   BLOCK     CODE     ---       LVL=0
+      0100071CH   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       MAIN
-      00000012H   PUBLIC    DATA     ---       str
+      00000039H   PUBLIC    DATA     BYTE      j
+      0000002DH   PUBLIC    DATA     ---       str
       00000020H.3 PUBLIC    BIT      BIT       flag1s
-      00000011H   PUBLIC    DATA     BYTE      len
-      0000000FH   PUBLIC    DATA     INT       temp
-      0000000EH   PUBLIC    DATA     BYTE      T0RL
-      0000000CH   PUBLIC    DATA     INT       intT
-      0000000BH   PUBLIC    DATA     BYTE      T0RH
-      00000009H   PUBLIC    DATA     INT       decT
-      01000628H   PUBLIC    CODE     ---       InterruptTimer0
-      0100040DH   PUBLIC    CODE     ---       _ConfigTimer0
-      010002DEH   PUBLIC    CODE     ---       _IntToString
-      01000225H   PUBLIC    CODE     ---       Compare
-      010005BCH   PUBLIC    CODE     ---       _delay
-      01000486H   PUBLIC    CODE     ---       GetTemp
-      010004F8H   PUBLIC    CODE     ---       main
+      0000002CH   PUBLIC    DATA     BYTE      len
+      0000002AH   PUBLIC    DATA     INT       temp
+      00000028H   PUBLIC    DATA     INT       unset
+      00000027H   PUBLIC    DATA     BYTE      T0RL
+      00000025H   PUBLIC    DATA     INT       intT
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/16/2021  17:32:50  PAGE 6
 
-      010004F8H   BLOCK     CODE     ---       LVL=0
-      010004F8H   BLOCK     CODE     NEAR LAB  LVL=1
+
+      00000024H   PUBLIC    DATA     BYTE      T0RH
+      00000022H   PUBLIC    DATA     INT       decT
+      01000526H   PUBLIC    CODE     ---       Int0
+      01000006H   PUBLIC    CODE     ---       Int0Init
+      010005E3H   PUBLIC    CODE     ---       InterruptTimer0
+      0100043BH   PUBLIC    CODE     ---       _ConfigTimer0
+      0100030CH   PUBLIC    CODE     ---       _IntToString
+      01000225H   PUBLIC    CODE     ---       Compare
+      0100067EH   PUBLIC    CODE     ---       _delay
+      010004B4H   PUBLIC    CODE     ---       GetTemp
+      01000589H   PUBLIC    CODE     ---       main
+
+      01000589H   BLOCK     CODE     ---       LVL=0
+      01000589H   BLOCK     CODE     NEAR LAB  LVL=1
       00000020H.0 SYMBOL    BIT      VOID      res
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000486H   BLOCK     CODE     ---       LVL=0
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/15/2021  11:53:19  PAGE 6
-
-
+      010004B4H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010005B1H   BLOCK     CODE     ---       LVL=0
+      01000673H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010005BCH   BLOCK     CODE     ---       LVL=0
-      010005BCH   BLOCK     CODE     NEAR LAB  LVL=1
+      0100067EH   BLOCK     CODE     ---       LVL=0
+      0100067EH   BLOCK     CODE     NEAR LAB  LVL=1
       00000006H   SYMBOL    DATA     VOID      x
       00000004H   SYMBOL    DATA     VOID      y
       ---         BLOCKEND  ---      ---       LVL=1
@@ -357,32 +376,40 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (DS18B20)
       01000225H   BLOCK     CODE     ---       LVL=0
       01000225H   BLOCK     CODE     NEAR LAB  LVL=1
       00000002H   SYMBOL    DATA     VOID      i
-      00000001H   SYMBOL    DATA     VOID      j
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      010002DEH   BLOCK     CODE     ---       LVL=0
-      010002E8H   BLOCK     CODE     NEAR LAB  LVL=1
-      00000026H   SYMBOL    DATA     VOID      i
-      00000027H   SYMBOL    DATA     VOID      len
-      00000028H   SYMBOL    DATA     VOID      buf
+      0100030CH   BLOCK     CODE     ---       LVL=0
+      01000316H   BLOCK     CODE     NEAR LAB  LVL=1
+      0000000DH   SYMBOL    DATA     VOID      i
+      0000000EH   SYMBOL    DATA     VOID      len
+      0000000FH   SYMBOL    DATA     VOID      buf
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      0100040DH   BLOCK     CODE     ---       LVL=0
-      0100040DH   BLOCK     CODE     NEAR LAB  LVL=1
-      00000021H   SYMBOL    DATA     VOID      tmp
+      0100043BH   BLOCK     CODE     ---       LVL=0
+      0100043BH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000008H   SYMBOL    DATA     VOID      tmp
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
 
-      01000628H   BLOCK     CODE     ---       LVL=0
-      0100062CH   BLOCK     CODE     NEAR LAB  LVL=1
-      00000008H   SYMBOL    DATA     VOID      tmr1s
+      010005E3H   BLOCK     CODE     ---       LVL=0
+      010005E7H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000021H   SYMBOL    DATA     VOID      tmr1s
       ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000006H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000526H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
 
       ---         MODULE    ---      ---       ?C_STARTUP
       01000000H   PUBLIC    CODE     ---       ?C_STARTUP
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/16/2021  17:32:50  PAGE 7
+
+
 
       ---         MODULE    ---      ---       ?C?CLDPTR
       0100000EH   PUBLIC    CODE     ---       ?C?CLDPTR
@@ -407,15 +434,12 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (DS18B20)
 
       ---         MODULE    ---      ---       ?C?ULSHR
       010001BDH   PUBLIC    CODE     ---       ?C?ULSHR
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/15/2021  11:53:19  PAGE 7
-
-
 
       ---         MODULE    ---      ---       ?C_INIT
-      010003C8H   PUBLIC    CODE     ---       ?C_START
+      010003F6H   PUBLIC    CODE     ---       ?C_START
 
       ---         MODULE    ---      ---       ?C?UIDIV
       010001D0H   PUBLIC    CODE     ---       ?C?UIDIV
 
-Program Size: data=44.4 xdata=0 const=33 code=1758
+Program Size: data=47.4 xdata=0 const=33 code=1935
 LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
