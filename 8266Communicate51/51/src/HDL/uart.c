@@ -64,7 +64,7 @@ bit ReceiveString()
 void Init_USART()
 {
     SCON=0x50;  //´®¿Ú·½Ê½1£¬Ê¹ÄÜ½ÓÊÕ
-    TMOD|=0x20;  //¶¨Ê±Æ÷1¹¤×÷·½Ê½2£¨8Î»×Ô¶¯ÖØ×°³õÖµ£©
+    TMOD|=0x20;  //¶¨Ê±Æ÷1¹¤×÷·½Ê½2
     TMOD&=~0x10;
     TH1=0xfa;   //9600bps
     TL1=0xfa;
@@ -72,9 +72,9 @@ void Init_USART()
     TR1=1;
     TI=0;
     RI=0;
-    //PS=1;   //Ìá¸ß´®¿ÚÖĞ¶ÏÓÅÏÈ¼¶
+
     ES=1;  //¿ªÆô´®¿ÚÖĞ¶ÏÊ¹ÄÜ
-    EA=1;  //¿ªÖĞ¶Ï
+    EA=1;  
 }
 //±È½ÏÖ¸ÁîÍ·²¿
 bit CompareCMD_head(char CMD_head[])
@@ -159,17 +159,16 @@ bit Deal_UART_RecData()   //´¦Àí´®¿Ú½ÓÊÕÊı¾İ°üº¯Êı£¨³É¹¦´¦ÀíÊı¾İ°üÔò·µ»Ø1£¬·ñÔò·
 }
 
 
-//´®¿ÚÖĞ¶Ï·şÎñº¯Êı
-void USART() interrupt 4   //±êÖ¾Î»TIºÍRIĞèÒªÊÖ¶¯¸´Î»£¬TIºÍRIÖÃÎ»¹²ÓÃÒ»¸öÖĞ¶ÏÈë¿Ú
+void USART() interrupt 4  
 {
     if(ReceiveString())
     {
-        //Êı¾İ°ü³¤¶ÈÕıÈ·ÔòÖ´ĞĞÒÔÏÂ´úÂë
+        //Èç¹û³¤¶ÈÕıÈ·
         if(Deal_UART_RecData());
         else
         {
             PutString("\n error package \n");
         }
     }
-    RI=0;  //½ÓÊÕ²¢´¦ÀíÒ»´ÎÊı¾İºó°Ñ½ÓÊÕÖĞ¶Ï±êÖ¾Çå³ıÒ»ÏÂ£¬¾Ü¾øÏìÓ¦ÔÚÖĞ¶Ï½ÓÊÕÃ¦µÄÊ±ºò·¢À´µÄÇëÇó
+    RI=0;  
 }

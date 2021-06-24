@@ -1,0 +1,89 @@
+C51 COMPILER V9.52.0.0   DISPLAY                                                           06/13/2021 21:32:22 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE DISPLAY
+OBJECT MODULE PLACED IN display.OBJ
+COMPILER INVOKED BY: D:\software\C51\BIN\C51.EXE display.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include"display.h"
+   2          
+   3          uchar shi20,shi10,fen20,fen10,miao20,miao10;
+   4          uint pp;
+   5          uchar code table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,
+   6                                  0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};
+   7          void display(uchar shi2,uchar shi1,uchar fen2,uchar fen1,uchar miao2,uchar miao1)
+   8          {
+   9   1         dula=0;
+  10   1         P0=table[shi2];
+  11   1         dula=1;
+  12   1         dula=0;
+  13   1         
+  14   1         wela=0;
+  15   1         P0=0xfe;
+  16   1         wela=1;
+  17   1         wela=0;
+  18   1         delay(5);
+  19   1         
+  20   1         P0=table[shi1]|0x80;
+  21   1         dula=1;
+  22   1         dula=0;
+  23   1         
+  24   1         P0=0xfd;
+  25   1         wela=1;
+  26   1         wela=0;
+  27   1         delay(5);
+  28   1      
+  29   1         P0=table[fen2];
+  30   1         dula=1;
+  31   1         dula=0;
+  32   1         
+  33   1         P0=0xfb;
+  34   1         wela=1;
+  35   1         wela=0;
+  36   1         delay(5);
+  37   1         
+  38   1         P0=table[fen1]|0x80;
+  39   1         dula=1;
+  40   1         dula=0;
+  41   1         
+  42   1         P0=0xf7;
+  43   1         wela=1;
+  44   1         wela=0;
+  45   1         delay(5);
+  46   1         
+  47   1         P0=table[miao2];
+  48   1         dula=1;
+  49   1         dula=0;
+  50   1         
+  51   1         P0=0xef;
+  52   1         wela=1;
+  53   1         wela=0;
+  54   1         delay(5);
+  55   1         
+C51 COMPILER V9.52.0.0   DISPLAY                                                           06/13/2021 21:32:22 PAGE 2   
+
+  56   1         P0=table[miao1];
+  57   1         dula=1;
+  58   1         dula=0;
+  59   1         
+  60   1         P0=0xdf;
+  61   1         wela=1;
+  62   1         wela=0;
+  63   1         delay(5);
+  64   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    155    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

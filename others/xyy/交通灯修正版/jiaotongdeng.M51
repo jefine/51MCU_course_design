@@ -1,0 +1,264 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    06/22/2021  18:44:51  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+E:\MDKARMKEIL5\C51\BIN\BL51.EXE STARTUP.obj, jiaotongdeng.obj TO jiaotongdeng RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.obj (?C_STARTUP)
+  jiaotongdeng.obj (JIAOTONGDENG)
+  E:\MDKARMKEIL5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  jiaotongdeng (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0009H     UNIT         ?DT?JIAOTONGDENG
+                    0011H     000FH                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?JIAOTONGDENG
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     00CDH     UNIT         ?PR?MAIN?JIAOTONGDENG
+            CODE    00DBH     008CH     UNIT         ?C_C51STARTUP
+            CODE    0167H     0031H     UNIT         ?PR?_DISPLAY?JIAOTONGDENG
+            CODE    0198H     0014H     UNIT         ?PR?_DELAY?JIAOTONGDENG
+            CODE    01ACH     0013H     UNIT         ?PR?TIME0?JIAOTONGDENG
+            CODE    01BFH     0010H     UNIT         ?CO?JIAOTONGDENG
+            CODE    01CFH     0009H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   jiaotongdeng (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?JIAOTONGDENG
+  +--> ?C_INITSEG
+
+?PR?MAIN?JIAOTONGDENG
+  +--> ?PR?_DELAY?JIAOTONGDENG
+  +--> ?PR?_DISPLAY?JIAOTONGDENG
+
+?PR?_DISPLAY?JIAOTONGDENG
+  +--> ?CO?JIAOTONGDENG
+  +--> ?PR?_DELAY?JIAOTONGDENG
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  06/22/2021  18:44:51  PAGE 2
+
+
+
+
+
+SYMBOL TABLE OF MODULE:  jiaotongdeng (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:00DBH         SEGMENT       ?C_C51STARTUP
+  I:0021H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:00DEH         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:00DBH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:00DBH         LINE#         133
+  C:00DDH         LINE#         134
+  C:00DEH         LINE#         135
+  C:00DFH         LINE#         136
+  C:00E1H         LINE#         185
+  C:00E4H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        JIAOTONGDENG
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  C:01BFH         PUBLIC        table
+  C:0198H         PUBLIC        _delay
+  B:00A0H.3       PUBLIC        beep
+  D:0008H         PUBLIC        deng
+  C:000EH         PUBLIC        main
+  B:00A0H.6       PUBLIC        dula
+  B:00A0H.7       PUBLIC        wela
+  D:0089H         PUBLIC        TMOD
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  06/22/2021  18:44:51  PAGE 3
+
+
+  B:0020H.0       PUBLIC        alwaysyellow
+  B:00B0H.6       PUBLIC        key_green
+  B:0090H.0       PUBLIC        MOTOR1
+  B:0090H.1       PUBLIC        MOTOR2
+  B:00A8H.1       PUBLIC        ET0
+  B:00B0H.7       PUBLIC        key_yellow
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  D:0009H         PUBLIC        ppp
+  D:000BH         PUBLIC        jj
+  D:000CH         PUBLIC        kk
+  B:0088H.4       PUBLIC        TR0
+  C:01ACH         PUBLIC        time0
+  D:000DH         PUBLIC        shijian
+  D:000EH         PUBLIC        l
+  D:000FH         PUBLIC        aa0
+  D:0010H         PUBLIC        aa1
+  C:0167H         PUBLIC        _display
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        i
+  C:0198H         LINE#         24
+  C:0198H         LINE#         25
+  C:0198H         LINE#         26
+  C:01A1H         LINE#         27
+  C:01ABH         LINE#         28
+  -------         ENDPROC       _DELAY
+  -------         PROC          _DISPLAY
+  D:0007H         SYMBOL        sh_c
+  D:0005H         SYMBOL        g_c
+  C:0167H         LINE#         30
+  C:0167H         LINE#         31
+  C:0167H         LINE#         32
+  C:0169H         LINE#         33
+  C:0170H         LINE#         34
+  C:0172H         LINE#         35
+  C:0174H         LINE#         37
+  C:0176H         LINE#         38
+  C:0179H         LINE#         39
+  C:017BH         LINE#         40
+  C:017DH         LINE#         41
+  C:0184H         LINE#         43
+  C:0188H         LINE#         44
+  C:018AH         LINE#         45
+  C:018CH         LINE#         47
+  C:018FH         LINE#         48
+  C:0191H         LINE#         49
+  C:0193H         LINE#         50
+  -------         ENDPROC       _DISPLAY
+  -------         PROC          MAIN
+  C:000EH         LINE#         53
+  C:000EH         LINE#         54
+  C:000EH         LINE#         55
+  C:0011H         LINE#         56
+  C:0013H         LINE#         57
+  C:0016H         LINE#         58
+  C:0019H         LINE#         59
+  C:001BH         LINE#         66
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  06/22/2021  18:44:51  PAGE 4
+
+
+  C:001DH         LINE#         67
+  C:001DH         LINE#         68
+  C:001DH         LINE#         70
+  C:0020H         LINE#         71
+  C:0020H         LINE#         72
+  C:0027H         LINE#         73
+  C:002AH         LINE#         74
+  C:002DH         LINE#         75
+  C:0030H         LINE#         76
+  C:0030H         LINE#         78
+  C:0033H         LINE#         79
+  C:0033H         LINE#         80
+  C:003AH         LINE#         81
+  C:003DH         LINE#         82
+  C:0040H         LINE#         83
+  C:0043H         LINE#         84
+  C:0045H         LINE#         85
+  C:0045H         LINE#         87
+  C:004CH         LINE#         88
+  C:004CH         LINE#         89
+  C:004EH         LINE#         90
+  C:0057H         LINE#         91
+  C:0063H         LINE#         92
+  C:0063H         LINE#         93
+  C:0066H         LINE#         94
+  C:0069H         LINE#         95
+  C:006BH         LINE#         96
+  C:006EH         LINE#         97
+  C:0071H         LINE#         98
+  C:0073H         LINE#         99
+  C:0076H         LINE#         100
+  C:0079H         LINE#         101
+  C:0079H         LINE#         105
+  C:0079H         LINE#         106
+  C:0079H         LINE#         107
+  C:0081H         LINE#         108
+  C:0081H         LINE#         109
+  C:0085H         LINE#         110
+  C:0087H         LINE#         111
+  C:0087H         LINE#         112
+  C:0090H         LINE#         113
+  C:0098H         LINE#         115
+  C:009BH         LINE#         116
+  C:00A1H         LINE#         119
+  C:00B0H         LINE#         120
+  C:00B0H         LINE#         121
+  C:00B3H         LINE#         122
+  C:00B5H         LINE#         123
+  C:00B7H         LINE#         124
+  C:00BAH         LINE#         137
+  C:00BAH         LINE#         138
+  C:00BCH         LINE#         139
+  C:00BEH         LINE#         140
+  C:00C1H         LINE#         141
+  C:00C1H         LINE#         142
+  C:00C6H         LINE#         143
+  C:00C6H         LINE#         144
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  06/22/2021  18:44:51  PAGE 5
+
+
+  C:00C9H         LINE#         145
+  C:00CBH         LINE#         146
+  C:00CBH         LINE#         147
+  C:00D3H         LINE#         148
+  C:00D3H         LINE#         149
+  C:00D6H         LINE#         150
+  C:00D8H         LINE#         151
+  C:00D8H         LINE#         152
+  -------         ENDPROC       MAIN
+  -------         PROC          TIME0
+  C:01ACH         LINE#         157
+  C:01AEH         LINE#         159
+  C:01B1H         LINE#         160
+  C:01B4H         LINE#         161
+  C:01BCH         LINE#         162
+  -------         ENDPROC       TIME0
+  -------         ENDMOD        JIAOTONGDENG
+
+Program Size: data=18.1 xdata=0 code=464
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

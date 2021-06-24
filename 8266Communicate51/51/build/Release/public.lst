@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 1   
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE PUBLIC
@@ -18,129 +18,114 @@ line level    source
    7          char num=0;
    8          uchar DisplayData[8];
    9          uchar code smgduan[10] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
-  10          /*******************************************************************************
-  11          * 函 数 名         : delay
-  12          * 函数功能         : 延时函数，i=1时，大约延时10us
-  13          *******************************************************************************/
-  14          void delay(uint i)
-  15          {
-  16   1          while(i--); 
-  17   1      }
+  10          //10us
+  11          void delay(uint i)
+  12          {
+  13   1          while(i--); 
+  14   1      }
+  15          
+  16          
+  17          //温度读取处理转换函数
   18          
-  19          
-  20          /*******************************************************************************
-  21          * 函 数 名         : datapros()
-  22          * 函数功能         : 温度读取处理转换函数
-  23          * 输    入         : temp
-  24          * 输    出         : 无
-  25          *******************************************************************************/
-  26          
-  27          int dataprosTemp(int temp)   
-  28          {
-  29   1          float tp;  
-  30   1          if(temp< 0)             //当温度值为负数
-  31   1          {
-  32   2              DisplayData[0] = 0x40;    //   -
-  33   2              //因为读取的温度是实际温度的补码，所以减1，再取反求出原码
-  34   2              temp=temp-1;
-  35   2              temp=~temp;
-  36   2              tp=temp;
-  37   2              temp=tp*0.0625*100+0.5; 
-  38   2              //留两个小数点就*100，+0.5是四舍五入，因为C语言浮点数转换为整型的时候把小数点
-  39   2              //后面的数自动去掉，不管是否大于0.5，而+0.5之后大于0.5的就是进1了，小于0.5的就
-  40   2              //算加上0.5，还是在小数点后面。
-  41   2          }
-  42   1          else
-  43   1          {           
-  44   2              DisplayData[0] = 0x00;
-  45   2              tp=temp;//因为数据处理有小数点所以将温度赋给一个浮点型变量
-  46   2              //如果温度是正的那么，那么正数的原码就是补码它本身
-  47   2              temp=tp*0.0625*100+0.5; 
-  48   2              //留两个小数点就*100，+0.5是四舍五入，因为C语言浮点数转换为整型的时候把小数点
-  49   2              //后面的数自动去掉，不管是否大于0.5，而+0.5之后大于0.5的就是进1了，小于0.5的就
-  50   2              //算加上0.5，还是在小数点后面。
-  51   2          }
-  52   1          DisplayData[1] = smgduan[temp / 10000];
-  53   1          DisplayData[2] = smgduan[temp % 10000 / 1000];
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 2   
+  19          int dataprosTemp(int temp)   
+  20          {
+  21   1          float tp;  
+  22   1          if(temp< 0)             //当温度值为负数
+  23   1          {
+  24   2              DisplayData[0] = 0x40;    //   -
+  25   2              //因为读取的温度是实际温度的补码，所以减1，再取反求出原码
+  26   2              temp=temp-1;
+  27   2              temp=~temp;
+  28   2              tp=temp;
+  29   2              temp=tp*0.0625*100+0.5; 
+  30   2              //留两个小数点就*100，+0.5是四舍五入，因为C语言浮点数转换为整型的时候把小数点
+  31   2              //后面的数自动去掉，不管是否大于0.5，而+0.5之后大于0.5的就是进1了，小于0.5的就
+  32   2              //算加上0.5，还是在小数点后面。
+  33   2          }
+  34   1          else
+  35   1          {           
+  36   2              DisplayData[0] = 0x00;
+  37   2              tp=temp;//因为数据处理有小数点所以将温度赋给一个浮点型变量
+  38   2              //如果温度是正的那么，那么正数的原码就是补码它本身
+  39   2              temp=tp*0.0625*100+0.5; 
+  40   2              //留两个小数点就*100，+0.5是四舍五入，因为C语言浮点数转换为整型的时候把小数点
+  41   2              //后面的数自动去掉，不管是否大于0.5，而+0.5之后大于0.5的就是进1了，小于0.5的就
+  42   2              //算加上0.5，还是在小数点后面。
+  43   2          }
+  44   1          DisplayData[1] = smgduan[temp / 10000];
+  45   1          DisplayData[2] = smgduan[temp % 10000 / 1000];
+  46   1          DisplayData[3] = smgduan[temp % 1000 / 100] | 0x80;
+  47   1          DisplayData[4] = smgduan[temp % 100 / 10];
+  48   1          DisplayData[5] = smgduan[temp % 10];
+  49   1      
+  50   1          return temp;
+  51   1      }
+  52          
+  53          
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 2   
 
-  54   1          DisplayData[3] = smgduan[temp % 1000 / 100] | 0x80;
-  55   1          DisplayData[4] = smgduan[temp % 100 / 10];
-  56   1          DisplayData[5] = smgduan[temp % 10];
-  57   1      
-  58   1          return temp;
-  59   1      }
-  60          
-  61          
-  62          /*******************************************************************************
-  63          * 函数名         :DigDisplay()
-  64          * 函数功能       :数码管显示函数
-  65          * 输入           : 无
-  66          * 输出           : 无
-  67          *******************************************************************************/
-  68          void DigDisplay()
-  69          {
-  70   1          uchar i;
-  71   1          
-  72   1          for(i=0;i<6;i++)
-  73   1          {
-  74   2              switch(i)    //位选，选择点亮的数码管，
-  75   2              {
-  76   3                  case(0):
-  77   3                      LSA=0;LSB=0;LSC=0; break;//显示第0位
-  78   3                  case(1):
-  79   3                      LSA=1;LSB=0;LSC=0; break;//显示第1位
-  80   3                  case(2):
-  81   3                      LSA=0;LSB=1;LSC=0; break;//显示第2位
-  82   3                  case(3):
-  83   3                      LSA=1;LSB=1;LSC=0; break;//显示第3位
-  84   3                  case(4):
-  85   3                      LSA=0;LSB=0;LSC=1; break;//显示第4位
-  86   3                  case(5):
-  87   3                      LSA=1;LSB=0;LSC=1; break;//显示第5位    
-  88   3              }
-  89   2              P0=DisplayData[5-i];//发送数据
-  90   2              Delay1ms(1);
-  91   2              //delay(100); //间隔一段时间扫描    
-  92   2              P0=0x00;//消隐
-  93   2          }       
-  94   1      }
-  95          
-  96          void sendtemp(){
-  97   1              int temp = dataprosTemp(Ds18b20ReadTemp());
-  98   1              DataPackage_DS18B20[8] = (char)(temp / 10000)+'0';
-  99   1              DataPackage_DS18B20[9] = (char)(temp % 10000 / 1000)+'0';
- 100   1              DataPackage_DS18B20[10] = (char)(temp % 1000 / 100)+'0';
- 101   1              DataPackage_DS18B20[11] = '.';
- 102   1              DataPackage_DS18B20[12] = (char)(temp % 100 / 10)+'0';
- 103   1              DataPackage_DS18B20[13] = (char)(temp % 10)+'0';
- 104   1              PutString(DataPackage_DS18B20);
- 105   1              LcdDisplayTemp(DataPackage_DS18B20);
- 106   1      }
- 107          
- 108          void sendprad(){
- 109   1          int temp;
- 110   1          temp = Read_AD_Data(0xA4);      // 光敏电阻
- 111   1          DataPackage_XPT2046[8] = (char)(temp/1000)+'0';//千位
- 112   1          DataPackage_XPT2046[9] = (char)(temp%1000/100)+'0';//百位
- 113   1          DataPackage_XPT2046[10] = (char)(temp%1000%100/10)+'0';//十位
- 114   1          DataPackage_XPT2046[11] = (char)(temp%1000%100%10)+'0';//个位
- 115   1          PutString(DataPackage_XPT2046);
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 3   
-
- 116   1          LcdDisplayPrad(DataPackage_XPT2046);
- 117   1      }
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 4   
+  54          //数码管
+  55          void DigDisplay()
+  56          {
+  57   1          uchar i;
+  58   1          
+  59   1          for(i=0;i<6;i++)
+  60   1          {
+  61   2              switch(i)    //位选，选择点亮的数码管，
+  62   2              {
+  63   3                  case(0):
+  64   3                      LSA=0;LSB=0;LSC=0; break;//显示第0位
+  65   3                  case(1):
+  66   3                      LSA=1;LSB=0;LSC=0; break;//显示第1位
+  67   3                  case(2):
+  68   3                      LSA=0;LSB=1;LSC=0; break;//显示第2位
+  69   3                  case(3):
+  70   3                      LSA=1;LSB=1;LSC=0; break;//显示第3位
+  71   3                  case(4):
+  72   3                      LSA=0;LSB=0;LSC=1; break;//显示第4位
+  73   3                  case(5):
+  74   3                      LSA=1;LSB=0;LSC=1; break;//显示第5位    
+  75   3              }
+  76   2              P0=DisplayData[5-i];//发送数据
+  77   2              Delay1ms(1);
+  78   2              //delay(100); //间隔一段时间扫描    
+  79   2              P0=0x00;//消隐
+  80   2          }       
+  81   1      }
+  82          
+  83          void sendtemp(){
+  84   1              int temp = dataprosTemp(Ds18b20ReadTemp());
+  85   1              DataPackage_DS18B20[8] = (char)(temp / 10000)+'0';
+  86   1              DataPackage_DS18B20[9] = (char)(temp % 10000 / 1000)+'0';
+  87   1              DataPackage_DS18B20[10] = (char)(temp % 1000 / 100)+'0';
+  88   1              DataPackage_DS18B20[11] = '.';
+  89   1              DataPackage_DS18B20[12] = (char)(temp % 100 / 10)+'0';
+  90   1              DataPackage_DS18B20[13] = (char)(temp % 10)+'0';
+  91   1              PutString(DataPackage_DS18B20);
+  92   1              LcdDisplayTemp(DataPackage_DS18B20);
+  93   1      }
+  94          
+  95          void sendprad(){
+  96   1          int temp;
+  97   1          temp = Read_AD_Data(0xA4);      // 光敏电阻
+  98   1          DataPackage_XPT2046[8] = (char)(temp/1000)+'0';//千位
+  99   1          DataPackage_XPT2046[9] = (char)(temp%1000/100)+'0';//百位
+ 100   1          DataPackage_XPT2046[10] = (char)(temp%1000%100/10)+'0';//十位
+ 101   1          DataPackage_XPT2046[11] = (char)(temp%1000%100%10)+'0';//个位
+ 102   1          PutString(DataPackage_XPT2046);
+ 103   1          LcdDisplayPrad(DataPackage_XPT2046);
+ 104   1      }
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 3   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
 
              ; FUNCTION _delay (BEGIN)
-                                           ; SOURCE LINE # 14
+                                           ; SOURCE LINE # 11
 ;---- Variable 'i' assigned to Register 'R6/R7' ----
-                                           ; SOURCE LINE # 15
+                                           ; SOURCE LINE # 12
 0000         ?C0001:
-                                           ; SOURCE LINE # 16
+                                           ; SOURCE LINE # 13
 0000 EF                MOV     A,R7
 0001 1F                DEC     R7
 0002 AC06              MOV     R4,AR6
@@ -149,44 +134,44 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0007         ?C0020:
 0007 4C                ORL     A,R4
 0008 70F6              JNZ     ?C0001
-                                           ; SOURCE LINE # 17
+                                           ; SOURCE LINE # 14
 000A 22                RET     
              ; FUNCTION _delay (END)
 
              ; FUNCTION _dataprosTemp (BEGIN)
-                                           ; SOURCE LINE # 27
+                                           ; SOURCE LINE # 19
 ;---- Variable 'temp' assigned to Register 'R2/R3' ----
 0000 AB07              MOV     R3,AR7
 0002 AA06              MOV     R2,AR6
-                                           ; SOURCE LINE # 28
-                                           ; SOURCE LINE # 30
+                                           ; SOURCE LINE # 20
+                                           ; SOURCE LINE # 22
 0004 C3                CLR     C
 0005 EA                MOV     A,R2
 0006 6480              XRL     A,#080H
 0008 9480              SUBB    A,#080H
 000A 5010              JNC     ?C0004
-                                           ; SOURCE LINE # 31
-                                           ; SOURCE LINE # 32
+                                           ; SOURCE LINE # 23
+                                           ; SOURCE LINE # 24
 000C 750040      R     MOV     DisplayData,#040H
-                                           ; SOURCE LINE # 34
+                                           ; SOURCE LINE # 26
 000F EB                MOV     A,R3
 0010 1B                DEC     R3
 0011 7001              JNZ     ?C0021
 0013 1A                DEC     R2
 0014         ?C0021:
-                                           ; SOURCE LINE # 35
+                                           ; SOURCE LINE # 27
 0014 6303FF            XRL     AR3,#0FFH
 0017 6302FF            XRL     AR2,#0FFH
-                                           ; SOURCE LINE # 36
-                                           ; SOURCE LINE # 37
-                                           ; SOURCE LINE # 41
+                                           ; SOURCE LINE # 28
+                                           ; SOURCE LINE # 29
+                                           ; SOURCE LINE # 33
 001A 8003              SJMP    ?C0022
 001C         ?C0004:
-                                           ; SOURCE LINE # 43
-                                           ; SOURCE LINE # 44
+                                           ; SOURCE LINE # 35
+                                           ; SOURCE LINE # 36
 001C E4                CLR     A
 001D F500        R     MOV     DisplayData,A
-                                           ; SOURCE LINE # 45
+                                           ; SOURCE LINE # 37
 001F         ?C0022:
 001F AD03              MOV     R5,AR3
 0021 AC02              MOV     R4,AR2
@@ -194,11 +179,11 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0024 120000      E     LCALL   ?C?FCASTI
 0027 8F00        R     MOV     tp+03H,R7
 0029 8E00        R     MOV     tp+02H,R6
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 5   
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 4   
 
 002B 8D00        R     MOV     tp+01H,R5
 002D 8C00        R     MOV     tp,R4
-                                           ; SOURCE LINE # 47
+                                           ; SOURCE LINE # 39
 002F E4                CLR     A
 0030 FF                MOV     R7,A
 0031 FE                MOV     R6,A
@@ -218,9 +203,9 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 004A 120000      E     LCALL   ?C?CASTF
 004D AA06              MOV     R2,AR6
 004F AB07              MOV     R3,AR7
-                                           ; SOURCE LINE # 51
+                                           ; SOURCE LINE # 43
 0051         ?C0005:
-                                           ; SOURCE LINE # 52
+                                           ; SOURCE LINE # 44
 0051 7C27              MOV     R4,#027H
 0053 7D10              MOV     R5,#010H
 0055 AF03              MOV     R7,AR3
@@ -235,7 +220,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0066 E4                CLR     A
 0067 93                MOVC    A,@A+DPTR
 0068 F500        R     MOV     DisplayData+01H,A
-                                           ; SOURCE LINE # 53
+                                           ; SOURCE LINE # 45
 006A 7C27              MOV     R4,#027H
 006C 7D10              MOV     R5,#010H
 006E AF03              MOV     R7,AR3
@@ -258,10 +243,10 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 008A F583              MOV     DPH,A
 008C E4                CLR     A
 008D 93                MOVC    A,@A+DPTR
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 6   
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 5   
 
 008E F500        R     MOV     DisplayData+02H,A
-                                           ; SOURCE LINE # 54
+                                           ; SOURCE LINE # 46
 0090 7C03              MOV     R4,#03H
 0092 7DE8              MOV     R5,#0E8H
 0094 AF03              MOV     R7,AR3
@@ -286,7 +271,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 00B3 93                MOVC    A,@A+DPTR
 00B4 4480              ORL     A,#080H
 00B6 F500        R     MOV     DisplayData+03H,A
-                                           ; SOURCE LINE # 55
+                                           ; SOURCE LINE # 47
 00B8 7C00              MOV     R4,#00H
 00BA 7D64              MOV     R5,#064H
 00BC AF03              MOV     R7,AR3
@@ -310,7 +295,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 00DA E4                CLR     A
 00DB 93                MOVC    A,@A+DPTR
 00DC F500        R     MOV     DisplayData+04H,A
-                                           ; SOURCE LINE # 56
+                                           ; SOURCE LINE # 48
 00DE 7C00              MOV     R4,#00H
 00E0 7D0A              MOV     R5,#0AH
 00E2 AF03              MOV     R7,AR3
@@ -322,27 +307,27 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 00EE 7400        R     MOV     A,#HIGH smgduan
 00F0 3C                ADDC    A,R4
 00F1 F583              MOV     DPH,A
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 7   
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 6   
 
 00F3 E4                CLR     A
 00F4 93                MOVC    A,@A+DPTR
 00F5 F500        R     MOV     DisplayData+05H,A
-                                           ; SOURCE LINE # 58
+                                           ; SOURCE LINE # 50
 00F7 AE02              MOV     R6,AR2
 00F9 AF03              MOV     R7,AR3
-                                           ; SOURCE LINE # 59
+                                           ; SOURCE LINE # 51
 00FB 22                RET     
              ; FUNCTION _dataprosTemp (END)
 
              ; FUNCTION DigDisplay (BEGIN)
-                                           ; SOURCE LINE # 68
-                                           ; SOURCE LINE # 69
-                                           ; SOURCE LINE # 72
+                                           ; SOURCE LINE # 55
+                                           ; SOURCE LINE # 56
+                                           ; SOURCE LINE # 59
 0000 E4                CLR     A
 0001 F500        R     MOV     i,A
 0003         ?C0007:
-                                           ; SOURCE LINE # 73
-                                           ; SOURCE LINE # 74
+                                           ; SOURCE LINE # 60
+                                           ; SOURCE LINE # 61
 0003 E500        R     MOV     A,i
 0005 14                DEC     A
 0006 6014              JZ      ?C0012
@@ -356,50 +341,50 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0012 6020              JZ      ?C0016
 0014 2405              ADD     A,#05H
 0016 7022              JNZ     ?C0010
-                                           ; SOURCE LINE # 75
-                                           ; SOURCE LINE # 76
+                                           ; SOURCE LINE # 62
+                                           ; SOURCE LINE # 63
 0018         ?C0011:
-                                           ; SOURCE LINE # 77
+                                           ; SOURCE LINE # 64
 0018 C2A2              CLR     LSA
 001A 8002              SJMP    ?C0023
-                                           ; SOURCE LINE # 78
+                                           ; SOURCE LINE # 65
 001C         ?C0012:
-                                           ; SOURCE LINE # 79
+                                           ; SOURCE LINE # 66
 001C D2A2              SETB    LSA
 001E         ?C0023:
 001E C2A3              CLR     LSB
 0020 C2A4              CLR     LSC
 0022 8016              SJMP    ?C0010
-                                           ; SOURCE LINE # 80
+                                           ; SOURCE LINE # 67
 0024         ?C0013:
-                                           ; SOURCE LINE # 81
+                                           ; SOURCE LINE # 68
 0024 C2A2              CLR     LSA
 0026 8002              SJMP    ?C0024
-                                           ; SOURCE LINE # 82
+                                           ; SOURCE LINE # 69
 0028         ?C0014:
-                                           ; SOURCE LINE # 83
+                                           ; SOURCE LINE # 70
 0028 D2A2              SETB    LSA
 002A         ?C0024:
 002A D2A3              SETB    LSB
 002C C2A4              CLR     LSC
 002E 800A              SJMP    ?C0010
-                                           ; SOURCE LINE # 84
+                                           ; SOURCE LINE # 71
 0030         ?C0015:
-                                           ; SOURCE LINE # 85
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 8   
+                                           ; SOURCE LINE # 72
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 7   
 
 0030 C2A2              CLR     LSA
 0032 8002              SJMP    ?C0025
-                                           ; SOURCE LINE # 86
+                                           ; SOURCE LINE # 73
 0034         ?C0016:
-                                           ; SOURCE LINE # 87
+                                           ; SOURCE LINE # 74
 0034 D2A2              SETB    LSA
 0036         ?C0025:
 0036 C2A3              CLR     LSB
 0038 D2A4              SETB    LSC
-                                           ; SOURCE LINE # 88
+                                           ; SOURCE LINE # 75
 003A         ?C0010:
-                                           ; SOURCE LINE # 89
+                                           ; SOURCE LINE # 76
 003A C3                CLR     C
 003B 7405              MOV     A,#05H
 003D 9500        R     SUBB    A,i
@@ -407,40 +392,40 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0041 F8                MOV     R0,A
 0042 E6                MOV     A,@R0
 0043 F580              MOV     P0,A
-                                           ; SOURCE LINE # 90
+                                           ; SOURCE LINE # 77
 0045 7F01              MOV     R7,#01H
 0047 7E00              MOV     R6,#00H
 0049 120000      E     LCALL   _Delay1ms
-                                           ; SOURCE LINE # 92
+                                           ; SOURCE LINE # 79
 004C E4                CLR     A
 004D F580              MOV     P0,A
-                                           ; SOURCE LINE # 93
+                                           ; SOURCE LINE # 80
 004F 0500        R     INC     i
 0051 E500        R     MOV     A,i
 0053 C3                CLR     C
 0054 9406              SUBB    A,#06H
 0056 40AB              JC      ?C0007
-                                           ; SOURCE LINE # 94
+                                           ; SOURCE LINE # 81
 0058         ?C0017:
 0058 22                RET     
              ; FUNCTION DigDisplay (END)
 
              ; FUNCTION sendtemp (BEGIN)
-                                           ; SOURCE LINE # 96
-                                           ; SOURCE LINE # 97
+                                           ; SOURCE LINE # 83
+                                           ; SOURCE LINE # 84
 0000 120000      E     LCALL   Ds18b20ReadTemp
 0003 120000      R     LCALL   _dataprosTemp
 ;---- Variable 'temp' assigned to Register 'R2/R3' ----
 0006 AB07              MOV     R3,AR7
 0008 AA06              MOV     R2,AR6
-                                           ; SOURCE LINE # 98
+                                           ; SOURCE LINE # 85
 000A 7C27              MOV     R4,#027H
 000C 7D10              MOV     R5,#010H
 000E 120000      E     LCALL   ?C?SIDIV
 0011 EF                MOV     A,R7
 0012 2430              ADD     A,#030H
 0014 F500        E     MOV     DataPackage_DS18B20+08H,A
-                                           ; SOURCE LINE # 99
+                                           ; SOURCE LINE # 86
 0016 7C27              MOV     R4,#027H
 0018 7D10              MOV     R5,#010H
 001A AF03              MOV     R7,AR3
@@ -450,7 +435,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0023 7FE8              MOV     R7,#0E8H
 0025 CF                XCH     A,R7
 0026 CD                XCH     A,R5
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 9   
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 8   
 
 0027 CF                XCH     A,R7
 0028 CE                XCH     A,R6
@@ -460,7 +445,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 002E EF                MOV     A,R7
 002F 2430              ADD     A,#030H
 0031 F500        E     MOV     DataPackage_DS18B20+09H,A
-                                           ; SOURCE LINE # 100
+                                           ; SOURCE LINE # 87
 0033 7C03              MOV     R4,#03H
 0035 7DE8              MOV     R5,#0E8H
 0037 AF03              MOV     R7,AR3
@@ -478,9 +463,9 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 004B EF                MOV     A,R7
 004C 2430              ADD     A,#030H
 004E F500        E     MOV     DataPackage_DS18B20+0AH,A
-                                           ; SOURCE LINE # 101
+                                           ; SOURCE LINE # 88
 0050 75002E      E     MOV     DataPackage_DS18B20+0BH,#02EH
-                                           ; SOURCE LINE # 102
+                                           ; SOURCE LINE # 89
 0053 7C00              MOV     R4,#00H
 0055 7D64              MOV     R5,#064H
 0057 AF03              MOV     R7,AR3
@@ -498,7 +483,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 006B EF                MOV     A,R7
 006C 2430              ADD     A,#030H
 006E F500        E     MOV     DataPackage_DS18B20+0CH,A
-                                           ; SOURCE LINE # 103
+                                           ; SOURCE LINE # 90
 0070 AE02              MOV     R6,AR2
 0072 AF03              MOV     R7,AR3
 0074 7C00              MOV     R4,#00H
@@ -507,14 +492,14 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 007B ED                MOV     A,R5
 007C 2430              ADD     A,#030H
 007E F500        E     MOV     DataPackage_DS18B20+0DH,A
-                                           ; SOURCE LINE # 104
+                                           ; SOURCE LINE # 91
 0080 7B00              MOV     R3,#00H
 0082 7A00        E     MOV     R2,#HIGH DataPackage_DS18B20
 0084 7900        E     MOV     R1,#LOW DataPackage_DS18B20
 0086 120000      E     LCALL   _PutString
-                                           ; SOURCE LINE # 105
+                                           ; SOURCE LINE # 92
 0089 7B00              MOV     R3,#00H
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 10  
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 9   
 
 008B 7A00        E     MOV     R2,#HIGH DataPackage_DS18B20
 008D 7900        E     MOV     R1,#LOW DataPackage_DS18B20
@@ -522,21 +507,21 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
              ; FUNCTION sendtemp (END)
 
              ; FUNCTION sendprad (BEGIN)
-                                           ; SOURCE LINE # 108
-                                           ; SOURCE LINE # 110
+                                           ; SOURCE LINE # 95
+                                           ; SOURCE LINE # 97
 0000 7FA4              MOV     R7,#0A4H
 0002 120000      E     LCALL   _Read_AD_Data
 ;---- Variable 'temp' assigned to Register 'R2/R3' ----
 0005 AB07              MOV     R3,AR7
 0007 AA06              MOV     R2,AR6
-                                           ; SOURCE LINE # 111
+                                           ; SOURCE LINE # 98
 0009 7C03              MOV     R4,#03H
 000B 7DE8              MOV     R5,#0E8H
 000D 120000      E     LCALL   ?C?SIDIV
 0010 EF                MOV     A,R7
 0011 2430              ADD     A,#030H
 0013 F500        E     MOV     DataPackage_XPT2046+08H,A
-                                           ; SOURCE LINE # 112
+                                           ; SOURCE LINE # 99
 0015 7C03              MOV     R4,#03H
 0017 7DE8              MOV     R5,#0E8H
 0019 AF03              MOV     R7,AR3
@@ -554,7 +539,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 002D EF                MOV     A,R7
 002E 2430              ADD     A,#030H
 0030 F500        E     MOV     DataPackage_XPT2046+09H,A
-                                           ; SOURCE LINE # 113
+                                           ; SOURCE LINE # 100
 0032 7C03              MOV     R4,#03H
 0034 7DE8              MOV     R5,#0E8H
 0036 AF03              MOV     R7,AR3
@@ -578,12 +563,12 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0052 CC                XCH     A,R4
 0053 CE                XCH     A,R6
 0054 120000      E     LCALL   ?C?SIDIV
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 11  
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 10  
 
 0057 EF                MOV     A,R7
 0058 2430              ADD     A,#030H
 005A F500        E     MOV     DataPackage_XPT2046+0AH,A
-                                           ; SOURCE LINE # 114
+                                           ; SOURCE LINE # 101
 005C AE02              MOV     R6,AR2
 005E AF03              MOV     R7,AR3
 0060 7C03              MOV     R4,#03H
@@ -610,19 +595,19 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0081 ED                MOV     A,R5
 0082 2430              ADD     A,#030H
 0084 F500        E     MOV     DataPackage_XPT2046+0BH,A
-                                           ; SOURCE LINE # 115
+                                           ; SOURCE LINE # 102
 0086 7B00              MOV     R3,#00H
 0088 7A00        E     MOV     R2,#HIGH DataPackage_XPT2046
 008A 7900        E     MOV     R1,#LOW DataPackage_XPT2046
 008C 120000      E     LCALL   _PutString
-                                           ; SOURCE LINE # 116
+                                           ; SOURCE LINE # 103
 008F 7B00              MOV     R3,#00H
 0091 7A00        E     MOV     R2,#HIGH DataPackage_XPT2046
 0093 7900        E     MOV     R1,#LOW DataPackage_XPT2046
 0095 020000      E     LJMP    _LcdDisplayPrad
              ; FUNCTION sendprad (END)
 
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 12  
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 11  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -685,7 +670,7 @@ ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
 ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
 TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
 ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 13  
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 12  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -749,7 +734,7 @@ _dataprosTemp. . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
   temp . . . . . . . . . . . . . . . .  * REG *  DATA   INT      0002H  2
   tp . . . . . . . . . . . . . . . . .  AUTO     DATA   FLOAT    0000H  4
 
-C51 COMPILER V9.57.0.0   PUBLIC                                                            06/01/2021 16:27:12 PAGE 14  
+C51 COMPILER V9.57.0.0   PUBLIC                                                            06/22/2021 19:30:07 PAGE 13  
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

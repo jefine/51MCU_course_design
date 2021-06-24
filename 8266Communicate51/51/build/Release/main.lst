@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 1   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/22/2021 19:30:07 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MAIN
@@ -16,24 +16,26 @@ line level    source
    5          #include "XPT2046.h"
    6          #include "lcd.h"
    7          
-   8          void main(){
-   9   1          Init_USART(); 
-  10   1          LcdInit();           //Init LCD1602
-  11   1          LcdWriteCom(0x88);  //80 is the first address
-  12   1          LcdWriteData('C');  
-  13   1          //Example to Esp8266
-  14   1          //$02_Temp025.81#
-  15   1          //$02_Prad0485XX#
-  16   1          while(1)
-  17   1          {       
-  18   2              sendtemp();
-  19   2              //DigDisplay();//smg send
-  20   2              
-  21   2              sendprad();//
-  22   2              Delay1ms(100);
-  23   2          }
-  24   1      }
-C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 2   
+   8          void main()
+   9          {
+  10   1          Init_USART(); 
+  11   1          LcdInit();           
+  12   1          LcdWriteCom(0x88);  //first address£º80
+  13   1          LcdWriteData('C');  
+  14   1      
+  15   1          //Example to Esp8266
+  16   1          //$02_Temp025.81#
+  17   1          //$02_Prad0485XX#
+  18   1          while(1)
+  19   1          {       
+  20   2              sendtemp();
+  21   2              //DigDisplay();//smg send
+  22   2              
+  23   2              sendprad();//
+  24   2              Delay1ms(100);
+  25   2          }
+  26   1      }
+C51 COMPILER V9.57.0.0   MAIN                                                              06/22/2021 19:30:07 PAGE 2   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
@@ -41,31 +43,32 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
              ; FUNCTION main (BEGIN)
                                            ; SOURCE LINE # 8
                                            ; SOURCE LINE # 9
-0000 120000      E     LCALL   Init_USART
                                            ; SOURCE LINE # 10
-0003 120000      E     LCALL   LcdInit
+0000 120000      E     LCALL   Init_USART
                                            ; SOURCE LINE # 11
+0003 120000      E     LCALL   LcdInit
+                                           ; SOURCE LINE # 12
 0006 7F88              MOV     R7,#088H
 0008 120000      E     LCALL   _LcdWriteCom
-                                           ; SOURCE LINE # 12
+                                           ; SOURCE LINE # 13
 000B 7F43              MOV     R7,#043H
 000D 120000      E     LCALL   _LcdWriteData
 0010         ?C0001:
-                                           ; SOURCE LINE # 16
-                                           ; SOURCE LINE # 17
                                            ; SOURCE LINE # 18
+                                           ; SOURCE LINE # 19
+                                           ; SOURCE LINE # 20
 0010 120000      E     LCALL   sendtemp
-                                           ; SOURCE LINE # 21
+                                           ; SOURCE LINE # 23
 0013 120000      E     LCALL   sendprad
-                                           ; SOURCE LINE # 22
+                                           ; SOURCE LINE # 24
 0016 7F64              MOV     R7,#064H
 0018 7E00              MOV     R6,#00H
 001A 120000      E     LCALL   _Delay1ms
-                                           ; SOURCE LINE # 23
+                                           ; SOURCE LINE # 25
 001D 80F1              SJMP    ?C0001
              ; FUNCTION main (END)
 
-C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 3   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/22/2021 19:30:07 PAGE 3   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -128,7 +131,7 @@ TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
 ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
 TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
 TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
-C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 4   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/22/2021 19:30:07 PAGE 4   
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -193,7 +196,7 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    FAR CONST SIZE   =   ----    ----
 END OF MODULE INFORMATION.
 
-C51 COMPILER V9.57.0.0   MAIN                                                              06/01/2021 16:27:13 PAGE 5   
+C51 COMPILER V9.57.0.0   MAIN                                                              06/22/2021 19:30:07 PAGE 5   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

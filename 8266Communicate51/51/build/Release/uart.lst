@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 1   
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE UART
@@ -17,281 +17,266 @@ line level    source
    6          char RecvString_buf[16];
    7          int number=0;
    8          //char HeartBeat[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','B','e','a','t','X','X','X','X'
-             -,'X','X','#'};            //ÎÒËæ±ã¶¨ÒåÁËÒ»¸öÊı¾İ°üÓÃÀ´×ö"ĞÄÌø°ü"£¬±ÈÈçµ¥Æ¬»úÏµÍ³ÏòµçÄÔÃ¿2Ãë·¢ËÍÒ»´Î¸ÃÊı¾İ°ü£¬Èç¹ûµçÄÔÃ»Ó
-             -Ğ°´Ê±½ÓÊÕµ½£¬¾ÍÈÏÎªµ¥Æ¬»úËÀµôÁË
+             -,'X','X','#'};            //ĞÄÌø°ü
    9          char DataPackage_DS18B20[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','T','e','m','p','X','X'
-             -,'X','X','X','X','#'};    //Õâ¸öÊÇÔø¾­ÓÃÀ´¿ØÖÆÎÂ¶È´«¸ĞÄ£¿é£¨DS18B20£©µÄÊı¾İ°ü
+             -,'X','X','X','X','#'};    //¿ØÖÆÎÂ¶È´«¸ĞÄ£¿é£¨DS18B20£©µÄÊı¾İ°ü
   10          char DataPackage_XPT2046[16]={datapackage_headflag,deviceID_1Bit,deviceID_2Bit,'_','P','r','a','d','X','X'
-             -,'X','X','X','X','#'};    //Õâ¸öÊÇÓÃÀ´¿ØÖÆ¹âÃôµç×èµÄÊı¾İ°ü
+             -,'X','X','X','X','#'};    //¿ØÖÆ¹âÃôµç×èµÄÊı¾İ°ü
   11          
-  12          //----------------------------------------------//
-  13          /*******************************
-  14                      ´®¿ÚÍ¨ĞÅ
-  15              MCU:89C52RC        11.0592MHz
-  16          
-  17          //11.0592MHz 0xd0 1200bps
-  18          //12MHz 0xcc 1200bps
-  19          //11.0592MHz 0xfa 9600bps
-  20          //0xf4 11.0592MHz  0xf3 12MHz 4800bps
-  21          //¾ùÔÚSMOD=1µÄÇé¿öÏÂ£¨²¨ÌØÂÊ±¶ÔöÄ£Ê½£©
-  22          *******************************/
-  23          
-  24          //´®¿Ú·¢ËÍº¯Êı
-  25          void PutString(unsigned char *TXStr)
-  26          {
-  27   1          ES=0;
-  28   1           while(*TXStr!=0)
-  29   1          {
-  30   2              SBUF=*TXStr;
-  31   2              while(TI==0);
-  32   2              TI=0;
-  33   2              TXStr++;
-  34   2          }
-  35   1          ES=1;
-  36   1      }
-  37          //´®¿Ú½ÓÊÕº¯Êı
-  38          // 51½ÓÊÕ8266·¢ËÍÀ´µÄÊı¾İ£¨Ä¿µÄÊÇµãµÆ£©
-  39          // 8266 Ëù·¢ËÍÊı¾İ°üÑùÀı
-  40          // $01_Ligt01Off_#
-  41          // $01_Ligt01On__#
-  42          bit ReceiveString()
-  43          {
-  44   1          char * RecStr=RecvString_buf;
-  45   1          char num=0;
-  46   1          unsigned char count=0;
-  47   1          loop:
-  48   1          *RecStr=SBUF;
-  49   1          if(RecvString_buf[0]!=datapackage_headflag)return 0;
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 2   
-
-  50   1          count=0;
-  51   1          RI=0;
-  52   1          if(num<14)  //Êı¾İ°ü³¤¶ÈÎª15¸ö×Ö·û,³¢ÊÔÁ¬Ğø½ÓÊÕ15¸ö×Ö·û
-  53   1          {
-  54   2              num++;
-  55   2              RecStr++;
-  56   2              while(!RI)
-  57   2              {
-  58   3                  // count++;
-  59   3                  // if(count>130)return 0;    //½ÓÊÕÊı¾İµÈ´ıÑÓ³Ù£¬µÈ´ıÊ±¼äÌ«¾Ã»áµ¼ÖÂCPUÔËËãÏĞÖÃ£¬Ì«¶Ì»á³öÏÖ"Êı¾
+  12          
+  13          //´®¿Ú·¢ËÍº¯Êı
+  14          void PutString(unsigned char *TXStr)
+  15          {
+  16   1          ES=0;
+  17   1           while(*TXStr!=0)
+  18   1          {
+  19   2              SBUF=*TXStr;
+  20   2              while(TI==0);
+  21   2              TI=0;
+  22   2              TXStr++;
+  23   2          }
+  24   1          ES=1;
+  25   1      }
+  26          //´®¿Ú½ÓÊÕº¯Êı
+  27          // 51½ÓÊÕ8266·¢ËÍÀ´µÄÊı¾İ£¨Ä¿µÄÊÇµãµÆ£©
+  28          // 8266 Ëù·¢ËÍÊı¾İ°üÑùÀı
+  29          // $01_Ligt01Off_#
+  30          // $01_Ligt01On__#
+  31          bit ReceiveString()
+  32          {
+  33   1          char * RecStr=RecvString_buf;
+  34   1          char num=0;
+  35   1          unsigned char count=0;
+  36   1          loop:
+  37   1          *RecStr=SBUF;
+  38   1          if(RecvString_buf[0]!=datapackage_headflag)return 0;
+  39   1          count=0;
+  40   1          RI=0;
+  41   1          if(num<14)  //Êı¾İ°ü³¤¶ÈÎª15¸ö×Ö·û,³¢ÊÔÁ¬Ğø½ÓÊÕ15¸ö×Ö·û
+  42   1          {
+  43   2              num++;
+  44   2              RecStr++;
+  45   2              while(!RI)
+  46   2              {
+  47   3                  // count++;
+  48   3                  // if(count>130)return 0;    //½ÓÊÕÊı¾İµÈ´ıÑÓ³Ù£¬µÈ´ıÊ±¼äÌ«¾Ã»áµ¼ÖÂCPUÔËËãÏĞÖÃ£¬Ì«¶Ì»á³öÏÖ"Êı¾
              -İ°ü±»·Ö¸î",Ä¬ÈÏcount=130
-  60   3              }
-  61   2              goto loop;
-  62   2          }
-  63   1          if(RecvString_buf[14]=='#'){
-  64   2           PutString("\n it really has the String reveiced \n");    
-  65   2           PutString(RecvString_buf);
-  66   2           return 1;
-  67   2          }
-  68   1          
-  69   1          return 0;
-  70   1          
-  71   1          
-  72   1          
-  73   1      }
-  74          //¶¨Ê±Æ÷1ÓÃ×÷²¨ÌØÂÊ·¢ÉúÆ÷
-  75          void Init_USART()
-  76          {
-  77   1          SCON=0x50;  //´®¿Ú·½Ê½1£¬Ê¹ÄÜ½ÓÊÕ
-  78   1          TMOD|=0x20;  //¶¨Ê±Æ÷1¹¤×÷·½Ê½2£¨8Î»×Ô¶¯ÖØ×°³õÖµ£©
-  79   1          TMOD&=~0x10;
-  80   1          TH1=0xfa;   //9600bps
-  81   1          TL1=0xfa;
-  82   1          PCON|=0x80;  //SMOD=1
-  83   1          TR1=1;
-  84   1          TI=0;
-  85   1          RI=0;
-  86   1          //PS=1;   //Ìá¸ß´®¿ÚÖĞ¶ÏÓÅÏÈ¼¶
-  87   1          ES=1;  //¿ªÆô´®¿ÚÖĞ¶ÏÊ¹ÄÜ
-  88   1          EA=1;  //¿ªÖĞ¶Ï
-  89   1      }
-  90          //±È½ÏÖ¸ÁîÍ·²¿
-  91          bit CompareCMD_head(char CMD_head[])
-  92          {
-  93   1          unsigned char CharNum;
-  94   1          for(CharNum=0;CharNum<4;CharNum++)  //Ö¸Áî³¤¶ÈÎª10¸ö×Ö·û
-  95   1          {
-  96   2              if(!(RecvString_buf[CharNum+4]==CMD_head[CharNum]))
-  97   2              {
-  98   3                  return 0;  //Ö¸ÁîÍ·²¿Æ¥ÅäÊ§°Ü
-  99   3              }
- 100   2          }
- 101   1          return 1;        //Ö¸ÁîÍ·²¿Æ¥Åä³É¹¦
- 102   1      }
- 103          //±È½ÏÖ¸ÁîÎ²²¿(start:´ÓÄÄÀï¿ªÊ¼±È½Ï£¬quality:±È½Ï¶àÉÙ¸ö×Ö·û£¬CMD_tail[]£ºÒª±È½ÏµÄ×Ö·û´®)
- 104          bit CompareCMD_tail(unsigned char start,unsigned char quality,char CMD_tail[])
- 105          {
- 106   1          unsigned char CharNum;
- 107   1          for(CharNum=0;CharNum<quality;CharNum++)
+  49   3              }
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 2   
+
+  50   2              goto loop;
+  51   2          }
+  52   1          if(RecvString_buf[14]=='#'){
+  53   2           PutString("\n it really has the String reveiced \n");    
+  54   2           PutString(RecvString_buf);
+  55   2           return 1;
+  56   2          }
+  57   1          
+  58   1          return 0;
+  59   1          
+  60   1          
+  61   1          
+  62   1      }
+  63          //¶¨Ê±Æ÷1ÓÃ×÷²¨ÌØÂÊ·¢ÉúÆ÷
+  64          void Init_USART()
+  65          {
+  66   1          SCON=0x50;  //´®¿Ú·½Ê½1£¬Ê¹ÄÜ½ÓÊÕ
+  67   1          TMOD|=0x20;  //¶¨Ê±Æ÷1¹¤×÷·½Ê½2
+  68   1          TMOD&=~0x10;
+  69   1          TH1=0xfa;   //9600bps
+  70   1          TL1=0xfa;
+  71   1          PCON|=0x80;  //SMOD=1
+  72   1          TR1=1;
+  73   1          TI=0;
+  74   1          RI=0;
+  75   1      
+  76   1          ES=1;  //¿ªÆô´®¿ÚÖĞ¶ÏÊ¹ÄÜ
+  77   1          EA=1;  
+  78   1      }
+  79          //±È½ÏÖ¸ÁîÍ·²¿
+  80          bit CompareCMD_head(char CMD_head[])
+  81          {
+  82   1          unsigned char CharNum;
+  83   1          for(CharNum=0;CharNum<4;CharNum++)  //Ö¸Áî³¤¶ÈÎª10¸ö×Ö·û
+  84   1          {
+  85   2              if(!(RecvString_buf[CharNum+4]==CMD_head[CharNum]))
+  86   2              {
+  87   3                  return 0;  //Ö¸ÁîÍ·²¿Æ¥ÅäÊ§°Ü
+  88   3              }
+  89   2          }
+  90   1          return 1;        //Ö¸ÁîÍ·²¿Æ¥Åä³É¹¦
+  91   1      }
+  92          //±È½ÏÖ¸ÁîÎ²²¿(start:´ÓÄÄÀï¿ªÊ¼±È½Ï£¬quality:±È½Ï¶àÉÙ¸ö×Ö·û£¬CMD_tail[]£ºÒª±È½ÏµÄ×Ö·û´®)
+  93          bit CompareCMD_tail(unsigned char start,unsigned char quality,char CMD_tail[])
+  94          {
+  95   1          unsigned char CharNum;
+  96   1          for(CharNum=0;CharNum<quality;CharNum++)
+  97   1          {
+  98   2              if(!(RecvString_buf[start+CharNum]==CMD_tail[CharNum]))
+  99   2              {
+ 100   3                  return 0;
+ 101   3              }
+ 102   2          }
+ 103   1          return 1;
+ 104   1      }
+ 105          bit Deal_UART_RecData()   //´¦Àí´®¿Ú½ÓÊÕÊı¾İ°üº¯Êı£¨³É¹¦´¦ÀíÊı¾İ°üÔò·µ»Ø1£¬·ñÔò·µ»Ø0£©
+ 106          {
+ 107   1          if(RecvString_buf[0]==datapackage_headflag && RecvString_buf[14]=='#')  //½øĞĞÊı¾İ°üÍ·Î²±ê¼ÇÑéÖ¤
  108   1          {
- 109   2              if(!(RecvString_buf[start+CharNum]==CMD_tail[CharNum]))
- 110   2              {
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 3   
+ 109   2              PutString("the package is right");
+ 110   2              switch(RecvString_buf[1])        //Ê¶±ğ·¢ËÍÕßÉè±¸IDµÄµÚ1Î»Êı×Ö
+ 111   2              {
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 3   
 
- 111   3                  return 0;
- 112   3              }
- 113   2          }
- 114   1          return 1;
- 115   1      }
- 116          bit Deal_UART_RecData()   //´¦Àí´®¿Ú½ÓÊÕÊı¾İ°üº¯Êı£¨³É¹¦´¦ÀíÊı¾İ°üÔò·µ»Ø1£¬·ñÔò·µ»Ø0£©
- 117          {
- 118   1          if(RecvString_buf[0]==datapackage_headflag && RecvString_buf[14]=='#')  //½øĞĞÊı¾İ°üÍ·Î²±ê¼ÇÑéÖ¤
- 119   1          {
- 120   2              PutString("the package is right");
- 121   2              switch(RecvString_buf[1])        //Ê¶±ğ·¢ËÍÕßÉè±¸IDµÄµÚ1Î»Êı×Ö
- 122   2              {
- 123   3                  case '0':
- 124   3                      switch(RecvString_buf[2])        //Ê¶±ğ·¢ËÍÕßÉè±¸IDµÄµÚ2Î»Êı×Ö
- 125   3                      {
- 126   4                          case '1':
- 127   4                              if(CompareCMD_head("Ligt"))    //ÅĞ¶ÏÖ¸ÁîÍ·²¿ÊÇ·ñÎª"Ligt"
- 128   4                              {
- 129   5                                  //ÏÂÃæÊÇÖ¸ÁîÎ²²¿·ÖÎö
- 130   5                                  switch(RecvString_buf[8])
- 131   5                                  {
- 132   6                                      case '0':
- 133   6                                          switch(RecvString_buf[9])
- 134   6                                          {
- 135   7                                              case '0':
- 136   7                                                  return 0;
- 137   7                                              case '1':
- 138   7                                                  if(CompareCMD_tail(10,4,"Off_"))   //ÅĞ¶ÏÕû¸öÊı¾İ°üÊÇ·ñÎª£º$01
+ 112   3                  case '0':
+ 113   3                      switch(RecvString_buf[2])        //Ê¶±ğ·¢ËÍÕßÉè±¸IDµÄµÚ2Î»Êı×Ö
+ 114   3                      {
+ 115   4                          case '1':
+ 116   4                              if(CompareCMD_head("Ligt"))    //ÅĞ¶ÏÖ¸ÁîÍ·²¿ÊÇ·ñÎª"Ligt"
+ 117   4                              {
+ 118   5                                  //ÏÂÃæÊÇÖ¸ÁîÎ²²¿·ÖÎö
+ 119   5                                  switch(RecvString_buf[8])
+ 120   5                                  {
+ 121   6                                      case '0':
+ 122   6                                          switch(RecvString_buf[9])
+ 123   6                                          {
+ 124   7                                              case '0':
+ 125   7                                                  return 0;
+ 126   7                                              case '1':
+ 127   7                                                  if(CompareCMD_tail(10,4,"Off_"))   //ÅĞ¶ÏÕû¸öÊı¾İ°üÊÇ·ñÎª£º$01
              -_Ligt01Off_#
- 139   7                                                  {
- 140   8                                                      delay(100);
- 141   8                                                      PutString("\nreceived right led off\n");
- 142   8                                                      led = 1;
- 143   8                                                      return 1;
- 144   8                                                  }
- 145   7                                                  if(CompareCMD_tail(10,4,"On__"))    //ÅĞ¶ÏÕû¸öÊı¾İ°üÊÇ·ñÎª£º$0
+ 128   7                                                  {
+ 129   8                                                      delay(100);
+ 130   8                                                      PutString("\nreceived right led off\n");
+ 131   8                                                      led = 1;
+ 132   8                                                      return 1;
+ 133   8                                                  }
+ 134   7                                                  if(CompareCMD_tail(10,4,"On__"))    //ÅĞ¶ÏÕû¸öÊı¾İ°üÊÇ·ñÎª£º$0
              -1_Ligt01On__#
- 146   7                                                  {
- 147   8                                                      delay(100);
- 148   8                                                      PutString("\nreceived right led on\n");
- 149   8                                                      // unsigned int tt = 100;
- 150   8                                                      // while(tt--)
- 151   8                                                      led = 0;
- 152   8                                                      return 1;
- 153   8                                                  }
- 154   7                                                  return 0;
- 155   7                                              default:
- 156   7                                                  return 0;
- 157   7                                          }
- 158   6                                      default:
- 159   6                                          return 0;
- 160   6                                  }
- 161   5                              }
- 162   4                              return 0;
- 163   4      
- 164   4                          default:
- 165   4                              return 0;
- 166   4                      }
- 167   3                  default:
- 168   3                      return 0;
- 169   3              }
- 170   2          }
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 4   
+ 135   7                                                  {
+ 136   8                                                      delay(100);
+ 137   8                                                      PutString("\nreceived right led on\n");
+ 138   8                                                      led = 0;
+ 139   8                                                      return 1;
+ 140   8                                                  }
+ 141   7                                                  return 0;
+ 142   7                                              default:
+ 143   7                                                  return 0;
+ 144   7                                          }
+ 145   6                                      default:
+ 146   6                                          return 0;
+ 147   6                                  }
+ 148   5                              }
+ 149   4                              return 0;
+ 150   4      
+ 151   4                          default:
+ 152   4                              return 0;
+ 153   4                      }
+ 154   3                  default:
+ 155   3                      return 0;
+ 156   3              }
+ 157   2          }
+ 158   1          return 0;
+ 159   1      }
+ 160          
+ 161          
+ 162          void USART() interrupt 4  
+ 163          {
+ 164   1          if(ReceiveString())
+ 165   1          {
+ 166   2              //Èç¹û³¤¶ÈÕıÈ·
+ 167   2              if(Deal_UART_RecData());
+ 168   2              else
+ 169   2              {
+ 170   3                  PutString("\n error package \n");
+ 171   3              }
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 4   
 
- 171   1          return 0;
- 172   1      }
- 173          
- 174          
- 175          //´®¿ÚÖĞ¶Ï·şÎñº¯Êı
- 176          void USART() interrupt 4   //±êÖ¾Î»TIºÍRIĞèÒªÊÖ¶¯¸´Î»£¬TIºÍRIÖÃÎ»¹²ÓÃÒ»¸öÖĞ¶ÏÈë¿Ú
- 177          {
- 178   1          if(ReceiveString())
- 179   1          {
- 180   2              //Êı¾İ°ü³¤¶ÈÕıÈ·ÔòÖ´ĞĞÒÔÏÂ´úÂë
- 181   2              if(Deal_UART_RecData());
- 182   2              else
- 183   2              {
- 184   3                  PutString("\n error package \n");
- 185   3              }
- 186   2          }
- 187   1          RI=0;  //½ÓÊÕ²¢´¦ÀíÒ»´ÎÊı¾İºó°Ñ½ÓÊÕÖĞ¶Ï±êÖ¾Çå³ıÒ»ÏÂ£¬¾Ü¾øÏìÓ¦ÔÚÖĞ¶Ï½ÓÊÕÃ¦µÄÊ±ºò·¢À´µÄÇëÇó
- 188   1      }
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 5   
+ 172   2          }
+ 173   1          RI=0;  
+ 174   1      }
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 5   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
 
              ; FUNCTION _PutString (BEGIN)
-                                           ; SOURCE LINE # 25
+                                           ; SOURCE LINE # 14
 ;---- Variable 'TXStr' assigned to Register 'R1/R2/R3' ----
-                                           ; SOURCE LINE # 26
-                                           ; SOURCE LINE # 27
+                                           ; SOURCE LINE # 15
+                                           ; SOURCE LINE # 16
 0000 C2AC              CLR     ES
 0002         ?C0001:
-                                           ; SOURCE LINE # 28
+                                           ; SOURCE LINE # 17
 0002 120000      E     LCALL   ?C?CLDPTR
 0005 6010              JZ      ?C0002
-                                           ; SOURCE LINE # 29
-                                           ; SOURCE LINE # 30
+                                           ; SOURCE LINE # 18
+                                           ; SOURCE LINE # 19
 0007 F599              MOV     SBUF,A
 0009         ?C0003:
-                                           ; SOURCE LINE # 31
+                                           ; SOURCE LINE # 20
 0009 3099FD            JNB     TI,?C0003
-                                           ; SOURCE LINE # 32
+                                           ; SOURCE LINE # 21
 000C C299              CLR     TI
-                                           ; SOURCE LINE # 33
+                                           ; SOURCE LINE # 22
 000E 7401              MOV     A,#01H
 0010 29                ADD     A,R1
 0011 F9                MOV     R1,A
 0012 E4                CLR     A
 0013 3A                ADDC    A,R2
 0014 FA                MOV     R2,A
-                                           ; SOURCE LINE # 34
+                                           ; SOURCE LINE # 23
 0015 80EB              SJMP    ?C0001
 0017         ?C0002:
-                                           ; SOURCE LINE # 35
+                                           ; SOURCE LINE # 24
 0017 D2AC              SETB    ES
-                                           ; SOURCE LINE # 36
+                                           ; SOURCE LINE # 25
 0019 22                RET     
              ; FUNCTION _PutString (END)
 
              ; FUNCTION ReceiveString (BEGIN)
-                                           ; SOURCE LINE # 42
-                                           ; SOURCE LINE # 43
-                                           ; SOURCE LINE # 44
+                                           ; SOURCE LINE # 31
+                                           ; SOURCE LINE # 32
+                                           ; SOURCE LINE # 33
 0000 7B00              MOV     R3,#00H
 0002 7A00        R     MOV     R2,#HIGH RecvString_buf
 0004 7900        R     MOV     R1,#LOW RecvString_buf
 ;---- Variable 'RecStr' assigned to Register 'R1/R2/R3' ----
-                                           ; SOURCE LINE # 45
+                                           ; SOURCE LINE # 34
 ;---- Variable 'num' assigned to Register 'R7' ----
 0006 E4                CLR     A
 0007 FF                MOV     R7,A
-                                           ; SOURCE LINE # 46
+                                           ; SOURCE LINE # 35
 ;---- Variable 'count' assigned to Register 'R6' ----
-                                           ; SOURCE LINE # 47
+                                           ; SOURCE LINE # 36
 0008         loop:
-                                           ; SOURCE LINE # 48
+                                           ; SOURCE LINE # 37
 0008 E599              MOV     A,SBUF
 000A 120000      E     LCALL   ?C?CSTPTR
-                                           ; SOURCE LINE # 49
+                                           ; SOURCE LINE # 38
 000D E500        R     MOV     A,RecvString_buf
 000F 6424              XRL     A,#024H
 0011 6002              JZ      ?C0007
 0013 C3                CLR     C
 0014 22                RET     
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 6   
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 6   
 
 0015         ?C0007:
-                                           ; SOURCE LINE # 50
+                                           ; SOURCE LINE # 39
 0015 E4                CLR     A
 0016 FE                MOV     R6,A
-                                           ; SOURCE LINE # 51
+                                           ; SOURCE LINE # 40
 0017 C298              CLR     RI
-                                           ; SOURCE LINE # 52
+                                           ; SOURCE LINE # 41
 0019 C3                CLR     C
 001A EF                MOV     A,R7
 001B 6480              XRL     A,#080H
 001D 948E              SUBB    A,#08EH
 001F 500D              JNC     ?C0009
-                                           ; SOURCE LINE # 53
-                                           ; SOURCE LINE # 54
+                                           ; SOURCE LINE # 42
+                                           ; SOURCE LINE # 43
 0021 0F                INC     R7
-                                           ; SOURCE LINE # 55
+                                           ; SOURCE LINE # 44
 0022 7401              MOV     A,#01H
 0024 29                ADD     A,R1
 0025 F9                MOV     R1,A
@@ -299,83 +284,83 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0027 3A                ADDC    A,R2
 0028 FA                MOV     R2,A
 0029         ?C0010:
-                                           ; SOURCE LINE # 56
+                                           ; SOURCE LINE # 45
 0029 2098DC            JB      RI,loop
-                                           ; SOURCE LINE # 57
-                                           ; SOURCE LINE # 60
+                                           ; SOURCE LINE # 46
+                                           ; SOURCE LINE # 49
 002C 80FB              SJMP    ?C0010
-                                           ; SOURCE LINE # 61
-                                           ; SOURCE LINE # 62
+                                           ; SOURCE LINE # 50
+                                           ; SOURCE LINE # 51
 002E         ?C0009:
-                                           ; SOURCE LINE # 63
+                                           ; SOURCE LINE # 52
 002E E500        R     MOV     A,RecvString_buf+0EH
 0030 B42314            CJNE    A,#023H,?C0012
-                                           ; SOURCE LINE # 64
+                                           ; SOURCE LINE # 53
 0033 7BFF              MOV     R3,#0FFH
 0035 7A00        R     MOV     R2,#HIGH ?SC_0
 0037 7900        R     MOV     R1,#LOW ?SC_0
 0039 120000      R     LCALL   _PutString
-                                           ; SOURCE LINE # 65
+                                           ; SOURCE LINE # 54
 003C 7B00              MOV     R3,#00H
 003E 7A00        R     MOV     R2,#HIGH RecvString_buf
 0040 7900        R     MOV     R1,#LOW RecvString_buf
 0042 120000      R     LCALL   _PutString
-                                           ; SOURCE LINE # 66
+                                           ; SOURCE LINE # 55
 0045 D3                SETB    C
 0046 22                RET     
-                                           ; SOURCE LINE # 67
+                                           ; SOURCE LINE # 56
 0047         ?C0012:
-                                           ; SOURCE LINE # 69
+                                           ; SOURCE LINE # 58
 0047 C3                CLR     C
-                                           ; SOURCE LINE # 73
+                                           ; SOURCE LINE # 62
 0048         ?C0008:
 0048 22                RET     
              ; FUNCTION ReceiveString (END)
 
              ; FUNCTION Init_USART (BEGIN)
-                                           ; SOURCE LINE # 75
-                                           ; SOURCE LINE # 76
-                                           ; SOURCE LINE # 77
+                                           ; SOURCE LINE # 64
+                                           ; SOURCE LINE # 65
+                                           ; SOURCE LINE # 66
 0000 759850            MOV     SCON,#050H
-                                           ; SOURCE LINE # 78
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 7   
+                                           ; SOURCE LINE # 67
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 7   
 
 0003 438920            ORL     TMOD,#020H
-                                           ; SOURCE LINE # 79
+                                           ; SOURCE LINE # 68
 0006 5389EF            ANL     TMOD,#0EFH
-                                           ; SOURCE LINE # 80
+                                           ; SOURCE LINE # 69
 0009 758DFA            MOV     TH1,#0FAH
-                                           ; SOURCE LINE # 81
+                                           ; SOURCE LINE # 70
 000C 758BFA            MOV     TL1,#0FAH
-                                           ; SOURCE LINE # 82
+                                           ; SOURCE LINE # 71
 000F 438780            ORL     PCON,#080H
-                                           ; SOURCE LINE # 83
+                                           ; SOURCE LINE # 72
 0012 D28E              SETB    TR1
-                                           ; SOURCE LINE # 84
+                                           ; SOURCE LINE # 73
 0014 C299              CLR     TI
-                                           ; SOURCE LINE # 85
+                                           ; SOURCE LINE # 74
 0016 C298              CLR     RI
-                                           ; SOURCE LINE # 87
+                                           ; SOURCE LINE # 76
 0018 D2AC              SETB    ES
-                                           ; SOURCE LINE # 88
+                                           ; SOURCE LINE # 77
 001A D2AF              SETB    EA
-                                           ; SOURCE LINE # 89
+                                           ; SOURCE LINE # 78
 001C 22                RET     
              ; FUNCTION Init_USART (END)
 
              ; FUNCTION _CompareCMD_head (BEGIN)
-                                           ; SOURCE LINE # 91
+                                           ; SOURCE LINE # 80
 0000 8B00        R     MOV     CMD_head,R3
 0002 8A00        R     MOV     CMD_head+01H,R2
 0004 8900        R     MOV     CMD_head+02H,R1
-                                           ; SOURCE LINE # 92
-                                           ; SOURCE LINE # 94
+                                           ; SOURCE LINE # 81
+                                           ; SOURCE LINE # 83
 ;---- Variable 'CharNum' assigned to Register 'R7' ----
 0006 E4                CLR     A
 0007 FF                MOV     R7,A
 0008         ?C0014:
-                                           ; SOURCE LINE # 95
-                                           ; SOURCE LINE # 96
+                                           ; SOURCE LINE # 84
+                                           ; SOURCE LINE # 85
 0008 AB00        R     MOV     R3,CMD_head
 000A AA00        R     MOV     R2,CMD_head+01H
 000C A900        R     MOV     R1,CMD_head+02H
@@ -394,20 +379,20 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0022 C3                CLR     C
 0023         ?C0019:
 0023 4001              JC      ?C0016
-                                           ; SOURCE LINE # 97
-                                           ; SOURCE LINE # 98
+                                           ; SOURCE LINE # 86
+                                           ; SOURCE LINE # 87
 0025 22                RET     
-                                           ; SOURCE LINE # 99
-                                           ; SOURCE LINE # 100
+                                           ; SOURCE LINE # 88
+                                           ; SOURCE LINE # 89
 0026         ?C0016:
 0026 0F                INC     R7
 0027 BF04DE            CJNE    R7,#04H,?C0014
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 8   
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 8   
 
 002A         ?C0015:
-                                           ; SOURCE LINE # 101
+                                           ; SOURCE LINE # 90
 002A D3                SETB    C
-                                           ; SOURCE LINE # 102
+                                           ; SOURCE LINE # 91
 002B         ?C0020:
 002B 22                RET     
              ; FUNCTION _CompareCMD_head (END)
@@ -417,14 +402,14 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0002 7D04              MOV     R5,#04H
 0004 7F0A              MOV     R7,#0AH
              ; FUNCTION _CompareCMD_tail (BEGIN)
-                                           ; SOURCE LINE # 104
+                                           ; SOURCE LINE # 93
 0006 8F00        R     MOV     start,R7
 0008 8B00        R     MOV     CMD_tail,R3
 000A 8A00        R     MOV     CMD_tail+01H,R2
 000C 8900        R     MOV     CMD_tail+02H,R1
 ;---- Variable 'quality' assigned to Register 'R5' ----
-                                           ; SOURCE LINE # 105
-                                           ; SOURCE LINE # 107
+                                           ; SOURCE LINE # 94
+                                           ; SOURCE LINE # 96
 ;---- Variable 'CharNum' assigned to Register 'R7' ----
 000E E4                CLR     A
 000F FF                MOV     R7,A
@@ -433,8 +418,8 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0011 C3                CLR     C
 0012 9D                SUBB    A,R5
 0013 5023              JNC     ?C0022
-                                           ; SOURCE LINE # 108
-                                           ; SOURCE LINE # 109
+                                           ; SOURCE LINE # 97
+                                           ; SOURCE LINE # 98
 0015 AB00        R     MOV     R3,CMD_tail
 0017 AA00        R     MOV     R2,CMD_tail+01H
 0019 A900        R     MOV     R1,CMD_tail+02H
@@ -454,162 +439,162 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0031 C3                CLR     C
 0032         ?C0026:
 0032 4001              JC      ?C0023
-                                           ; SOURCE LINE # 110
-                                           ; SOURCE LINE # 111
+                                           ; SOURCE LINE # 99
+                                           ; SOURCE LINE # 100
 0034 22                RET     
-                                           ; SOURCE LINE # 112
-                                           ; SOURCE LINE # 113
+                                           ; SOURCE LINE # 101
+                                           ; SOURCE LINE # 102
 0035         ?C0023:
 0035 0F                INC     R7
 0036 80D8              SJMP    ?C0021
 0038         ?C0022:
-                                           ; SOURCE LINE # 114
+                                           ; SOURCE LINE # 103
 0038 D3                SETB    C
-                                           ; SOURCE LINE # 115
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 9   
+                                           ; SOURCE LINE # 104
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 9   
 
 0039         ?C0027:
 0039 22                RET     
              ; FUNCTION _CompareCMD_tail (END)
 
              ; FUNCTION Deal_UART_RecData (BEGIN)
-                                           ; SOURCE LINE # 116
-                                           ; SOURCE LINE # 117
-                                           ; SOURCE LINE # 118
+                                           ; SOURCE LINE # 105
+                                           ; SOURCE LINE # 106
+                                           ; SOURCE LINE # 107
 0000 E500        R     MOV     A,RecvString_buf
 0002 6424              XRL     A,#024H
 0004 7079              JNZ     ?C0028
 0006 E500        R     MOV     A,RecvString_buf+0EH
 0008 6423              XRL     A,#023H
 000A 7073              JNZ     ?C0028
-                                           ; SOURCE LINE # 119
-                                           ; SOURCE LINE # 120
+                                           ; SOURCE LINE # 108
+                                           ; SOURCE LINE # 109
 000C 7BFF              MOV     R3,#0FFH
 000E 7A00        R     MOV     R2,#HIGH ?SC_38
 0010 7900        R     MOV     R1,#LOW ?SC_38
 0012 120000      R     LCALL   _PutString
-                                           ; SOURCE LINE # 121
+                                           ; SOURCE LINE # 110
 0015 E500        R     MOV     A,RecvString_buf+01H
 0017 24D0              ADD     A,#0D0H
 0019 7062              JNZ     ?C0045
-                                           ; SOURCE LINE # 122
-                                           ; SOURCE LINE # 123
+                                           ; SOURCE LINE # 111
+                                           ; SOURCE LINE # 112
 001B         ?C0030:
-                                           ; SOURCE LINE # 124
+                                           ; SOURCE LINE # 113
 001B E500        R     MOV     A,RecvString_buf+02H
 001D 24CF              ADD     A,#0CFH
 001F 705A              JNZ     ?C0044
-                                           ; SOURCE LINE # 125
-                                           ; SOURCE LINE # 126
+                                           ; SOURCE LINE # 114
+                                           ; SOURCE LINE # 115
 0021         ?C0032:
-                                           ; SOURCE LINE # 127
+                                           ; SOURCE LINE # 116
 0021 7BFF              MOV     R3,#0FFH
 0023 7A00        R     MOV     R2,#HIGH ?SC_59
 0025 7900        R     MOV     R1,#LOW ?SC_59
 0027 120000      R     LCALL   _CompareCMD_head
 002A 504D              JNC     ?C0033
-                                           ; SOURCE LINE # 128
-                                           ; SOURCE LINE # 130
+                                           ; SOURCE LINE # 117
+                                           ; SOURCE LINE # 119
 002C E500        R     MOV     A,RecvString_buf+08H
 002E 24D0              ADD     A,#0D0H
 0030 7045              JNZ     ?C0043
-                                           ; SOURCE LINE # 131
-                                           ; SOURCE LINE # 132
+                                           ; SOURCE LINE # 120
+                                           ; SOURCE LINE # 121
 0032         ?C0035:
-                                           ; SOURCE LINE # 133
+                                           ; SOURCE LINE # 122
 0032 E500        R     MOV     A,RecvString_buf+09H
 0034 24CF              ADD     A,#0CFH
 0036 6003              JZ      ?C0039
 0038 04                INC     A
-                                           ; SOURCE LINE # 134
-                                           ; SOURCE LINE # 135
+                                           ; SOURCE LINE # 123
+                                           ; SOURCE LINE # 124
 0039         ?C0037:
-                                           ; SOURCE LINE # 136
+                                           ; SOURCE LINE # 125
 0039 C3                CLR     C
 003A 22                RET     
-                                           ; SOURCE LINE # 137
+                                           ; SOURCE LINE # 126
 003B         ?C0039:
-                                           ; SOURCE LINE # 138
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 10  
+                                           ; SOURCE LINE # 127
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 10  
 
 003B 7A00        R     MOV     R2,#HIGH ?SC_64
 003D 7900        R     MOV     R1,#LOW ?SC_64
 003F 120000      R     LCALL   L?0050
 0042 5014              JNC     ?C0040
-                                           ; SOURCE LINE # 139
-                                           ; SOURCE LINE # 140
+                                           ; SOURCE LINE # 128
+                                           ; SOURCE LINE # 129
 0044 7F64              MOV     R7,#064H
 0046 7E00              MOV     R6,#00H
 0048 120000      E     LCALL   _delay
-                                           ; SOURCE LINE # 141
+                                           ; SOURCE LINE # 130
 004B 7BFF              MOV     R3,#0FFH
 004D 7A00        R     MOV     R2,#HIGH ?SC_69
 004F 7900        R     MOV     R1,#LOW ?SC_69
 0051 120000      R     LCALL   _PutString
-                                           ; SOURCE LINE # 142
+                                           ; SOURCE LINE # 131
 0054 D2A1              SETB    led
-                                           ; SOURCE LINE # 143
+                                           ; SOURCE LINE # 132
 0056 D3                SETB    C
 0057 22                RET     
-                                           ; SOURCE LINE # 144
+                                           ; SOURCE LINE # 133
 0058         ?C0040:
-                                           ; SOURCE LINE # 145
+                                           ; SOURCE LINE # 134
 0058 7A00        R     MOV     R2,#HIGH ?SC_94
 005A 7900        R     MOV     R1,#LOW ?SC_94
 005C 120000      R     LCALL   L?0050
 005F 5014              JNC     ?C0041
-                                           ; SOURCE LINE # 146
-                                           ; SOURCE LINE # 147
+                                           ; SOURCE LINE # 135
+                                           ; SOURCE LINE # 136
 0061 7F64              MOV     R7,#064H
 0063 7E00              MOV     R6,#00H
 0065 120000      E     LCALL   _delay
-                                           ; SOURCE LINE # 148
+                                           ; SOURCE LINE # 137
 0068 7BFF              MOV     R3,#0FFH
 006A 7A00        R     MOV     R2,#HIGH ?SC_99
 006C 7900        R     MOV     R1,#LOW ?SC_99
 006E 120000      R     LCALL   _PutString
-                                           ; SOURCE LINE # 151
+                                           ; SOURCE LINE # 138
 0071 C2A1              CLR     led
-                                           ; SOURCE LINE # 152
+                                           ; SOURCE LINE # 139
 0073 D3                SETB    C
 0074 22                RET     
-                                           ; SOURCE LINE # 153
+                                           ; SOURCE LINE # 140
 0075         ?C0041:
-                                           ; SOURCE LINE # 154
+                                           ; SOURCE LINE # 141
 0075 C3                CLR     C
 0076 22                RET     
-                                           ; SOURCE LINE # 155
-                                           ; SOURCE LINE # 157
-                                           ; SOURCE LINE # 158
+                                           ; SOURCE LINE # 142
+                                           ; SOURCE LINE # 144
+                                           ; SOURCE LINE # 145
 0077         ?C0043:
-                                           ; SOURCE LINE # 159
+                                           ; SOURCE LINE # 146
 0077 C3                CLR     C
 0078 22                RET     
-                                           ; SOURCE LINE # 160
-                                           ; SOURCE LINE # 161
+                                           ; SOURCE LINE # 147
+                                           ; SOURCE LINE # 148
 0079         ?C0033:
-                                           ; SOURCE LINE # 162
+                                           ; SOURCE LINE # 149
 0079 C3                CLR     C
 007A 22                RET     
-                                           ; SOURCE LINE # 164
+                                           ; SOURCE LINE # 151
 007B         ?C0044:
-                                           ; SOURCE LINE # 165
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 11  
+                                           ; SOURCE LINE # 152
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 11  
 
 007B C3                CLR     C
 007C 22                RET     
-                                           ; SOURCE LINE # 166
-                                           ; SOURCE LINE # 167
+                                           ; SOURCE LINE # 153
+                                           ; SOURCE LINE # 154
 007D         ?C0045:
-                                           ; SOURCE LINE # 168
+                                           ; SOURCE LINE # 155
 007D C3                CLR     C
 007E 22                RET     
-                                           ; SOURCE LINE # 169
-                                           ; SOURCE LINE # 170
+                                           ; SOURCE LINE # 156
+                                           ; SOURCE LINE # 157
 007F         ?C0028:
-                                           ; SOURCE LINE # 171
+                                           ; SOURCE LINE # 158
 007F C3                CLR     C
-                                           ; SOURCE LINE # 172
+                                           ; SOURCE LINE # 159
 0080         ?C0038:
 0080 22                RET     
              ; FUNCTION Deal_UART_RecData (END)
@@ -629,26 +614,26 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0017 C005              PUSH    AR5
 0019 C006              PUSH    AR6
 001B C007              PUSH    AR7
-                                           ; SOURCE LINE # 176
-                                           ; SOURCE LINE # 178
+                                           ; SOURCE LINE # 162
+                                           ; SOURCE LINE # 164
 001D 120000      R     LCALL   ReceiveString
 0020 500E              JNC     ?C0046
-                                           ; SOURCE LINE # 179
-                                           ; SOURCE LINE # 181
+                                           ; SOURCE LINE # 165
+                                           ; SOURCE LINE # 167
 0022 120000      R     LCALL   Deal_UART_RecData
 0025 4009              JC      ?C0046
-                                           ; SOURCE LINE # 183
-                                           ; SOURCE LINE # 184
+                                           ; SOURCE LINE # 169
+                                           ; SOURCE LINE # 170
 0027 7BFF              MOV     R3,#0FFH
 0029 7A00        R     MOV     R2,#HIGH ?SC_123
 002B 7900        R     MOV     R1,#LOW ?SC_123
 002D 120000      R     LCALL   _PutString
-                                           ; SOURCE LINE # 185
-                                           ; SOURCE LINE # 186
+                                           ; SOURCE LINE # 171
+                                           ; SOURCE LINE # 172
 0030         ?C0046:
-                                           ; SOURCE LINE # 187
+                                           ; SOURCE LINE # 173
 0030 C298              CLR     RI
-                                           ; SOURCE LINE # 188
+                                           ; SOURCE LINE # 174
 0032 D007              POP     AR7
 0034 D006              POP     AR6
 0036 D005              POP     AR5
@@ -658,7 +643,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 003E D001              POP     AR1
 0040 D000              POP     AR0
 0042 D0D0              POP     PSW
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 12  
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 12  
 
 0044 D082              POP     DPL
 0046 D083              POP     DPH
@@ -667,7 +652,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 004C 32                RETI    
              ; FUNCTION USART (END)
 
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 13  
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 13  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -730,7 +715,7 @@ _PutString . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
 led. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A1H  1
 IE0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
 IE1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 14  
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 14  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -794,7 +779,7 @@ PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =    439    ----
-C51 COMPILER V9.57.0.0   UART                                                              06/01/2021 16:27:12 PAGE 15  
+C51 COMPILER V9.57.0.0   UART                                                              06/22/2021 19:30:07 PAGE 15  
 
    CONSTANT SIZE    =    141    ----
    XDATA SIZE       =   ----    ----

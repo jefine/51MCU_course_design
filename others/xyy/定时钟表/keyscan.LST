@@ -1,0 +1,201 @@
+C51 COMPILER V9.52.0.0   KEYSCAN                                                           06/13/2021 21:32:23 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE KEYSCAN
+OBJECT MODULE PLACED IN keyscan.OBJ
+COMPILER INVOKED BY: D:\software\C51\BIN\C51.EXE keyscan.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include"keyscan.h"
+   2          uchar temp,key=10,wei;
+   3          uchar ok=1,dingshi,change,yidingshi;
+   4          
+   5          
+   6          void keyscan0()
+   7          {
+   8   1          P3=0xfb;
+   9   1          temp=P3;
+  10   1          temp=temp&0xf0;
+  11   1          if(temp!=0xf0)
+  12   1          {
+  13   2            delay(10);
+  14   2            if(temp!=0xf0)
+  15   2            {
+  16   3              temp=P3;
+  17   3              switch(temp)
+  18   3              {
+  19   4                case 0xbb:
+  20   4                     ok=0;
+  21   4               change=1;
+  22   4                     break;
+  23   4      
+  24   4                case 0x7b:
+  25   4                     ok=1;
+  26   4               change=0;
+  27   4               dingshi=0;
+  28   4                     break;
+  29   4               }  
+  30   3      
+  31   3            }
+  32   2            }
+  33   1          P3=0xf7;
+  34   1          temp=P3;
+  35   1          temp=temp&0xf0;
+  36   1          if(temp!=0xf0)
+  37   1          {
+  38   2            delay(10);
+  39   2            if(temp!=0xf0)
+  40   2            {
+  41   3              temp=P3;
+  42   3              switch(temp)
+  43   3              {
+  44   4                case 0xe7:
+  45   4                     ok=0;
+  46   4               dingshi=1;
+  47   4                     break;
+  48   4            case 0xd7:
+  49   4                     yidingshi=0;  //取消定时
+  50   4                     break;
+  51   4               } 
+  52   3      
+  53   3           }
+  54   2           }  
+  55   1      }
+C51 COMPILER V9.52.0.0   KEYSCAN                                                           06/13/2021 21:32:23 PAGE 2   
+
+  56          
+  57          
+  58          void keyscan()
+  59          {
+  60   1        { 
+  61   2          P3=0xfe;
+  62   2          temp=P3;
+  63   2          temp=temp&0xf0;
+  64   2          if(temp!=0xf0)
+  65   2          {
+  66   3            delay(10);
+  67   3            if(temp!=0xf0)
+  68   3            { 
+  69   4              temp=P3;
+  70   4              switch(temp)
+  71   4              {
+  72   5                case 0xee:
+  73   5                     key=0;
+  74   5               wei++;
+  75   5                     break;
+  76   5      
+  77   5                case 0xde:
+  78   5                     key=1;
+  79   5               wei++;
+  80   5                     break;
+  81   5      
+  82   5                case 0xbe:
+  83   5                     key=2;
+  84   5               wei++;
+  85   5                     break;
+  86   5      
+  87   5                case 0x7e:
+  88   5                     key=3;
+  89   5               wei++;
+  90   5                     break;
+  91   5               }
+  92   4               while(temp!=0xf0) 
+  93   4              {
+  94   5                 temp=P3;
+  95   5                 temp=temp&0xf0;
+  96   5                 beep=0;
+  97   5               }
+  98   4               beep=1;
+  99   4            }
+ 100   3          }
+ 101   2          P3=0xfd;
+ 102   2          temp=P3;
+ 103   2          temp=temp&0xf0;
+ 104   2          if(temp!=0xf0)
+ 105   2          {
+ 106   3            delay(10);
+ 107   3            if(temp!=0xf0)
+ 108   3            {
+ 109   4              temp=P3;
+ 110   4              switch(temp)
+ 111   4              {
+ 112   5                case 0xed:
+ 113   5                     key=4;
+ 114   5               wei++;
+ 115   5                     break;
+ 116   5      
+ 117   5                case 0xdd:
+C51 COMPILER V9.52.0.0   KEYSCAN                                                           06/13/2021 21:32:23 PAGE 3   
+
+ 118   5                     key=5;
+ 119   5               wei++;
+ 120   5                     break;
+ 121   5      
+ 122   5                case 0xbd:
+ 123   5                     key=6;
+ 124   5               wei++;
+ 125   5                     break;
+ 126   5      
+ 127   5                case 0x7d:
+ 128   5                     key=7;
+ 129   5               wei++;
+ 130   5                     break;
+ 131   5               }
+ 132   4               while(temp!=0xf0)
+ 133   4               {
+ 134   5                 temp=P3;
+ 135   5                 temp=temp&0xf0;
+ 136   5                 beep=0;
+ 137   5               }
+ 138   4               beep=1;
+ 139   4            }
+ 140   3            }
+ 141   2          P3=0xfb;
+ 142   2          temp=P3;
+ 143   2          temp=temp&0xf0;
+ 144   2          if(temp!=0xf0)
+ 145   2          {
+ 146   3            delay(10);
+ 147   3            if(temp!=0xf0)
+ 148   3            {
+ 149   4              temp=P3;
+ 150   4              switch(temp)
+ 151   4              {
+ 152   5                case 0xeb:
+ 153   5                     key=8;
+ 154   5               wei++;
+ 155   5                     break;
+ 156   5      
+ 157   5                case 0xdb:
+ 158   5                     key=9;
+ 159   5               wei++;
+ 160   5                     break;
+ 161   5               }
+ 162   4              while(temp!=0xf0)
+ 163   4               {
+ 164   5                 temp=P3;
+ 165   5                 temp=temp&0xf0;
+ 166   5                 beep=0;
+ 167   5               }
+ 168   4               beep=1;
+ 169   4            }
+ 170   3            }
+ 171   2      }
+ 172   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    357    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.52.0.0   KEYSCAN                                                           06/13/2021 21:32:23 PAGE 4   
+
+   DATA SIZE        =      7    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

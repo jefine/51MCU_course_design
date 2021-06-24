@@ -1,4 +1,4 @@
-LX51 LINKER/LOCATER V4.66.87.0                                                          06/01/2021  16:27:13  PAGE 1
+LX51 LINKER/LOCATER V4.66.87.0                                                          06/22/2021  19:30:07  PAGE 1
 
 
 LX51 LINKER/LOCATER V4.66.87.0, INVOKED BY:
@@ -67,7 +67,7 @@ I:000000H   I:000000H   I:0000FFH   000001H   IDATA
 MEMORY MAP OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 2
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/22/2021  19:30:07  PAGE 2
 
 
 START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
@@ -135,7 +135,7 @@ FUNCTION/MODULE                BIT_GROUP   DATA_GROUP
 USART/UART                    ----- -----  ----- -----
   +--> RECEIVESTRING/UART
   +--> DEAL_UART_RECDATA/UART
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 3
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/22/2021  19:30:07  PAGE 3
 
 
   +--> _PUTSTRING/UART
@@ -203,7 +203,7 @@ _DS18B20WRITEBYTE/TEMPE       ----- -----  003FH 0040H
   +--> DS18B20INIT/TEMPE
   +--> _DELAY1MS/TEMPE
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 4
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/22/2021  19:30:07  PAGE 4
 
 
 DS18B20INIT/TEMPE             ----- -----  ----- -----
@@ -271,7 +271,7 @@ PUBLIC SYMBOLS OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       01000475H   CODE     ---       ?C?UIDIV
       00000000H   NUMBER   ---       ?C?XDATASEG
       010007C5H   CODE     ---       ?C_START
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 5
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/22/2021  19:30:07  PAGE 5
 
 
       01000000H   CODE     ---       ?C_STARTUP
@@ -339,7 +339,7 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
       01000B80H   BLOCK     CODE     ---       LVL=0
       01000B80H   BLOCK     CODE     NEAR LAB  LVL=1
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 6
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/22/2021  19:30:07  PAGE 6
 
 
       00000007H   SYMBOL    DATA     VOID      i
@@ -407,7 +407,7 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       ---         BLOCKEND  ---      ---       LVL=0
 
       010004CAH   BLOCK     CODE     ---       LVL=0
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 7
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/22/2021  19:30:07  PAGE 7
 
 
       010004CEH   BLOCK     CODE     NEAR LAB  LVL=1
@@ -475,7 +475,7 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
 
       01000BB2H   BLOCK     CODE     ---       LVL=0
       01000BB2H   BLOCK     CODE     NEAR LAB  LVL=1
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 8
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/22/2021  19:30:07  PAGE 8
 
 
       00000006H   SYMBOL    DATA     VOID      temp
@@ -543,7 +543,7 @@ SYMBOL TABLE OF MODULE:  .\BUILD\RELEASE\MCS51 (XPT2046)
       0100002DH   PUBLIC    CODE     ---       ?C?FPADD
       01000029H   PUBLIC    CODE     ---       ?C?FPSUB
 
-LX51 LINKER/LOCATER V4.66.87.0                                                        06/01/2021  16:27:13  PAGE 9
+LX51 LINKER/LOCATER V4.66.87.0                                                        06/22/2021  19:30:07  PAGE 9
 
 
       ---         MODULE    ---      ---       ?C?FPMUL
