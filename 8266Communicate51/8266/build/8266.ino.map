@@ -15377,15 +15377,14 @@ END GROUP
  .rodata        0x3ffe8630        0xc C:\Users\fanfanfan\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\2.7.4/tools/sdk/lib/NONOSDK22x_190703\libphy.a(phy_sleep.o)
  *(.rodata.*)
  .rodata.str1.1
-                0x3ffe863c       0xfe f:\ee\now\51MCU_course_design\8266Communicate51\8266\build\sketch\8266.ino.cpp.o
-                                0x104 (size before relaxing)
+                0x3ffe863c       0xff f:\ee\now\51MCU_course_design\8266Communicate51\8266\build\sketch\8266.ino.cpp.o
+                                0x105 (size before relaxing)
  .rodata.CSWTCH$105
-                0x3ffe873a        0x6 f:\ee\now\51MCU_course_design\8266Communicate51\8266\build\libraries\ESP8266WiFi\ESP8266WiFi.a(ESP8266WiFiSTA.cpp.o)
+                0x3ffe873b        0x6 f:\ee\now\51MCU_course_design\8266Communicate51\8266\build\libraries\ESP8266WiFi\ESP8266WiFi.a(ESP8266WiFiSTA.cpp.o)
  .rodata.str1.1
-                0x3ffe8740        0x3 f:\ee\now\51MCU_course_design\8266Communicate51\8266\build\core\core.a(Print.cpp.o)
+                0x3ffe8741        0x3 f:\ee\now\51MCU_course_design\8266Communicate51\8266\build\core\core.a(Print.cpp.o)
  .rodata.CSWTCH$9
-                0x3ffe8743       0x10 f:\ee\now\51MCU_course_design\8266Communicate51\8266\build\core\core.a(core_esp8266_flash_quirks.cpp.o)
- *fill*         0x3ffe8753        0x1 
+                0x3ffe8744       0x10 f:\ee\now\51MCU_course_design\8266Communicate51\8266\build\core\core.a(core_esp8266_flash_quirks.cpp.o)
  .rodata.str1.4
                 0x3ffe8754        0xc C:\Users\fanfanfan\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\2.7.4/tools/sdk/lib/NONOSDK22x_190703\libpp.a(pm_for_bcn_only_mode.o)
  .rodata.str1.4

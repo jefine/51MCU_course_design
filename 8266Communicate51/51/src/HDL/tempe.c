@@ -37,7 +37,6 @@ unsigned char Ds18b20Init()
 		{
 			return 0;//初始化失败
 		}
-	
 	}
 	return 1;//初始化成功
 }

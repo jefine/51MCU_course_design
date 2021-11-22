@@ -8,7 +8,7 @@ char DataPackage_prad[10] = {'p','r','a','d',':'};
 //SoftwareSerial serial(2, 3); //RX=2,TX=3
 //WiFi config
 const char *ssid = "mooc"; 
-const char *password = "moocmooc";  
+const char *password = "moo cmooc";  
 
 //mqtt config
 const char *mqtt_broker = "39.103.183.108";

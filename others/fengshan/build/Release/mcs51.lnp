@@ -1,3 +1,0 @@
-
-.\build\Release\main.o TO .\build\Release\mcs51
-PRINT(.\build\Release\mcs51.map) REMOVEUNUSED
